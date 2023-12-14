@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@te44-front/business": ["modules/business/src/index.ts"],
+      "@te44-front/business-request": ["modules/business-request/src/index.ts"],
+      "@te44-front/contact": ["modules/contact/src/index.ts"],
+      "@te44-front/dashboard": ["modules/dashboard/src/index.ts"],
+      "@te44-front/documentation": ["modules/documentation/src/index.ts"],
+      "@te44-front/link": ["modules/link/src/index.ts"],
+      "@te44-front/login": ["modules/login/src/index.ts"],
+      "@te44-front/profile": ["modules/profile/src/index.ts"],
+      "@te44-front/shared": ["modules/shared/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
