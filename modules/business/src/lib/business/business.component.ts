@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'te44-front-business',
+  selector: 'app-business',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './business.component.html',
   styleUrl: './business.component.css',
 })
-export class BusinessComponent {}
+export class BusinessComponent { }

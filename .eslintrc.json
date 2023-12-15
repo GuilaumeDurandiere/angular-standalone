@@ -12,7 +12,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "te44Front",
+            "prefix": "app",
             "style": "camelCase"
           }
         ],
@@ -20,7 +20,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "te44-front",
+            "prefix": "app",
             "style": "kebab-case"
           }
         ]

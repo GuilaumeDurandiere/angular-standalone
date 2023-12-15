@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'te44-front-link',
+  selector: 'app-link',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './link.component.html',
   styleUrl: './link.component.css',
 })
-export class LinkComponent {}
+export class LinkComponent { }

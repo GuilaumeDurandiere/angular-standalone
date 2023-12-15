@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { MainPageTitleComponent } from '@te44-front/shared';
 
 @Component({
-  selector: 'te44-front-login',
+  selector: 'app-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MainPageTitleComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {}
+export class LoginComponent { }

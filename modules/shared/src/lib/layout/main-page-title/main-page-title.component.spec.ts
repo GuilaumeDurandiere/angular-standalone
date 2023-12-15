@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SharedComponent } from './shared.component';
+import { MainPageTitleComponent } from './main-page-title.component';
 
-describe('SharedComponent', () => {
-  let component: SharedComponent;
-  let fixture: ComponentFixture<SharedComponent>;
+describe('MainPageTitleComponent', () => {
+  let component: MainPageTitleComponent;
+  let fixture: ComponentFixture<MainPageTitleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedComponent],
+      imports: [MainPageTitleComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SharedComponent);
+    fixture = TestBed.createComponent(MainPageTitleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

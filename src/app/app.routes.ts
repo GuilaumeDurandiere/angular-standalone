@@ -1,14 +1,10 @@
 import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'login',
     loadChildren: () => import('@te44-front/login').then((m) => m.loginRoutes),
-  },
-  {
-    path: 'shared',
-    loadChildren: () =>
-      import('@te44-front/shared').then((m) => m.sharedRoutes),
   },
   {
     path: 'link',

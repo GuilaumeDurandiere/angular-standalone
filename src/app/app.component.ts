@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { NavbarComponent } from '@te44-front/shared';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
-  selector: 'te44-front-root',
+  imports: [RouterModule, NavbarComponent],
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.less',
 })
