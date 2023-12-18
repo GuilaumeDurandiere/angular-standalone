@@ -5,6 +5,9 @@
   "prefix": "te44-front",
   "sourceRoot": "./src",
   "tags": [],
+  "i18n": {
+    "sourceLocale": "fr"
+  },
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",

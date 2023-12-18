@@ -5,6 +5,9 @@
   "prefix": "te44-front",
   "tags": [],
   "projectType": "library",
+  "i18n": {
+    "sourceLocale": "fr"
+  },
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
