@@ -2,7 +2,7 @@
   "name": "business",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "modules/business/src",
-  "prefix": "te44-front",
+  "prefix": "app",
   "tags": [],
   "projectType": "library",
   "targets": {

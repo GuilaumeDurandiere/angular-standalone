@@ -1,7 +1,7 @@
 {
-  "name": "dashboard",
+  "name": "administration",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "modules/dashboard/src",
+  "sourceRoot": "modules/administration/src",
   "prefix": "app",
   "tags": [],
   "projectType": "library",
@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "modules/dashboard/jest.config.ts"
+        "jestConfig": "modules/administration/jest.config.ts"
       }
     },
     "lint": {

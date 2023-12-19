@@ -1,0 +1,69 @@
+<div>
+  <p-table
+    #table
+    (onLazyLoad)="loadPagedData($event)"
+    [autoLayout]="autoLayout"
+    [columns]="columns"
+    [first]="first"
+    [lazy]="true"
+    [lazyLoadOnInit]="false"
+    [loading]="loading"
+    [paginator]="paginator"
+    [resetPageOnSort]="true"
+    [rowHover]="rowHover"
+    [rows]="rows"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    [sortField]="sortField"
+    [sortMode]="'single'"
+    [sortOrder]="sortOrder"
+    [totalRecords]="totalRecords"
+    [value]="tableItems"
+    [paginatorDropdownAppendTo]="'body'"
+    responsiveLayout="scroll"
+  >
+    <!-- FILTER TEMPLATE -->
+    <ng-template pTemplate="caption" *ngIf="captionTemplate">
+      <ng-container *ngTemplateOutlet="captionTemplate"> </ng-container>
+    </ng-template>
+
+    <!-- HEADER TEMPLATE -->
+    <ng-template pTemplate="header" let-columns>
+      <ng-container>
+        <tr>
+          <th
+            scope="col"
+            *ngFor="let col of columns; let i = index"
+            [pSortableColumn]="col.field"
+            [pSortableColumnDisabled]="col.disableSort"
+            class="headerCells"
+          >
+            <p-sortIcon
+              *ngIf="col.sortIcon"
+              field="{{ col.field }}"
+            ></p-sortIcon>
+            {{ col.header }}
+          </th>
+        </tr>
+      </ng-container>
+    </ng-template>
+
+    <!-- ROW TEMPLATE -->
+    <ng-template pTemplate="body" *ngIf="bodyTemplate" let-data>
+      <ng-container
+        *ngTemplateOutlet="bodyTemplate; context: { $implicit: data }"
+      >
+      </ng-container>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td colSpan="{{ columns.length }}">{{ 'NO_ITEMS_TO_DISPLAY' }}</td>
+      </tr>
+    </ng-template>
+
+    <!-- SUMMARY TEMPLATE -->
+    <ng-template pTemplate="summary">
+      {{ 'ITEMS_TO_DISPLAY' }}
+    </ng-template>
+  </p-table>
+</div>

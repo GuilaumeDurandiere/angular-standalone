@@ -34,8 +34,12 @@ export class NavbarComponent {
       routerLink: ['/contact']
     },
     {
+      label: $localize`:@@ADMINISTRATION_NAVBAR:Administration`,
+      routerLink: ['/administration']
+    },
+    {
       label: $localize`:@@DEMANDE_AFFAIRE_NAVBAR:Demande d'affaire`,
-      routerLink: ['/business-request']
+      routerLink: ['/business-request'],
     },
     {
       icon: 'pi pi-bell'
