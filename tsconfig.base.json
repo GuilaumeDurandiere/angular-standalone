@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@te44-front/administration": ["modules/administration/src/index.ts"],
       "@te44-front/business": ["modules/business/src/index.ts"],
       "@te44-front/business-request": ["modules/business-request/src/index.ts"],
       "@te44-front/contact": ["modules/contact/src/index.ts"],

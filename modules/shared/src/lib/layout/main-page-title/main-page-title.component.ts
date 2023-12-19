@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-main-page-title',
@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
   templateUrl: './main-page-title.component.html',
   styleUrl: './main-page-title.component.less',
 })
-export class MainPageTitleComponent { }
+export class MainPageTitleComponent {
+
+  @Input() title: string = ''
+
+}
