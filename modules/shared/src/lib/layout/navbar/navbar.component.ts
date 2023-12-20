@@ -14,27 +14,27 @@ export class NavbarComponent {
 
   items: MenuItem[] = [
     {
-      label: $localize`:@@ACCUEIL_NAVBAR:Accueil`,
+      label: $localize`:@@HOME_NAVBAR:Accueil`,
       routerLink: ['/dashboard']
     },
     {
-      label: $localize`:@@AFFAIRES_NAVBAR:Affaires`,
+      label: $localize`:@@BUSINESS_NAVBAR:Affaires`,
       routerLink: ['/business']
     },
     {
-      label: $localize`:@@DOCUMENTATIONS_NAVBAR:Documentations`,
+      label: $localize`:@@DOCUMENTATION_NAVBAR:Documentation`,
       routerLink: ['/documentation']
     },
     {
-      label: $localize`:@@LIENS_NAVBAR:Liens utiles`,
+      label: $localize`:@@LINKS_NAVBAR:Liens utiles`,
       routerLink: ['/link']
     },
     {
-      label: $localize`:@@INFORMATIONS_NAVBAR:Informations et services`,
+      label: $localize`:@@INFORMATION_NAVBAR:Informations et services`,
       routerLink: ['/contact']
     },
     {
-      label: $localize`:@@DEMANDE_AFFAIRE_NAVBAR:Demande d'affaire`,
+      label: $localize`:@@NEW_BUSINESS_NAVBAR:Demande d'affaire`,
       routerLink: ['/business-request']
     },
     {
