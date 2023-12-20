@@ -4,19 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Workflow, WorkflowSchema } from "../zod/Workflow.zod";
 import { parseResponse } from "../helpers/zod.helper";
-import { StepCreateDto, StepUpdateDto } from "./StepHttpService";
-
-export interface WorkflowCreateDto {
-    libelle: string;
-    etapes: StepCreateDto;
-};
-
-export interface WorkflowUpdateDto {
-    id: number;
-    libelle: string;
-    actif: boolean;
-    etapes: StepUpdateDto;
-}
+import { WorkflowCreateDto } from "../models/WorkflowCreateDto";
+import { WorkflowUpdateDto } from "../models/WorkflowUpdateDto";
 
 @Injectable({
     providedIn: 'root',

@@ -4,20 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Step, StepSchema } from "../zod/Step.zod";
 import { parseResponse } from "../helpers/zod.helper";
-
-export interface StepCreateDto {
-    libelle: string;
-    description?: string;
-    statut: string;
-    workflowId: number;
-};
-
-export interface StepUpdateDto {
-    id: number;
-    libelle: string;
-    description?: string;
-    statut: string;
-}
+import { StepUpdateDto } from "../models/StepUpdateDto";
+import { StepCreateDto } from "../models/StepCreateDto";
 
 @Injectable({
     providedIn: 'root',

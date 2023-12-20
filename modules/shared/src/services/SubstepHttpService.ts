@@ -4,12 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Substep, SubstepSchema } from "../zod/Substep.zod";
 import { parseResponse } from "../helpers/zod.helper";
-
-interface SubstepCreateDto {
-    libelle: string;
-    description: string;
-    etapeId: number;
-};
+import { SubstepCreateDto } from "../models/SubstepCreateDto";
 
 @Injectable({
     providedIn: 'root',
