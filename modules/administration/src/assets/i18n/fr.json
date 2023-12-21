@@ -1,0 +1,13 @@
+{
+  "locale": "fr-FR",
+  "translations": {
+    "EXCLUDING_WORK_WORKFLOW": "Workflow hors travaux",
+    "CREATE_WORKFLOW": "Créer un workflow",
+    "NAME": "Nom",
+    "RELATED_OFFERS": "Offres liées",
+    "ACTIVE": "Actif",
+    "ACTIVATED": "Activé",
+    "DESACTIVATED": "Désactivé",
+    "ACTIONS": "Actions"
+  }
+}
