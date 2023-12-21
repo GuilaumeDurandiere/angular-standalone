@@ -1,11 +1,11 @@
 {
   "locale": "fr-FR",
   "translations": {
-    "ACCUEIL_NAVBAR": "Accueil",
-    "AFFAIRES_NAVBAR": "Affaires",
-    "DOCUMENTATIONS_NAVBAR": "Documentations",
-    "LIENS_NAVBAR": "Liens utiles",
-    "INFORMATIONS_NAVBAR": "Informations et services",
-    "DEMANDE_AFFAIRE_NAVBAR": "Demande d'affaire"
+    "HOME_NAVBAR": "Accueil",
+    "BUSINESS_NAVBAR": "Affaires",
+    "DOCUMENTATION_NAVBAR": "Documentations",
+    "LINKS_NAVBAR": "Liens utiles",
+    "INFORMATION_NAVBAR": "Informations et services",
+    "NEW_BUSINESS_NAVBAR": "Demande d'affaire"
   }
 }
