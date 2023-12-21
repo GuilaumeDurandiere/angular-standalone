@@ -1,3 +1,11 @@
+<ng-template #loadingTemplate>
+  <div class="loading-container d-flex justify-content-center mt-5">
+    {{ 'NO DATA' }}
+  </div>
+</ng-template>
+
+<div #test></div>
+
 <div>
   <p-table
     #table
@@ -34,13 +42,10 @@
             scope="col"
             *ngFor="let col of columns; let i = index"
             [pSortableColumn]="col.field"
-            [pSortableColumnDisabled]="col.disableSort"
+            [pSortableColumnDisabled]="!col.sort"
             class="headerCells"
           >
-            <p-sortIcon
-              *ngIf="col.sortIcon"
-              field="{{ col.field }}"
-            ></p-sortIcon>
+            <p-sortIcon *ngIf="col.sort" field="{{ col.field }}"></p-sortIcon>
             {{ col.header }}
           </th>
         </tr>
@@ -48,7 +53,7 @@
     </ng-template>
 
     <!-- ROW TEMPLATE -->
-    <ng-template pTemplate="body" *ngIf="bodyTemplate" let-data>
+    <ng-template #body pTemplate="body" *ngIf="bodyTemplate" let-data>
       <ng-container
         *ngTemplateOutlet="bodyTemplate; context: { $implicit: data }"
       >

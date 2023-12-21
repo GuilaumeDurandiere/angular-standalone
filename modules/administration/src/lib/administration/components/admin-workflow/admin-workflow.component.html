@@ -1,1 +1,29 @@
-<p>workflow works</p>
+<app-server-paginated-table
+  [columns]="columns"
+  (loadPageData)="load()"
+  [paginationData]="data"
+>
+  <ng-template pTemplate="body" let-item>
+    <tr class="dataRow">
+      <td *ngFor="let col of columns; let i = index">
+        <ng-container [ngSwitch]="col.field">
+          <ng-container *ngSwitchCase="'name'">
+            {{ item.name }}
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'offer'">
+            {{ item.offer }}
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'state'">
+            {{ item.state }}
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'action'">
+            {{ 'action' }}
+          </ng-container>
+        </ng-container>
+      </td>
+    </tr>
+  </ng-template>
+</app-server-paginated-table>
