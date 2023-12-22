@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Workflow, WorkflowHttpService } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
