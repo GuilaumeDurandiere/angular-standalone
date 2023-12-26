@@ -6,10 +6,16 @@ export const administrationRoutes: Route[] = [
   {
     path: '',
     component: AdministrationComponent,
+    data: {
+      breadcrumb: $localize`:@@ADMINISTRATION:Administration`
+    },
     children: [
       {
         path: 'workflow',
         component: AdminWorkflowComponent,
+        data: {
+          breadcrumb: $localize`:@@WORKFLOW_TABLE:Tableau des workflow`
+        }
       }
     ]
   },
