@@ -8,6 +8,8 @@
     "ACTIVE": "Actif",
     "ACTIVATED": "Activé",
     "DESACTIVATED": "Désactivé",
-    "ACTIONS": "Actions"
+    "ACTIONS": "Actions",
+    "ADMINISTRATION": "Administration",
+    "WORKFLOW_TABLE": "Tableau des workflow"
   }
 }
