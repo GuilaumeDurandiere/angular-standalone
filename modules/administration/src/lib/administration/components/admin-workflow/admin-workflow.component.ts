@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Workflow, WorkflowHttpService } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
 import { TableModule, TableRowSelectEvent } from 'primeng/table';
-import { Workflow, WorkflowHttpService } from '@te44-front/shared';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,7 +14,7 @@ import { Observable } from 'rxjs';
 export class AdminWorkflowComponent {
   workflows$: Observable<Workflow[]> = this.workflowService.getAll();
 
-  constructor(private workflowService: WorkflowHttpService){}
+  constructor(private workflowService: WorkflowHttpService) { }
 
   onRowSelect(event: TableRowSelectEvent) {
     console.log(event);

@@ -1,52 +1,77 @@
 <div class="container-lg">
   <div class="row justify-content-between">
     <div class="col-lg-8 p-3">
-      <h1 i18n="@@EXCLUDING_WORK_WORKFLOW" class="title">Workflow hors travaux</h1>
+      <h1 i18n="@@EXCLUDING_WORK_WORKFLOW" class="title">
+        Workflow hors travaux
+      </h1>
     </div>
     <div class="col-lg-4 p-3 mb-2 text-end">
-      <button pButton pRipple i18n-label="@@CREATE_WORKFLOW" label="Créer un workflow" icon="pi pi-pencil" class="workflowButton"></button>
+      <button
+        pButton
+        pRipple
+        i18n-label="@@CREATE_WORKFLOW"
+        label="Créer un workflow"
+        icon="pi pi-pencil"
+        class="workflowButton"
+      ></button>
     </div>
   </div>
   <!-- [lazy]="true"
       (onLazyLoad)="getAll($event)"
   -->
-  <p-table [value]="workflows" 
-      [tableStyle]="{ 'min-width': '50rem' }"
-      [paginator]="true"
-      [rows]="15"
-      [showCurrentPageReport]="false"
-      paginatorLocale="fr-FR"
-      selectionMode="single"
-      (onRowSelect)="onRowSelect($event)"
-      *ngIf="workflows$ | async as workflows">
-      <ng-template pTemplate="header">
-          <tr>
-              <th i18n="@@NAME" style="width: 20%">Nom</th>
-              <th i18n="@@RELATED_OFFERS">Offres liées</th>
-              <th i18n="@@ACTIVE" style="width: 15%">Actif</th>
-              <th i18n="@@ACTIONS" style="width: 15%">Actions</th>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-workflow>
-          <tr [ngClass]="{'desactivated': !workflow.actif}" [pSelectableRow]="workflow">
-              <td>{{ workflow.libelle }}</td>
-              <td>{{ workflow?.offres?.join(' | ') }}</td>
-              <td>
-                  @if (workflow.actif) {
-                      <ng-container i18n="@@ACTIVATED">Activé</ng-container>
-                  }
-                  @else {
-                      <ng-container i18n="@@DESACTIVATED">Désactivé</ng-container>
-                  }                
-              </td>
-              <td>
-                  <span class="p-buttonset">
-                      <p-button icon="pi pi-pencil" [text]="true" class="actionIcon modifyCopyIcon"></p-button>
-                      <p-button icon="pi pi-clone" [text]="true" class="actionIcon modifyCopyIcon"></p-button>
-                      <p-button icon="pi pi-trash" [text]="true" class="actionIcon deleteIcon"></p-button>
-                  </span>
-              </td>
-          </tr>
-      </ng-template>
+  <p-table
+    [value]="workflows"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [paginator]="true"
+    [rows]="15"
+    [showCurrentPageReport]="false"
+    paginatorLocale="fr-FR"
+    selectionMode="single"
+    (onRowSelect)="onRowSelect($event)"
+    *ngIf="workflows$ | async as workflows"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th i18n="@@NAME" style="width: 20%">Nom</th>
+        <th i18n="@@RELATED_OFFERS">Offres liées</th>
+        <th i18n="@@ACTIVE" style="width: 15%">Actif</th>
+        <th i18n="@@ACTIONS" style="width: 15%">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-workflow>
+      <tr
+        [ngClass]="{ desactivated: !workflow.actif }"
+        [pSelectableRow]="workflow"
+      >
+        <td>{{ workflow.libelle }}</td>
+        <td>{{ workflow?.offres?.join(' | ') }}</td>
+        <td>
+          @if (workflow.actif) {
+          <ng-container i18n="@@ACTIVATED">Activé</ng-container>
+          } @else {
+          <ng-container i18n="@@DESACTIVATED">Désactivé</ng-container>
+          }
+        </td>
+        <td>
+          <span class="p-buttonset">
+            <p-button
+              icon="pi pi-pencil"
+              [text]="true"
+              class="actionIcon modifyCopyIcon"
+            ></p-button>
+            <p-button
+              icon="pi pi-clone"
+              [text]="true"
+              class="actionIcon modifyCopyIcon"
+            ></p-button>
+            <p-button
+              icon="pi pi-trash"
+              [text]="true"
+              class="actionIcon deleteIcon"
+            ></p-button>
+          </span>
+        </td>
+      </tr>
+    </ng-template>
   </p-table>
 </div>
