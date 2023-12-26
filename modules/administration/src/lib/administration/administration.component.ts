@@ -11,4 +11,5 @@ import { BreadcrumbComponent } from '../layout/breadcrumb/breadcrumb.component';
   templateUrl: './administration.component.html',
   styleUrl: './administration.component.css',
 })
-export class AdministrationComponent { }
+export class AdministrationComponent {
+}

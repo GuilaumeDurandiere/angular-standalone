@@ -1,0 +1,18 @@
+<p-card class="custom-card">
+  <ng-template pTemplate="header">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-2 pt-4">
+          <div class="icon-card">
+            <i class="pi" [ngClass]="icon" style="font-size: 2.5rem"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="justify-content-center">
+    <h3>{{ title }}</h3>
+    <p>{{ description }}</p>
+  </div>
+  <ng-template pTemplate="footer"> </ng-template>
+</p-card>
