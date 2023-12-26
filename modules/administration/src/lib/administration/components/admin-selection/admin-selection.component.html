@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row justify-content-md-center mb-1">
+    <div class="col-4">
+      <app-admin-card
+        [routerLink]="['/administration', 'theme']"
+        [icon]="primeIcons.WRENCH"
+        [title]="'Gestion des thèmes et des sous thèmes du catalogue'"
+      ></app-admin-card>
+    </div>
+    <div class="col-4">
+      <app-admin-card
+        [routerLink]="['/administration', 'workflow']"
+        [icon]="primeIcons.SITEMAP"
+        [title]="'Gestion des workflow et des étapes travaux'"
+      ></app-admin-card>
+    </div>
+    <div class="col-4">
+      <app-admin-card
+        [routerLink]="['/administration', 'catalogue']"
+        [icon]="primeIcons.BRIEFCASE"
+        [title]="'Gestion du catalogue des offres'"
+      ></app-admin-card>
+    </div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-4">
+      <app-admin-card
+        [routerLink]="['/administration', 'user']"
+        [icon]="primeIcons.USERS"
+        [title]="'Gestion des utilisateurs'"
+      ></app-admin-card>
+    </div>
+    <div class="col-4">
+      <app-admin-card
+        [routerLink]="['/administration', 'link']"
+        [icon]="primeIcons.LINK"
+        [title]="'Gestion des liens utiles'"
+      ></app-admin-card>
+    </div>
+  </div>
+</div>
