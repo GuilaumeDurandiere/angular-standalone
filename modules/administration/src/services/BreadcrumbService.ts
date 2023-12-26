@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Data, NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Breadcrumb } from '../models/Breadcrumb.model';
+import { MenuItem } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BreadcrumbService {
-  private readonly _breadcrumbs$ = new BehaviorSubject<Breadcrumb[]>([]);
+  private readonly _breadcrumbs$ = new BehaviorSubject<MenuItem[]>([]);
   readonly breadcrumbs$ = this._breadcrumbs$.asObservable();
 
   constructor(private router: Router) {
@@ -16,14 +16,14 @@ export class BreadcrumbService {
       filter((event) => event instanceof NavigationEnd)
     ).subscribe(() => {
       const root = this.router.routerState.snapshot.root;
-      const breadcrumbs: Breadcrumb[] = [];
+      const breadcrumbs: MenuItem[] = [];
       this.addBreadcrumb(root, [], breadcrumbs);
 
       this._breadcrumbs$.next(breadcrumbs);
     });
   }
 
-  private addBreadcrumb(route: ActivatedRouteSnapshot, parentUrl: string[], breadcrumbs: Breadcrumb[]) {
+  private addBreadcrumb(route: ActivatedRouteSnapshot, parentUrl: string[], breadcrumbs: MenuItem[]): void {
     if (route) {
       const routeUrl = parentUrl.concat(route.url.map(url => url.path));
 
@@ -41,7 +41,7 @@ export class BreadcrumbService {
     }
   }
 
-  private getLabel(data: Data) {
+  private getLabel(data: Data): string {
     return typeof data['breadcrumb'] === 'function' ? data['breadcrumb'](data) : data['breadcrumb'];
   }
 }
