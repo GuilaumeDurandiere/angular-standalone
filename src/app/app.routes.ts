@@ -3,6 +3,11 @@ import { Route } from '@angular/router';
 export const appRoutes: Route[] = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
+    path: 'administration',
+    loadChildren: () =>
+      import('@te44-front/administration').then((m) => m.administrationRoutes),
+  },
+  {
     path: 'login',
     loadChildren: () => import('@te44-front/login').then((m) => m.loginRoutes),
   },

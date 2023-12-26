@@ -2,7 +2,7 @@
   "name": "login",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "modules/login/src",
-  "prefix": "te44-front",
+  "prefix": "app",
   "tags": [],
   "projectType": "library",
   "targets": {
