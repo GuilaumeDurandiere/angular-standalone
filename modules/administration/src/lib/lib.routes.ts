@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { AdministrationComponent } from './administration/administration.component';
 import { AdminSelectionComponent } from './administration/components/admin-selection/admin-selection.component';
+import { AdminThemeComponent } from './administration/components/admin-theme/admin-theme.component';
 import { AdminWorkflowComponent } from './administration/components/admin-workflow/admin-workflow.component';
 
 export const administrationRoutes: Route[] = [
@@ -24,7 +25,14 @@ export const administrationRoutes: Route[] = [
         path: 'workflow',
         component: AdminWorkflowComponent,
         data: {
-          breadcrumb: $localize`:@@WORKFLOW_TABLE:Tableau des workflow`
+          breadcrumb: $localize`:@@WORKFLOW_TABLE:Tableau des workflows`
+        }
+      },
+      {
+        path: 'theme',
+        component: AdminThemeComponent,
+        data: {
+          breadcrumb: $localize`:@@WORKFLOW_TABLE:Tableau des themes`
         }
       }
     ]
