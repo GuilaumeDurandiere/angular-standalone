@@ -9,13 +9,14 @@ tmp
 node_modules
 
 # IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
 *.launch
-.settings/
 *.sublime-workspace
+.c9/
+.classpath
+.project
+.settings/
+.vscode
+/.idea
 
 # IDE - VSCode
 .vscode/*
