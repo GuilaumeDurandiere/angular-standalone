@@ -10,6 +10,8 @@ export * from './models/SubstepCreateDto';
 export * from './models/WorkflowCreateDto';
 export * from './models/WorkflowUpdateDto';
 
+export * from './resolvers/WorkflowResolver';
+
 export * from './services/StepHttpService';
 export * from './services/SubstepHttpService';
 export * from './services/WorkflowHttpService';

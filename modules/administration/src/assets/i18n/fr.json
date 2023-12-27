@@ -10,6 +10,12 @@
     "DESACTIVATED": "Désactivé",
     "ACTIONS": "Actions",
     "ADMINISTRATION": "Administration",
-    "WORKFLOW_TABLE": "Tableau des workflow"
+    "WORKFLOW_TABLE": "Tableau des workflow",
+    "DESCRIPTION": "Description",
+    "STEP_STATUS": "Statut de l'étape",
+    "BACK_TO_WORKFLOW_TABLE": "Retourner au tableau des workflow",
+    "STEPS": "Étape(s)",
+    "ADD_STEP": "Ajouter une étape",
+    "SUBSTEP_CREATION_INFO": "Pour créer une sous-étape, cliquez sur une étape."
   }
 }
