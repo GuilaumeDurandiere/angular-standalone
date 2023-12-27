@@ -27,6 +27,12 @@
     [paginatorDropdownAppendTo]="'body'"
     responsiveLayout="scroll"
   >
+    <ng-template pTemplate="colgroup" *ngIf="resizeCol">
+      <colgroup>
+        <col *ngFor="let col of columns; let i = index" [style]="col.size" />
+      </colgroup>
+    </ng-template>
+
     <!-- FILTER TEMPLATE -->
     <ng-template pTemplate="caption" *ngIf="captionTemplate">
       <ng-container *ngTemplateOutlet="captionTemplate"> </ng-container>
@@ -44,7 +50,7 @@
             class="headerCells"
           >
             <p-sortIcon *ngIf="col.sort" field="{{ col.field }}"></p-sortIcon>
-            {{ col.header }}
+            <ng-container>{{ col.header }}</ng-container>
           </th>
         </tr>
       </ng-container>

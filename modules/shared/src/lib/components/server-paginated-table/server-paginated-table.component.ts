@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
+import { ColumnCustom } from '../../../models/ColumnCustom';
 
 @Component({
   selector: 'app-server-paginated-table',
@@ -14,10 +15,10 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
   @ViewChild(Table) table!: Table;
   @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-  @Output() loadPageData: EventEmitter<unknown> = new EventEmitter();
+  @Output() loadPageData: EventEmitter<TableLazyLoadEvent> = new EventEmitter();
 
   @Input() paginationData: unknown[] | undefined | null;
-  @Input() columns: unknown[] = [];
+  @Input() columns: ColumnCustom[] = [];
 
   bodyTemplate: TemplateRef<unknown> | undefined = undefined;
   captionTemplate: TemplateRef<unknown> | undefined = undefined;
@@ -34,6 +35,7 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
   @Input() sortField = '';
   @Input() sortOrder = 1;
   @Input() totalRecords = 0;
+  @Input() resizeCol = false;
 
   constructor() { }
 
