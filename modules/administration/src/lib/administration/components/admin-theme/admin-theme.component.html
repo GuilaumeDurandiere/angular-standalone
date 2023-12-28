@@ -1,1 +1,67 @@
-<p>admin-theme works!</p>
+<div class="container-lg">
+  <div class="row justify-content-between">
+    <div class="col-lg-8 p-3">
+      <h1 i18n="@@THEME_TITLE" class="title">Tous les thèmes</h1>
+    </div>
+    <div class="col-lg-4 p-3 mb-2 text-end">
+      <button
+        pButton
+        pRipple
+        i18n-label="@@CREATE_THEME"
+        label="Créer un theme"
+        icon="pi pi-pencil"
+        class="workflowButton"
+      ></button>
+    </div>
+  </div>
+
+  <app-server-paginated-table
+    [columns]="columns"
+    [paginationData]="workflows$ | async"
+    (loadPageData)="loadPageData($event)"
+  >
+    <ng-template pTemplate="body" let-item>
+      <tr class="dataRow">
+        <td *ngFor="let col of columns; let i = index">
+          <ng-container [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'name'">
+              {{ item.libelle }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'offer'">
+              {{ item?.offres?.join(' | ') }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'active'">
+              @if (item.actif) {
+              <ng-container i18n="@@ACTIVATED">Activé</ng-container>
+              } @else {
+              <ng-container i18n="@@DESACTIVATED">Désactivé</ng-container>
+              }
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'actions'">
+              <span class="p-buttonset">
+                <p-button
+                  icon="pi pi-pencil"
+                  [text]="true"
+                  class="actionIcon modifyCopyIcon"
+                ></p-button>
+                <p-button
+                  icon="pi pi-clone"
+                  [text]="true"
+                  class="actionIcon modifyCopyIcon"
+                ></p-button>
+                <p-button
+                  icon="pi pi-trash"
+                  [text]="true"
+                  class="actionIcon deleteIcon"
+                ></p-button>
+              </span>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+  </app-server-paginated-table>
+</div>
