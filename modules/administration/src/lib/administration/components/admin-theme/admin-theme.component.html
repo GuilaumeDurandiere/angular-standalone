@@ -33,11 +33,7 @@
             </ng-container>
 
             <ng-container *ngSwitchCase="'active'">
-              @if (item.actif) {
-              <ng-container i18n="@@ACTIVATED">Activé</ng-container>
-              } @else {
-              <ng-container i18n="@@DESACTIVATED">Désactivé</ng-container>
-              }
+              {{ item.actif | boolToString }}
             </ng-container>
 
             <ng-container *ngSwitchCase="'actions'">

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ColumnCustom, ServerPaginatedTableComponent, Workflow, WorkflowHttpService } from '@te44-front/shared';
+import { BoolToStringPipe, ColumnCustom, ServerPaginatedTableComponent, Workflow, WorkflowHttpService } from '@te44-front/shared';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TableLazyLoadEvent, TableModule, TableRowSelectEvent } from 'primeng/table';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-admin-workflow',
   standalone: true,
-  imports: [CommonModule, ButtonModule, TableModule, ServerPaginatedTableComponent, SharedModule],
+  imports: [CommonModule, ButtonModule, TableModule, ServerPaginatedTableComponent, SharedModule, BoolToStringPipe],
   templateUrl: './admin-workflow.component.html',
   styleUrl: './admin-workflow.component.less',
 })
