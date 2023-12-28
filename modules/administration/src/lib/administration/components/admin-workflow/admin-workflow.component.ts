@@ -17,10 +17,10 @@ export class AdminWorkflowComponent {
   workflows$: Observable<Workflow[]> = this.workflowService.getAll();
 
   columns: ColumnCustom[] = [
-    { field: 'name', translation: '@@NAME', header: 'nom', sort: true },
-    { field: 'offer', translation: '@@RELATED_OFFERS', header: 'Offres liées', sort: true },
-    { field: 'active', translation: '@@ACTIVE', header: 'Actif', sort: true },
-    { field: 'actions', translation: '@@ACTIONS', header: 'Actions', sort: true },
+    { field: 'name', header: $localize`:@@NAME:Nom`, sort: true },
+    { field: 'offer', header: $localize`:@@RELATED_OFFERS:Offres liées`, sort: true },
+    { field: 'active', header: $localize`:@@ACTIVE:Actif`, sort: true },
+    { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: true },
   ]
 
   constructor(private workflowService: WorkflowHttpService) { }
