@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
   styleUrl: './admin-workflow.component.less',
 })
 export class AdminWorkflowComponent {
-  workflows$: Observable<Workflow[]> = this.workflowService.getAll();
+  workflows$: Observable<Workflow[]> = this.workflowService.getAll(1, 5);
 
   columns: ColumnCustom[] = [
     { field: 'name', header: $localize`:@@NAME:Nom`, sort: true },

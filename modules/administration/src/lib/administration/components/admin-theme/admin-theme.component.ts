@@ -4,8 +4,8 @@ import { BoolToStringPipe, ColumnCustom, ServerPaginatedTableComponent, Workflow
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { TableLazyLoadEvent, TableModule, TableRowSelectEvent } from 'primeng/table';
-import { Observable } from 'rxjs';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
+import { Observable, map, of, share } from 'rxjs';
 import { ModalAddThemeComponent } from '../modal-add-theme/modal-add-theme.component';
 
 @Component({
@@ -16,7 +16,7 @@ import { ModalAddThemeComponent } from '../modal-add-theme/modal-add-theme.compo
   styleUrl: './admin-theme.component.less',
 })
 export class AdminThemeComponent {
-  workflows$: Observable<Workflow[]> = this.workflowService.getAll();
+  workflows$: Observable<Workflow[]> = of([])
   dialog: DynamicDialogRef | null = null;
 
   columns: ColumnCustom[] = [
@@ -33,17 +33,16 @@ export class AdminThemeComponent {
 
   ) { }
 
-  onRowSelect(event: TableRowSelectEvent) {
-    console.log(event);
-  }
-
   loadPageData(event: TableLazyLoadEvent): void {
-    console.log(event)
+    this.workflows$ = this.workflowService.getAll(event.first ?? 1, event.rows ?? 5).pipe(map((v: any) => v.value), share());
   }
 
   openModalAddTheme(): void {
     this.dialog = this.dialogService.open(ModalAddThemeComponent, {
       header: $localize`:@@ADD_THEME_TITLE:Ajouter un theme`,
+      height: '80%',
+      width: '80%',
+      maximizable: true,
     });
   }
 

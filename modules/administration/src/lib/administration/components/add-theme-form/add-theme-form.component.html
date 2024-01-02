@@ -1,0 +1,45 @@
+<form [formGroup]="formGroup">
+  <app-form-group-presenter [title]="'Information du thème'">
+    <app-form-control-presenter
+      [control]="formGroup.controls.icon"
+      [name]="'icon'"
+      [label]="'Ajouter une icône'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="icon" />
+    </app-form-control-presenter>
+    <app-form-control-presenter
+      [control]="formGroup.controls.name"
+      [name]="'name'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="name" />
+    </app-form-control-presenter>
+    <app-form-control-presenter
+      [control]="formGroup.controls.description"
+      [name]="'description'"
+      [label]="'Description de l\'étape'"
+    >
+      <input type="text" pInputText formControlName="description" />
+    </app-form-control-presenter>
+
+    <div formArrayName="subtheme">
+      <div
+        class="form-group"
+        *ngFor="let control of formSubtheme.controls; let i = index"
+      >
+        <app-add-subtheme-form [formGroupName]="i"></app-add-subtheme-form>
+      </div>
+
+      <button
+        class="btn btn-default"
+        type="button"
+        (click)="onAddSubTheme()"
+        i18n="@@ADD_SUBTHEME"
+      >
+        <i class="pi pi-plus-circle"></i> Ajouter un sous-thème
+      </button>
+    </div>
+  </app-form-group-presenter>
+</form>

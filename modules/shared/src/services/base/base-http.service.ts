@@ -7,4 +7,17 @@ export abstract class BaseHttpService {
   ) {
     this.apiUrl = `${this.environmentApiUrl}/${controllerName}`;
   }
+
+  /**
+  * Build searched/sorted paginated request for backend
+  * @param page number
+  * @param size number
+  * @param action string, extended route/path for url
+  * @returns string to send
+  */
+  buildPaginatedRequest(page: number, size: number, action?: string): string {
+    // Build base of url by checking if an action is needed
+    size = size === 0 ? 1 : size;
+    return action ? `${this.apiUrl}/${action}?page=${page}&size=${size}` : `${this.apiUrl}?page=${page}&size=${size}`;
+  }
 }

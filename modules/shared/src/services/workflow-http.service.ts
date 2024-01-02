@@ -17,8 +17,9 @@ export class WorkflowHttpService extends BaseHttpService {
         super('workflow');
     }
 
-    getAll(): Observable<Workflow[]> {
-        return this.http.get<Workflow[]>(`${this.apiUrl}/getall`);
+    getAll(page: number, size: number): Observable<Workflow[]> {
+        const requestUrl = this.buildPaginatedRequest(page, size)
+        return this.http.get<Workflow[]>(requestUrl);
     }
 
     getOne(id: number): Observable<Workflow> {
@@ -26,11 +27,11 @@ export class WorkflowHttpService extends BaseHttpService {
     }
 
     create(workflowCreateDto: WorkflowCreateDto): Observable<Workflow> {
-        return this.http.post<Workflow>(`${this.apiUrl}/create`, workflowCreateDto).pipe(parseResponse(WorkflowSchema));
+        return this.http.post<Workflow>(`${this.apiUrl}`, workflowCreateDto).pipe(parseResponse(WorkflowSchema));
     }
 
     update(workflowUpdateDto: WorkflowUpdateDto): Observable<Workflow> {
-        return this.http.put<Workflow>(`${this.apiUrl}/update`, workflowUpdateDto).pipe(parseResponse(WorkflowSchema));
+        return this.http.put<Workflow>(`${this.apiUrl}`, workflowUpdateDto).pipe(parseResponse(WorkflowSchema));
     }
 
     delete(id: number): Observable<boolean> {
