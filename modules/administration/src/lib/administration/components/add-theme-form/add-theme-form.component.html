@@ -29,7 +29,7 @@
         class="form-group"
         *ngFor="let control of formSubtheme.controls; let i = index"
       >
-        <app-add-subtheme-form [formGroupName]="i"></app-add-subtheme-form>
+        <app-add-subtheme-form [formControlName]="i"></app-add-subtheme-form>
       </div>
 
       <button
