@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormControlStatus, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormControlPresenterComponent, FormGroupPresenterComponent, SubThemeForm, SubThemeFormValue, ThemeForm, ThemeFormValue } from '@te44-front/shared';
 import { PrimeIcons } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
-import { tap } from 'rxjs';
+import { map } from 'rxjs';
 import { AddSubthemeFormComponent } from '../add-subtheme-form/add-subtheme-form.component';
 
 @Component({
@@ -16,9 +16,13 @@ import { AddSubthemeFormComponent } from '../add-subtheme-form/add-subtheme-form
 })
 export class AddThemeFormComponent {
 
+  @Output() valid = new EventEmitter<boolean>(false);
+  @Output() formValue = new EventEmitter<ThemeFormValue>(false);
+
+
   formGroup: FormGroup<ThemeForm> = this.formBuilder.nonNullable.group<ThemeForm>({
     icon: new FormControl<PrimeIcons>(PrimeIcons.ALIGN_CENTER, { nonNullable: true, validators: [Validators.required] }),
-    name: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    libelle: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string>('', { nonNullable: true }),
     status: new FormControl<boolean>(true, { nonNullable: true, validators: [Validators.required] }),
     subtheme: new FormArray<FormGroup<SubThemeForm>>([]),
@@ -30,6 +34,7 @@ export class AddThemeFormComponent {
 
   constructor(private formBuilder: FormBuilder) {
     this.subscribeToValueChange();
+    this.subscribeToStatusChange();
   }
 
   onAddSubTheme(): void {
@@ -38,8 +43,13 @@ export class AddThemeFormComponent {
 
   subscribeToValueChange(): void {
     this.formGroup.valueChanges.pipe(
-      tap((themeValue: Partial<ThemeFormValue>) => console.log(themeValue))
-    ).subscribe();
+    ).subscribe(() => this.formValue.emit(this.formGroup.getRawValue()));
+  }
+
+  subscribeToStatusChange(): void {
+    this.formGroup.statusChanges.pipe(
+      map((status: FormControlStatus) => status === 'VALID')
+    ).subscribe((value: boolean) => this.valid.emit(value));
   }
 
 }
