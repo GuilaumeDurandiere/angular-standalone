@@ -41,7 +41,6 @@ export class ThemeState {
   loadPageData(ctx: StateContext<ThemeStateModel>, action: ThemeStateActions.LoadPageData) {
     const pagination = action.paginationData;
     return this.themeHttpService.getPaginated(pagination.pageIndex, pagination.pageSize).pipe(
-      tap((themes: PaginationDto<Theme>) => console.log(themes)),
       tap((themes: PaginationDto<Theme>) => ctx.patchState({
         themes: themes.results,
         pagination: themes
