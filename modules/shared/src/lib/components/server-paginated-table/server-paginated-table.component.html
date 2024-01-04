@@ -49,8 +49,8 @@
             [pSortableColumnDisabled]="!col.sort"
             class="headerCells"
           >
-            <p-sortIcon *ngIf="col.sort" field="{{ col.field }}"></p-sortIcon>
             <ng-container>{{ col.header }}</ng-container>
+            <p-sortIcon *ngIf="col.sort" field="{{ col.field }}"></p-sortIcon>
           </th>
         </tr>
       </ng-container>
