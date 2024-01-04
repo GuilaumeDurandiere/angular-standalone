@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { BoolToStringPipe, ColumnCustom, ServerPaginatedTableComponent, Workflow, WorkflowHttpService } from '@te44-front/shared';
+import { BoolToStringPipe, ColumnCustom, PaginationData, ServerPaginatedTableComponent, Workflow, WorkflowHttpService } from '@te44-front/shared';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { TableLazyLoadEvent, TableModule, TableRowSelectEvent } from 'primeng/table';
+import { TableModule, TableRowSelectEvent } from 'primeng/table';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -29,7 +29,7 @@ export class AdminWorkflowComponent {
     console.log(event);
   }
 
-  loadPageData(event: TableLazyLoadEvent): void {
+  loadPageData(event: PaginationData): void {
     console.log(event)
   }
 }
