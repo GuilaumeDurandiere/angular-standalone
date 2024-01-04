@@ -22,11 +22,11 @@ export class StepHttpService extends BaseHttpService {
     }
 
     create(stepCreateDto: StepCreateDto): Observable<Step> {
-        return this.http.post<Step>(`${this.apiUrl}/create`, stepCreateDto).pipe(parseResponse(StepSchema));
+        return this.http.post<Step>(`${this.apiUrl}`, stepCreateDto).pipe(parseResponse(StepSchema));
     }
 
     update(stepUpdateDto: StepUpdateDto): Observable<Step> {
-        return this.http.put<Step>(`${this.apiUrl}/update`, stepUpdateDto).pipe(parseResponse(StepSchema));
+        return this.http.put<Step>(`${this.apiUrl}`, stepUpdateDto).pipe(parseResponse(StepSchema));
     }
 
     delete(id: number): Observable<boolean> {

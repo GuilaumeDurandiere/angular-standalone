@@ -1,8 +1,8 @@
-<div class="container-lg">
+<div class="container-lg" *ngIf="workflow$ | async as workflow">
     <div class="row">
         <div class="p-3">
             <h1 class="title">
-                {{ (workflow$ | async)?.libelle }}
+                {{ workflow.libelle }}
             </h1>
         </div>
     </div>
@@ -20,6 +20,7 @@
                 label="Ajouter une étape"
                 icon="pi pi-plus-circle"
                 class="addStepButton"
+                (click)="showAddStepModal(workflow.libelle)"
             ></button>
         </div>
     </div>
@@ -29,20 +30,18 @@
             <div i18n="@@SUBSTEP_CREATION_INFO" class="infoMessage">Pour créer une sous-étape, cliquez sur une étape.</div>
         </ng-template>
     </p-messages>
-    <!-- <p-message severity="info" text="Info text" class="infoMessage"></p-message> -->
     <!-- [lazy]="true"
         (onLazyLoad)="getAll($event)"
         (onRowSelect)="onRowSelect($event)"
     -->
     <p-table
-        [value]="etapes"
+        [value]="workflow.etapes"
         [tableStyle]="{ 'min-width': '50rem' }"
         [paginator]="true"
         [rows]="15"
         [showCurrentPageReport]="false"
         paginatorLocale="fr-FR"
         selectionMode="single"
-        *ngIf="(workflow$ | async)?.etapes as etapes"
     >
         <ng-template pTemplate="header">
             <tr>
@@ -65,11 +64,13 @@
                         icon="pi pi-pencil"
                         [text]="true"
                         class="actionIcon modifyIcon"
+                        (click)="showUpdateStepModal(etape)"
                         ></p-button>
                         <p-button
                         icon="pi pi-trash"
                         [text]="true"
                         class="actionIcon deleteIcon"
+                        (click)="deleteConfirmation(workflow.etapes, etape)"
                         ></p-button>
                     </span>
                 </td>
@@ -83,5 +84,7 @@
         label="Retourner au tableau des workflow"
         icon="pi pi-arrow-circle-left"
         class="goBackButton"
+        [routerLink]="['/administration', 'workflow']"
     ></button>
+    <p-confirmDialog></p-confirmDialog>
 </div>

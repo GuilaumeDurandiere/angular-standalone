@@ -14,7 +14,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './admin-workflow.component.less',
 })
 export class AdminWorkflowComponent {
-  workflows$: Observable<Workflow[]> = this.workflowService.getAll();
+  workflows$: Observable<Workflow[]> = this.workflowService.getAll(15, 1);
 
   constructor(private router: Router, private workflowService: WorkflowHttpService){}
 

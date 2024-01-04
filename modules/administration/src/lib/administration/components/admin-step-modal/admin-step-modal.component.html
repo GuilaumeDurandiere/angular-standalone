@@ -1,0 +1,76 @@
+<div class="background">
+    <p class="mandatory-help-text" i18n="@@ALL_FIELDS_MANDATORY">Tous les champs sont obligatoires*</p>
+    <form [formGroup]="stepForm">
+        <div class="step-container p-3 mb-3">
+            <p class="subtitle" i18n="@@STEP_INFO">Informations étape</p>
+            <div class="d-flex flex-column gap-2 mb-2">
+                <label for="stepName" class="label" i18n="@@STEP_NAME">Nom de l'étape</label>
+                <input pInputText id="stepName" formControlName="name" />
+            </div>
+            <div class="d-flex flex-column gap-2 mb-2">
+                <label for="stepDescription" class="label" i18n="@@STEP_DESCRIPTION">Description de l'étape <span class="facultative">(facultatif)</span></label>
+                <input pInputText id="stepDescription" formControlName="description" />
+            </div>
+            <div class="d-flex flex-column gap-2 mb-3">
+                <label for="stepStatus" class="label" i18n="@@STATUS">Statut</label>
+                <input pInputText id="stepStatus" formControlName="status" />
+            </div>
+            <p class="subtitle" i18n="@@SUBSTEP_INFO">Informations sous-étapes <span class="facultative">(facultatif)</span></p>
+                <div formArrayName="substeps">
+                    <div
+                        class="substep-container p-3 mb-2"
+                        *ngFor="let control of substeps.controls; let i = index"
+                    >
+                        <div class="d-flex justify-content-between">
+                            <p class="substep-name" i18n="@@SUBSTEP_NUMBER">Sous-étape {{i + 1}}</p>
+                            <span (click)="onRemoveSubstep(i)" class="pi pi-times-circle"></span>
+                        </div>
+                        <app-add-substep-form [formControlName]="i"></app-add-substep-form>
+                    </div>
+                </div>
+            <button
+                pButton
+                pRipple
+                i18n-label="@@ADD_SUBSTEP"
+                label="Ajouter une sous-étape"
+                icon="pi pi-plus-circle"
+                class="add-substep-button"
+                (click)="onAddSubstep()"
+            ></button>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button
+                pButton
+                pRipple
+                i18n-label="@@CANCEL"
+                label="Annuler"
+                icon="pi pi-times"
+                class="cancel-button"
+                (click)="closeDialog()"
+            ></button>
+            @if (step.id === 0) {
+                <button
+                    pButton
+                    pRipple
+                    [disabled]="stepForm.invalid"
+                    i18n-label="@@ADD_STEP"
+                    label="Ajouter l'étape"
+                    icon="pi pi-plus-circle"
+                    class="add-step-button"
+                    (click)="onCreateSubmit(stepForm)"
+                ></button>
+            } @else {
+                <button
+                    pButton
+                    pRipple
+                    [disabled]="stepForm.invalid"
+                    i18n-label="@@SAVE_STEP"
+                    label="Enregistrer l'étape"
+                    icon="pi pi-plus-circle"
+                    class="add-step-button"
+                    (click)="onUpdateSubmit(stepForm)"
+                ></button>
+            }
+        </div>
+    </form>
+</div>
