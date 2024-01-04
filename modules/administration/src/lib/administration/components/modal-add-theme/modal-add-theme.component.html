@@ -1,1 +1,20 @@
 <app-add-theme-form></app-add-theme-form>
+
+<div class="d-flex justify-content-sm-between mt-4">
+  <button
+    pButton
+    i18n-label="@@CANCEL"
+    label="Annuler"
+    icon="pi pi-times"
+    class="generic-button cancel"
+    (click)="cancel()"
+  ></button>
+  <button
+    pButton
+    i18n-label="@@ADD_THEME"
+    label="Ajouter le thème"
+    icon="pi pi-plus-circle"
+    class="generic-button"
+    (click)="validate()"
+  ></button>
+</div>
