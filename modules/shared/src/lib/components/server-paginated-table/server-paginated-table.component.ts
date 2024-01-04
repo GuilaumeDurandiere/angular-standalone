@@ -3,6 +3,7 @@ import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnCh
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ColumnCustom } from '../../../models/ColumnCustom';
+import { PaginationData } from '../../../models/PaginationData';
 
 @Component({
   selector: 'app-server-paginated-table',
@@ -15,7 +16,7 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
   @ViewChild(Table) table!: Table;
   @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-  @Output() loadPageData: EventEmitter<TableLazyLoadEvent> = new EventEmitter();
+  @Output() loadPageData: EventEmitter<PaginationData> = new EventEmitter();
 
   @Input() paginationData: unknown[] | undefined | null;
   @Input() columns: ColumnCustom[] = [];
@@ -81,7 +82,7 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
     this.loading = true;
 
     // Emit an event to notify parent component that a new page should be requested
-    this.loadPageData.emit(event);
+    this.loadPageData.emit({ pageIndex: event.first ?? 0, pageSize: event.rows ?? 5 });
   }
 
   /**
