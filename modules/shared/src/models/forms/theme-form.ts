@@ -19,7 +19,7 @@ export interface ThemeFormValue {
   name: string;
   description: string;
   status: boolean;
-  subtheme: SubThemeForm;
+  subtheme: SubThemeForm[];
 }
 
 export interface SubThemeFormValue {
