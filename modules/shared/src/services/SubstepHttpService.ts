@@ -21,6 +21,6 @@ export class SubstepHttpService extends BaseHttpService {
     }
 
     create(substepCreateDto: SubstepCreateDto): Observable<Substep> {
-        return this.http.post<Substep>(`${this.apiUrl}/create`, substepCreateDto).pipe(parseResponse(SubstepSchema));
+        return this.http.post<Substep>(`${this.apiUrl}`, substepCreateDto).pipe(parseResponse(SubstepSchema));
     }
 }

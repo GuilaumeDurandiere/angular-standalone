@@ -3,12 +3,42 @@
     font-size: xx-large;
     line-height: 18px;
 }
-.workflowButton {
+.subtitle {
+    font-weight: 700;
+    font-size: x-large;
+    line-height: 24px;
+    color: #005186;
+}
+.addStepButton {
+    background: none;
+    color: #005186;
+    font-weight: 400;
+    line-height: 18px;
+    font-size: 16px;
+    border: none;
+    margin-right: -20px;
+}
+:host ::ng-deep .addStepButton .p-button-label {
+    text-decoration: underline;
+}
+:host ::ng-deep .infoContainer > div > div {
+    background-color: #EBF7FF;
+    border: solid #005186;
+    border-width: 0 0 0 6px;
+}
+.infoIcon {
+    color: #005186;
+}
+.infoMessage {
+    color: #005186;
+    margin-left: 0.5rem;
+}
+.goBackButton {
     background-color: #005186;
     border: none;
     margin-right: -3px;
 }
-:host ::ng-deep .workflowButton .p-button-label {
+:host ::ng-deep .goBackButton .p-button-label {
     font-size: medium;
     font-weight: 400;
 }
@@ -21,13 +51,10 @@
     padding: 0 0 0 1rem;
     cursor: pointer;
 }
-.desactivated {
-    color: #8C90A1;
-}
-:host ::ng-deep .modifyCopyIcon button {
+:host ::ng-deep .modifyIcon button {
     color: #1EA5B4;
 }
-:host ::ng-deep .modifyCopyIcon button:focus {
+:host ::ng-deep .modifyIcon button:focus {
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #1EA5B4, 0 1px 2px 0 black;
 }
 :host ::ng-deep .deleteIcon button {
