@@ -1,22 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { BoolToStringPipe, ColumnCustom, ServerPaginatedTableComponent, Workflow, WorkflowHttpService } from '@te44-front/shared';
+import { Store } from '@ngxs/store';
+import { BoolToStringPipe, ColumnCustom, PaginationData, ServerPaginatedTableComponent } from '@te44-front/shared';
+import { ThemeStateActions } from 'modules/administration/src/state/actions/theme.actions';
+import { ThemeState } from 'modules/administration/src/state/theme.state';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { TableLazyLoadEvent, TableModule } from 'primeng/table';
-import { Observable, map, of, share } from 'rxjs';
+import { TableModule } from 'primeng/table';
 import { ModalAddThemeComponent } from '../modal-add-theme/modal-add-theme.component';
 
 @Component({
   selector: 'app-admin-theme',
   standalone: true,
-  imports: [CommonModule, ButtonModule, TableModule, ServerPaginatedTableComponent, SharedModule, BoolToStringPipe],
+  imports: [
+    CommonModule,
+    ButtonModule,
+    TableModule,
+    ServerPaginatedTableComponent,
+    SharedModule,
+    BoolToStringPipe,
+  ],
   templateUrl: './admin-theme.component.html',
   styleUrl: './admin-theme.component.less',
 })
 export class AdminThemeComponent {
-  workflows$: Observable<Workflow[]> = of([])
+  theme$ = this.store.select(ThemeState.getTheme);
   dialog: DynamicDialogRef | null = null;
 
   columns: ColumnCustom[] = [
@@ -27,21 +36,19 @@ export class AdminThemeComponent {
   ]
 
   constructor(
-    private workflowService: WorkflowHttpService,
     private dialogService: DialogService,
-
-
+    private store: Store
   ) { }
 
-  loadPageData(event: TableLazyLoadEvent): void {
-    this.workflows$ = this.workflowService.getAll(event.first ?? 1, event.rows ?? 5).pipe(map((v: any) => v.value), share());
+  loadPageData(event: PaginationData): void {
+    this.store.dispatch(new ThemeStateActions.LoadPageData(event));
   }
 
   openModalAddTheme(): void {
     this.dialog = this.dialogService.open(ModalAddThemeComponent, {
       header: $localize`:@@ADD_THEME_TITLE:Ajouter un theme`,
       height: '80%',
-      width: '80%',
+      width: '60%',
       maximizable: true,
     });
   }

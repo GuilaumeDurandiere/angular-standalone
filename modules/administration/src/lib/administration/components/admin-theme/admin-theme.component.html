@@ -18,7 +18,7 @@
 
   <app-server-paginated-table
     [columns]="columns"
-    [paginationData]="workflows$ | async"
+    [paginationData]="theme$ | async"
     (loadPageData)="loadPageData($event)"
   >
     <ng-template pTemplate="body" let-item>
