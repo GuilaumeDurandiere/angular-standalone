@@ -1,27 +1,24 @@
 <div class="container-lg">
   <div class="row justify-content-between">
     <div class="col-lg-8 p-3">
-      <h1 i18n="@@EXCLUDING_WORK_WORKFLOW" class="title">
-        Workflow hors travaux
-      </h1>
+      <h1 i18n="@@THEME_TITLE" class="title">Tous les thèmes</h1>
     </div>
     <div class="col-lg-4 p-3 mb-2 text-end">
       <button
         pButton
         pRipple
-        i18n-label="@@CREATE_WORKFLOW"
-        label="Créer un workflow"
+        i18n-label="@@CREATE_THEME"
+        label="Créer un theme"
         icon="pi pi-pencil"
         class="generic-button"
+        (click)="openModalAddTheme()"
       ></button>
     </div>
   </div>
-  <!-- [lazy]="true"
-      (onLazyLoad)="getAll($event)"
-  -->
+
   <app-server-paginated-table
     [columns]="columns"
-    [paginationData]="workflows$ | async"
+    [paginationData]="theme$ | async"
     (loadPageData)="loadPageData($event)"
   >
     <ng-template pTemplate="body" let-item>

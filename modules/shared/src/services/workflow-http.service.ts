@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { BaseHttpService } from "./base/BaseHttpService";
 import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Workflow, WorkflowSchema } from "../zod/Workflow.zod";
 import { parseResponse } from "../helpers/zod.helper";
 import { WorkflowCreateDto } from "../models/WorkflowCreateDto";
 import { WorkflowUpdateDto } from "../models/WorkflowUpdateDto";
+import { Workflow, WorkflowSchema } from "../zod/Workflow.zod";
+import { BaseHttpService } from "./base/base-http.service";
 
 @Injectable({
     providedIn: 'root',
@@ -17,20 +17,21 @@ export class WorkflowHttpService extends BaseHttpService {
         super('workflow');
     }
 
-    getAll(): Observable<Workflow[]> {
-        return this.http.get<Workflow[]>(`${this.apiUrl}/getall`);
+    getAll(page: number, size: number): Observable<Workflow[]> {
+        const requestUrl = this.buildPaginatedRequest(page, size)
+        return this.http.get<Workflow[]>(requestUrl);
     }
 
     getOne(id: number): Observable<Workflow> {
         return this.http.get<Workflow>(`${this.apiUrl}/${id}`).pipe(parseResponse(WorkflowSchema));
     }
-    
+
     create(workflowCreateDto: WorkflowCreateDto): Observable<Workflow> {
-        return this.http.post<Workflow>(`${this.apiUrl}/create`, workflowCreateDto).pipe(parseResponse(WorkflowSchema));
+        return this.http.post<Workflow>(`${this.apiUrl}`, workflowCreateDto).pipe(parseResponse(WorkflowSchema));
     }
 
     update(workflowUpdateDto: WorkflowUpdateDto): Observable<Workflow> {
-        return this.http.put<Workflow>(`${this.apiUrl}/update`, workflowUpdateDto).pipe(parseResponse(WorkflowSchema));
+        return this.http.put<Workflow>(`${this.apiUrl}`, workflowUpdateDto).pipe(parseResponse(WorkflowSchema));
     }
 
     delete(id: number): Observable<boolean> {

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdminContainerComponent } from './admin-container.component';
+import { ModalAddThemeComponent } from './modal-add-theme.component';
 
-describe('AdminContainerComponent', () => {
-  let component: AdminContainerComponent;
-  let fixture: ComponentFixture<AdminContainerComponent>;
+describe('ModalAddThemeComponent', () => {
+  let component: ModalAddThemeComponent;
+  let fixture: ComponentFixture<ModalAddThemeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminContainerComponent],
+      imports: [ModalAddThemeComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminContainerComponent);
+    fixture = TestBed.createComponent(ModalAddThemeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
