@@ -1,9 +1,22 @@
-<p-menubar [model]="items">
+
+<p-toolbar>
   <ng-template pTemplate="start">
     <img
       src="https://www.te44.fr/wp-content/themes/sydela/images/LogoHeader.png"
-      height="40"
-      class="mr-2"
+      height="45"
+      class="m-2"
     />
+    <p-tabMenu [model]="items">
+    </p-tabMenu>
   </ng-template>
-</p-menubar>
+  <ng-template pTemplate="end">
+    <p-button class="business-button" i18n="@@NEW_BUSINESS_NAVBAR">Création d'une demande</p-button>
+    <p-menu #notificationsIcon [model]="notifications" [popup]="true"></p-menu>
+    <p-button icon="pi pi-bell" pBadge value="2" (click)="notificationsIcon.toggle($event)" class="notification-icon"></p-button>
+    <p-menu #profile [model]="profileMenu" [popup]="true"></p-menu>
+    <button pButton type="button" (click)="profile.toggle($event)" class="profile-menu">
+      <p-avatar icon="pi pi-user" shape="circle"></p-avatar>
+      <span>Nom_prénom</span>
+      <i class="pi pi-angle-down"></i></button>
+  </ng-template>
+</p-toolbar>
