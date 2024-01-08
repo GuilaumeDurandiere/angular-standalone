@@ -6,6 +6,8 @@
     "DOCUMENTATION_NAVBAR": "Documentations",
     "LINKS_NAVBAR": "Liens utiles",
     "INFORMATION_NAVBAR": "Informations et services",
-    "NEW_BUSINESS_NAVBAR": "Demande d'affaire"
+    "NEW_BUSINESS_NAVBAR": "Création d'une demande",
+    "INFORMATION": "Informations",
+    "DECONNECTION": "Déconnexion"
   }
 }
