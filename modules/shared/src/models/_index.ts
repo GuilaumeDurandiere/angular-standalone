@@ -1,3 +1,4 @@
+export * from './enums/_index';
 export * from './forms/_index';
 
 export * from './ColumnCustom';

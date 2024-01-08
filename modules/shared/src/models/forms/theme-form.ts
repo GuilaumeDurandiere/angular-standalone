@@ -1,19 +1,16 @@
 import { FormArray, FormControl } from "@angular/forms";
-import { PrimeIcons } from "primeng/api";
 import { SubThemeForm } from "./sub-theme-form";
 
 export interface ThemeForm {
-  icon: FormControl<PrimeIcons>;
+  icon: FormControl<string>;
   libelle: FormControl<string>;
   description: FormControl<string>;
-  status: FormControl<boolean>;
-  subtheme: FormArray;
+  sousThemes: FormArray;
 };
 
 export interface ThemeFormValue {
-  icon: PrimeIcons;
+  icon: string;
   libelle: string;
   description: string;
-  status: boolean;
-  subtheme: SubThemeForm[];
+  sousThemes: SubThemeForm[];
 }

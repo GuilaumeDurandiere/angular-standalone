@@ -2,11 +2,11 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { parseResponse } from "../helpers/zod.helper";
+import { PaginationDto } from "../models/PaginationDto";
 import { WorkflowCreateDto } from "../models/WorkflowCreateDto";
 import { WorkflowUpdateDto } from "../models/WorkflowUpdateDto";
 import { Workflow, WorkflowSchema } from "../zod/Workflow.zod";
 import { BaseHttpService } from "./base/base-http.service";
-import { PaginationDto } from "../models/PaginationDto";
 
 @Injectable({
     providedIn: 'root',
@@ -21,10 +21,14 @@ export class WorkflowHttpService extends BaseHttpService {
     getAll(page: number, size: number): Observable<PaginationDto<Workflow>> {
         const requestUrl = this.buildPaginatedRequest(page, size, 'paginated/')
         return this.http.get<PaginationDto<Workflow>>(requestUrl);
-      }
+    }
 
     getOne(id: number): Observable<Workflow> {
         return this.http.get<Workflow>(`${this.apiUrl}/${id}`).pipe(parseResponse(WorkflowSchema));
+    }
+
+    getActive(): Observable<{ libelle: string, id: number }[]> {
+        return this.http.get<{ libelle: string, id: number }[]>(`${this.apiUrl}/getActive`);
     }
 
     create(workflowCreateDto: WorkflowCreateDto): Observable<Workflow> {

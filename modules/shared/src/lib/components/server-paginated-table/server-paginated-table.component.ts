@@ -4,6 +4,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ColumnCustom } from '../../../models/ColumnCustom';
 import { PaginationData } from '../../../models/PaginationData';
+import { PaginationDto } from '../../../models/PaginationDto';
 
 @Component({
   selector: 'app-server-paginated-table',
@@ -18,7 +19,7 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
 
   @Output() loadPageData: EventEmitter<PaginationData> = new EventEmitter();
 
-  @Input() paginationData: unknown[] | undefined | null;
+  @Input() paginationData: PaginationDto<unknown> | null = null;
   @Input() columns: ColumnCustom[] = [];
 
   bodyTemplate: TemplateRef<unknown> | undefined = undefined;
@@ -81,8 +82,16 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
   loadPagedData(event: TableLazyLoadEvent): void {
     this.loading = true;
 
+    // Start manage offset/page
+    let page = 1;
+    if (event.first && event.rows) {
+      page = (event.first / event.rows) + 1;
+    }
+    // End manage offset/page
+
+
     // Emit an event to notify parent component that a new page should be requested
-    this.loadPageData.emit({ pageIndex: event.first ?? 1, pageSize: event.rows ?? 15 });
+    this.loadPageData.emit({ pageIndex: page, pageSize: event.rows ?? 15 });
   }
 
   /**
@@ -102,12 +111,24 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
    * Sets the table options by extracting value from a PaginationDto<any>
    * @param data to analyse
    */
-  setTablePropertiesByPaginationDto(paginationDto: unknown[] | undefined | null): void {
+  setTablePropertiesByPaginationDto(paginationDto: PaginationDto<unknown> | null): void {
     if (paginationDto) {
-      this.tableItems = paginationDto ?? [];
-      // this.first = paginationDto.pageable.offset;
-      // this.rows = paginationDto.pageable.page_size;
-      // this.totalRecords = paginationDto.total_elements;
+
+      // Start manage offset/page 
+      const page = paginationDto.pageIndex - 1;
+      const size = paginationDto.pageSize;
+
+      let first = 0;
+      if (page && size) {
+        first = page * size;
+      }
+      // End manage offset/page 
+
+
+      this.first = first
+      this.rows = size;
+      this.tableItems = paginationDto.results ?? [];
+      this.totalRecords = paginationDto.total;
 
       this.loading = false;
     }

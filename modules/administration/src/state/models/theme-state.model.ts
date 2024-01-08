@@ -1,6 +1,7 @@
-import { PaginationData, Theme } from "@te44-front/shared";
+import { PaginationData, PaginationDto, Theme } from "@te44-front/shared";
 
 export interface ThemeStateModel {
-  themes: Theme[];
+  themes: PaginationDto<Theme> | null;
+  workflow: { libelle: string, id: number }[];
   pagination: PaginationData;
 }
