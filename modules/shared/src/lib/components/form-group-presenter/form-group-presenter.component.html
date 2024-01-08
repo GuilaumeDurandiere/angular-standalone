@@ -1,0 +1,17 @@
+<div class="mt-4 form-group-card" [ngClass]="background">
+  <div class="form-group-presenter-title">
+    <h3 class="mb-4" *ngIf="title">
+      {{ title }}
+    </h3>
+    <p-button
+      *ngIf="collapsable"
+      [icon]="collapseIcon"
+      [rounded]="true"
+      [text]="true"
+      (click)="collapse()"
+    ></p-button>
+  </div>
+  <div *ngIf="collapsed" class="field-block">
+    <ng-content></ng-content>
+  </div>
+</div>

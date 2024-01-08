@@ -1,6 +1,10 @@
+import { importProvidersFrom } from '@angular/core';
 import { Route } from '@angular/router';
+import { NgxsModule } from '@ngxs/store';
+import { ThemeState } from '../state/theme.state';
 import { AdministrationComponent } from './administration/administration.component';
 import { AdminSelectionComponent } from './administration/components/admin-selection/admin-selection.component';
+import { AdminThemeComponent } from './administration/components/admin-theme/admin-theme.component';
 import { AdminWorkflowComponent } from './administration/components/admin-workflow/admin-workflow.component';
 import { AdminStepComponent } from './administration/components/admin-step/admin-step.component';
 import { workflowResolver } from '@te44-front/shared';
@@ -36,6 +40,14 @@ export const administrationRoutes: Route[] = [
         data: {
           breadcrumb: (data: any) => `${data.workflow.libelle}`,
         },
+      },
+      {
+        path: 'theme',
+        component: AdminThemeComponent,
+        providers: [importProvidersFrom(NgxsModule.forFeature([ThemeState]))],
+        data: {
+          breadcrumb: $localize`:@@WORKFLOW_TABLE:Tableau des themes`
+        }
       }
     ]
   },

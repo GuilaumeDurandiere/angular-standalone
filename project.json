@@ -11,28 +11,24 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/te44-front",
         "index": "./src/index.html",
         "browser": "./src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "./tsconfig.app.json",
         "inlineStyleLanguage": "less",
-        "assets": [
-          "./src/favicon.ico",
-          "./src/assets"
-        ],
+        "assets": ["./src/favicon.ico", "./src/assets"],
         "styles": [
           "node_modules/bootstrap/dist/css/bootstrap.min.css",
           "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
           "node_modules/primeng/resources/primeng.min.css",
           "./src/styles.less"
         ],
+        "stylePreprocessorOptions": {
+          "includePaths": ["src/styles/global"]
+        },
         "scripts": []
       },
       "configurations": {
@@ -79,20 +75,14 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "./src"
-        ]
+        "lintFilePatterns": ["./src"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectName}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
       "options": {
         "jestConfig": "jest.config.app.ts"
       }

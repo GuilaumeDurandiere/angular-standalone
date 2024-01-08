@@ -25,8 +25,16 @@
     [totalRecords]="totalRecords"
     [value]="tableItems"
     [paginatorDropdownAppendTo]="'body'"
+    paginatorLocale="fr-FR"
     responsiveLayout="scroll"
+    selectionMode="single"
   >
+    <ng-template pTemplate="colgroup" *ngIf="resizeCol">
+      <colgroup>
+        <col *ngFor="let col of columns; let i = index" />
+      </colgroup>
+    </ng-template>
+
     <!-- FILTER TEMPLATE -->
     <ng-template pTemplate="caption" *ngIf="captionTemplate">
       <ng-container *ngTemplateOutlet="captionTemplate"> </ng-container>
@@ -42,9 +50,10 @@
             [pSortableColumn]="col.field"
             [pSortableColumnDisabled]="!col.sort"
             class="headerCells"
+            [style]="col.style"
           >
+            <ng-container>{{ col.header }}</ng-container>
             <p-sortIcon *ngIf="col.sort" field="{{ col.field }}"></p-sortIcon>
-            {{ col.header }}
           </th>
         </tr>
       </ng-container>
@@ -62,11 +71,6 @@
       <tr>
         <td colSpan="{{ columns.length }}">{{ 'NO_ITEMS_TO_DISPLAY' }}</td>
       </tr>
-    </ng-template>
-
-    <!-- SUMMARY TEMPLATE -->
-    <ng-template pTemplate="summary">
-      {{ 'ITEMS_TO_DISPLAY' }}
     </ng-template>
   </p-table>
 </div>
