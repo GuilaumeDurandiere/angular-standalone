@@ -10,7 +10,7 @@
     </p-tabMenu>
   </ng-template>
   <ng-template pTemplate="end">
-    <p-button class="business-button" i18n="@@NEW_BUSINESS_NAVBAR">Création d'une demande</p-button>
+    <p-button class="gradient-button" i18n="@@NEW_BUSINESS_NAVBAR">Création d'une demande</p-button>
     <p-menu #notificationsIcon [model]="notifications" [popup]="true"></p-menu>
     <p-button icon="pi pi-bell" pBadge value="2" (click)="notificationsIcon.toggle($event)" class="notification-icon"></p-button>
     <p-menu #profile [model]="profileMenu" [popup]="true"></p-menu>

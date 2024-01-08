@@ -1,5 +1,7 @@
+@import '_colors';
+
 ::ng-deep .p-toolbar {
-    background-color: #FEFEFE;
+    background-color: @bg-white;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
     padding: 0.3rem 1.25rem 0 1.25rem;
     border-radius: 0;
@@ -8,7 +10,7 @@
 
 ::ng-deep .p-menuitem-link {
     text-decoration: none;
-    color: #46505A;
+    color: @darkgrey;
     margin: 5px 0 0px 0;
     font-size: 0.938rem;
     border: none;
@@ -17,7 +19,7 @@
 
 ::ng-deep .p-menuitem-link-active {
     border-style: none none solid none;
-    border-image: linear-gradient(to right, #29B8CE, #9F358B) 1 / 0 0 3px 0;
+    border-image: linear-gradient(to right, @bd-lightblue, @bd-purple) 1 / 0 0 3px 0;
 }
 
 ::ng-deep .p-tabmenu-nav {
@@ -26,30 +28,13 @@
     border: none;
 }
 
-.business-button {
-    border: none;
-}
-
-:host ::ng-deep .business-button button {
-    background: 
-    linear-gradient(#FEFEFE 0 0) padding-box,
-    linear-gradient(to right, #29B8CE, #9F358B) border-box;
-    color: #46505A;
-    border: 2px solid transparent;
-    border-radius: 20px 0;
-    display: inline-block;
-    font-weight: 700;
-    font-size: 0.875rem;
-    margin-right: 0.5rem;
-}
-
 .notification-icon {
     border: none;
 }
 
 :host ::ng-deep .notification-icon button {
-    background-color: #FEFEFE;
-    color:#46505A;
+    background-color: @bg-white;
+    color: @darkgrey;
     border: none;
     font-weight: 700;
     margin-right: 0.5rem;
@@ -57,7 +42,7 @@
 
 :host ::ng-deep .notification-icon .p-badge {
     margin: 0.9rem 0.8rem 0 0;
-    background-color: #F02F52;
+    background-color: @bg-red;
     color: white;
     padding: 0.05rem 0 0 0.05rem;
     min-width: 1.1rem;
@@ -69,8 +54,8 @@
 }
 
 .profile-menu {
-    background-color: #FEFEFE;
-    color: #46505A;
+    background-color: @bg-white;
+    color: @darkgrey;
     font-size: 0.875rem;
     border: none;
 }
