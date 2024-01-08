@@ -1,36 +1,56 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
-import { FormControlPresenterComponent, FormGroupPresenterComponent, SubThemeForm, SubThemeFormValue } from '@te44-front/shared';
+import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControlPresenterComponent, FormGroupPresenterComponent, IconUploaderComponent, SubThemeForm, SubThemeFormValue } from '@te44-front/shared';
+import { ColorPickerModule } from 'primeng/colorpicker';
 import { InputTextModule } from 'primeng/inputtext';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-subtheme-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule, FormControlPresenterComponent, FormGroupPresenterComponent],
+  imports: [
+    ColorPickerModule,
+    CommonModule,
+    FormControlPresenterComponent,
+    FormGroupPresenterComponent,
+    IconUploaderComponent,
+    InputTextModule,
+    RadioButtonModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './add-subtheme-form.component.html',
   styleUrl: './add-subtheme-form.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: NG_VALUE_ACCESSOR, multi: true, useExisting: AddSubthemeFormComponent },
-    { provide: NG_VALIDATORS, multi: true, useExisting: AddSubthemeFormComponent },
   ],
 })
-export class AddSubthemeFormComponent implements ControlValueAccessor, OnDestroy, Validator {
+export class AddSubthemeFormComponent implements ControlValueAccessor, OnDestroy {
+
   destroy$ = new Subject<void>();
 
   formGroup: FormGroup<SubThemeForm> = this.formBuilder.group<SubThemeForm>({
-    name: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    libelle: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string>('', { nonNullable: true }),
+    icon: new FormControl<string>('', { nonNullable: true }),
+    couleur: new FormControl<string>('', { nonNullable: true }),
   })
 
-  onTouched: Function = () => { };
+  demandeTypes = [
+    { key: 'S', value: $localize`:@@DEMANDE_SIMPLIFIEE:Demande simplifiée` },
+    { key: 'T', value: $localize`:@@DEMANDE_TRAVAUX:Demande travaux` },
+    { key: 'HT', value: $localize`:@@DEMANDE_HORS_TRAVAUX:Demande hors travaux` },
+    { key: 'L', value: $localize`:@@LIEN_EXTERNE:Lien externe` },
+  ]
+
+  onTouched = () => { };
   onChangeSubs: Subscription[] = [];
 
   constructor(private formBuilder: FormBuilder) { }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (arg: unknown) => void): void {
     const sub = this.formGroup.valueChanges.subscribe(fn);
     this.onChangeSubs.push(sub);
   }
@@ -41,7 +61,7 @@ export class AddSubthemeFormComponent implements ControlValueAccessor, OnDestroy
     }
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
@@ -51,10 +71,6 @@ export class AddSubthemeFormComponent implements ControlValueAccessor, OnDestroy
     } else {
       this.formGroup.enable();
     }
-  }
-
-  validate(control: AbstractControl<any, any>): ValidationErrors | null {
-    return null;
   }
 
   ngOnDestroy(): void {

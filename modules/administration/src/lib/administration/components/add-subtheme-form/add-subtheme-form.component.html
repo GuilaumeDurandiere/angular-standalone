@@ -5,19 +5,59 @@
     background="cyan"
   >
     <app-form-control-presenter
-      [control]="formGroup.controls.name"
-      [name]="'name'"
+      [control]="formGroup.controls.libelle"
+      [name]="'libelle'"
       [label]="'Nom du thème'"
       [required]="true"
     >
-      <input type="text" pInputText formControlName="name" />
+      <input type="text" pInputText formControlName="libelle" />
     </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.icon"
+      [name]="'icon'"
+      [label]="'Icon'"
+      [required]="true"
+    >
+      <app-icon-uploader formControlName="icon"></app-icon-uploader>
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.couleur"
+      [name]="'couleur'"
+      [label]="'couleur'"
+      [required]="true"
+    >
+      <p-colorPicker formControlName="couleur"></p-colorPicker>
+    </app-form-control-presenter>
+
     <app-form-control-presenter
       [control]="formGroup.controls.description"
       [name]="'description'"
       [label]="'Description de l\'étape'"
     >
       <input type="text" pInputText formControlName="description" />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.description"
+      [name]="'description'"
+      [label]="'Description de l\'étape'"
+    >
+      <div class="flex flex-wrap gap-3">
+        <div
+          *ngFor="let demandeType of demandeTypes"
+          class="flex align-items-center"
+        >
+          <p-radioButton
+            [inputId]="demandeType.key"
+            [value]="demandeType"
+          ></p-radioButton>
+          <label [for]="demandeType.key" class="ml-2">{{
+            demandeType.value
+          }}</label>
+        </div>
+      </div>
     </app-form-control-presenter>
   </app-form-group-presenter>
 </form>

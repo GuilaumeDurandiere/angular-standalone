@@ -6,7 +6,7 @@
       [label]="'Ajouter une icône'"
       [required]="true"
     >
-      <input type="text" pInputText formControlName="icon" />
+      <app-icon-uploader formControlName="icon"></app-icon-uploader>
     </app-form-control-presenter>
     <app-form-control-presenter
       [control]="formGroup.controls.libelle"
