@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { parseResponse } from "../helpers/zod.helper";
+import { PaginationDto } from "../models/PaginationDto";
 import { WorkflowCreateDto } from "../models/WorkflowCreateDto";
 import { WorkflowUpdateDto } from "../models/WorkflowUpdateDto";
 import { Workflow, WorkflowSchema } from "../zod/Workflow.zod";
@@ -17,9 +18,9 @@ export class WorkflowHttpService extends BaseHttpService {
         super('workflow');
     }
 
-    getAll(page: number, size: number): Observable<Workflow[]> {
+    getAll(page: number, size: number): Observable<PaginationDto<Workflow>> {
         const requestUrl = this.buildPaginatedRequest(page, size)
-        return this.http.get<Workflow[]>(requestUrl);
+        return this.http.get<PaginationDto<Workflow>>(requestUrl);
     }
 
     getOne(id: number): Observable<Workflow> {

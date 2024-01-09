@@ -20,7 +20,7 @@ export class ThemeHttpService extends BaseHttpService {
   }
 
   getPaginated(page: number, size: number): Observable<PaginationDto<Theme>> {
-    const requestUrl = this.buildPaginatedRequest(page, size)
+    const requestUrl = this.buildPaginatedRequest(page, size, 'paginated')
     return this.http.get<PaginationDto<Theme>>(requestUrl);
   }
 
@@ -29,11 +29,11 @@ export class ThemeHttpService extends BaseHttpService {
   }
 
   create(stepCreateDto: ThemeCreateDto): Observable<Theme> {
-    return this.http.post<Theme>(`${this.apiUrl}/create`, stepCreateDto).pipe(parseResponse(ThemeSchema));
+    return this.http.post<Theme>(`${this.apiUrl}`, stepCreateDto).pipe(parseResponse(ThemeSchema));
   }
 
   update(stepUpdateDto: ThemeUpdateDto): Observable<Theme> {
-    return this.http.put<Theme>(`${this.apiUrl}/update`, stepUpdateDto).pipe(parseResponse(ThemeSchema));
+    return this.http.put<Theme>(`${this.apiUrl}`, stepUpdateDto).pipe(parseResponse(ThemeSchema));
   }
 
   delete(id: number): Observable<boolean> {

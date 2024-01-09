@@ -6,8 +6,8 @@ import { ThemeStateActions } from './actions/theme.actions';
 import { ThemeStateModel } from './models/theme-state.model';
 
 export const initThemeStateModel: ThemeStateModel = {
-  themes: [],
-  pagination: { pageIndex: 0, pageSize: 5 }
+  themes: null,
+  pagination: { pageIndex: 1, pageSize: 5 }
 };
 
 @State<ThemeStateModel>({
@@ -20,7 +20,7 @@ export class ThemeState {
   constructor(private themeHttpService: ThemeHttpService) { }
 
   @Selector()
-  static getTheme(state: ThemeStateModel): Theme[] {
+  static getTheme(state: ThemeStateModel): PaginationDto<Theme> | null {
     return state.themes
   }
 
@@ -42,8 +42,8 @@ export class ThemeState {
     const pagination = action.paginationData;
     return this.themeHttpService.getPaginated(pagination.pageIndex, pagination.pageSize).pipe(
       tap((themes: PaginationDto<Theme>) => ctx.patchState({
-        themes: themes.results,
-        pagination: themes
+        themes: themes,
+        pagination: { pageIndex: themes.pageIndex, pageSize: themes.pageSize}
       }))
     )
   }

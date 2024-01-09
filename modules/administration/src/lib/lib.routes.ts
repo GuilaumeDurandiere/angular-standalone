@@ -4,6 +4,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ThemeState } from '../state/theme.state';
 import { AdministrationComponent } from './administration/administration.component';
 import { AdminSelectionComponent } from './administration/components/admin-selection/admin-selection.component';
+import { AdminThemeDetailComponent } from './administration/components/admin-theme-detail/admin-theme-detail.component';
 import { AdminThemeComponent } from './administration/components/admin-theme/admin-theme.component';
 import { AdminWorkflowComponent } from './administration/components/admin-workflow/admin-workflow.component';
 
@@ -37,6 +38,14 @@ export const administrationRoutes: Route[] = [
         providers: [importProvidersFrom(NgxsModule.forFeature([ThemeState]))],
         data: {
           breadcrumb: $localize`:@@WORKFLOW_TABLE:Tableau des themes`
+        }
+      },
+      {
+        path: 'theme/:id',
+        component: AdminThemeDetailComponent,
+        providers: [importProvidersFrom(NgxsModule.forFeature([ThemeState]))],
+        data: {
+          breadcrumb: $localize`:@@WORKFLOW_TABLE:Tableau des themes bis`
         }
       }
     ]

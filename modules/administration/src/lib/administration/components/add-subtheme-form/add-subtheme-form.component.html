@@ -5,13 +5,32 @@
     background="cyan"
   >
     <app-form-control-presenter
-      [control]="formGroup.controls.name"
-      [name]="'name'"
+      [control]="formGroup.controls.libelle"
+      [name]="'libelle'"
       [label]="'Nom du thème'"
       [required]="true"
     >
-      <input type="text" pInputText formControlName="name" />
+      <input type="text" pInputText formControlName="libelle" />
     </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.icon"
+      [name]="'icon'"
+      [label]="'Icon'"
+      [required]="true"
+    >
+      <app-icon-uploader formControlName="icon"></app-icon-uploader>
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.couleur"
+      [name]="'couleur'"
+      [label]="'couleur'"
+      [required]="true"
+    >
+      <p-colorPicker formControlName="couleur"></p-colorPicker>
+    </app-form-control-presenter>
+
     <app-form-control-presenter
       [control]="formGroup.controls.description"
       [name]="'description'"
@@ -19,5 +38,129 @@
     >
       <input type="text" pInputText formControlName="description" />
     </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.demandeType"
+      [name]="'demandeType'"
+      [label]="'Description de l\'étape'"
+    >
+      <div class="flex flex-wrap gap-3">
+        <div
+          *ngFor="let demandeType of demandeTypes"
+          class="flex align-items-center"
+        >
+          <p-radioButton
+            [inputId]="demandeType.key"
+            [value]="demandeType.key"
+            formControlName="demandeType"
+          ></p-radioButton>
+          <label [for]="demandeType.key" class="ml-2">{{
+            demandeType.value
+          }}</label>
+        </div>
+      </div>
+    </app-form-control-presenter>
+
+    @switch (formGroup.controls.demandeType.value) { @case
+    (demandeType.FORMULAIRE_SIMPLIFIE) {
+    <app-form-control-presenter
+      [control]="formGroup.controls.mailReferent"
+      [name]="'mailReferent'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="mailReferent" />
+    </app-form-control-presenter>
+    } @case (demandeType.DEMANDE_TRAVAUX) {
+    <app-form-control-presenter
+      [control]="formGroup.controls.workflowTravauxSimplifie"
+      [name]="'workflowTravauxSimplifie'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input
+        type="text"
+        pInputText
+        formControlName="workflowTravauxSimplifie"
+      />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.workflowId"
+      [name]="'workflowId'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="workflowId" />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.mailReferent"
+      [name]="'mailReferent'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="mailReferent" />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.accessibleATous"
+      [name]="'accessibleATous'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="accessibleATous" />
+    </app-form-control-presenter>
+
+    } @case (demandeType.DEMANDE_HORS_TRAVAUX) {
+    <app-form-control-presenter
+      [control]="formGroup.controls.workflowTravauxSimplifie"
+      [name]="'workflowTravauxSimplifie'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input
+        type="text"
+        pInputText
+        formControlName="workflowTravauxSimplifie"
+      />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.workflowId"
+      [name]="'workflowId'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="workflowId" />
+    </app-form-control-presenter>
+    <app-form-control-presenter
+      [control]="formGroup.controls.mailReferent"
+      [name]="'mailReferent'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="mailReferent" />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.accessibleATous"
+      [name]="'accessibleATous'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="accessibleATous" />
+    </app-form-control-presenter>
+
+    } @case (demandeType.LIEN_EXTERNE) {
+    <app-form-control-presenter
+      [control]="formGroup.controls.lienExterne"
+      [name]="'lienExterne'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="lienExterne" />
+    </app-form-control-presenter>
+    } }
   </app-form-group-presenter>
 </form>

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { PaginationDto } from 'modules/shared/src/models/PaginationDto';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ColumnCustom } from '../../../models/ColumnCustom';
@@ -18,7 +19,7 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
 
   @Output() loadPageData: EventEmitter<PaginationData> = new EventEmitter();
 
-  @Input() paginationData: unknown[] | undefined | null;
+  @Input() paginationData: PaginationDto<unknown> | null = null;
   @Input() columns: ColumnCustom[] = [];
 
   bodyTemplate: TemplateRef<unknown> | undefined = undefined;
@@ -28,7 +29,7 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
 
   @Input() autoLayout = false;
   @Input() loading = false;
-  @Input() first = 0;
+  @Input() first = 1;
   @Input() paginator = true;
   @Input() rowHover = true;
   @Input() rows = 5;
@@ -81,8 +82,13 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
   loadPagedData(event: TableLazyLoadEvent): void {
     this.loading = true;
 
+    let page = 0;
+    if (event.first && event.rows) {
+      page = ((event.first - 1) / event.rows) + 1;
+    }
+
     // Emit an event to notify parent component that a new page should be requested
-    this.loadPageData.emit({ pageIndex: event.first ?? 0, pageSize: event.rows ?? 5 });
+    this.loadPageData.emit({ pageIndex: page, pageSize: event.rows ?? 5 });
   }
 
   /**
@@ -102,12 +108,12 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
    * Sets the table options by extracting value from a PaginationDto<any>
    * @param data to analyse
    */
-  setTablePropertiesByPaginationDto(paginationDto: unknown[] | undefined | null): void {
+  setTablePropertiesByPaginationDto(paginationDto: PaginationDto<unknown> | null): void {
     if (paginationDto) {
-      this.tableItems = paginationDto ?? [];
-      // this.first = paginationDto.pageable.offset;
-      // this.rows = paginationDto.pageable.page_size;
-      // this.totalRecords = paginationDto.total_elements;
+      this.tableItems = paginationDto.results ?? [];
+      this.first = paginationDto.pageIndex * paginationDto.pageSize;
+      this.rows = paginationDto.pageSize;
+      this.totalRecords = paginationDto.totalPages;
 
       this.loading = false;
     }
