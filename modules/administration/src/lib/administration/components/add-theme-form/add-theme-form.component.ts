@@ -37,7 +37,7 @@ export class AddThemeFormComponent {
   }
 
   onAddSubTheme(): void {
-    this.formGroup.controls.subtheme.push(new FormControl<SubThemeFormValue>({ name: '', descritpion: '', icon: '', couleur: '' }, { nonNullable: true }));
+    this.formGroup.controls.subtheme.push(new FormControl<SubThemeFormValue>({ name: '', descritpion: '', icon: '', couleur: '', demandeType: null }, { nonNullable: true }));
   }
 
   cancel(): void {
