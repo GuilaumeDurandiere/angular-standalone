@@ -1,7 +1,7 @@
 export interface PaginationDto<T> {
   results: T[];
 
-  totalPages: number;
+  total: number;
   pageIndex: number;
   pageSize: number;
 }

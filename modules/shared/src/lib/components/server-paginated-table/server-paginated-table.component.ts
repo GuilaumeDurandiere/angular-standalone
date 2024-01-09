@@ -29,7 +29,7 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
 
   @Input() autoLayout = false;
   @Input() loading = false;
-  @Input() first = 1;
+  @Input() first = 0;
   @Input() paginator = true;
   @Input() rowHover = true;
   @Input() rows = 5;
@@ -82,10 +82,13 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
   loadPagedData(event: TableLazyLoadEvent): void {
     this.loading = true;
 
-    let page = 0;
+    // Start manage offset/page
+    let page = 1;
     if (event.first && event.rows) {
-      page = ((event.first - 1) / event.rows) + 1;
+      page = (event.first / event.rows) + 1;
     }
+    // End manage offset/page
+
 
     // Emit an event to notify parent component that a new page should be requested
     this.loadPageData.emit({ pageIndex: page, pageSize: event.rows ?? 5 });
@@ -110,10 +113,22 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
    */
   setTablePropertiesByPaginationDto(paginationDto: PaginationDto<unknown> | null): void {
     if (paginationDto) {
+
+      // Start manage offset/page 
+      const page = paginationDto.pageIndex - 1;
+      const size = paginationDto.pageSize;
+
+      let first = 0;
+      if (page && size) {
+        first = page * size;
+      }
+      // End manage offset/page 
+
+
+      this.first = first
+      this.rows = size;
       this.tableItems = paginationDto.results ?? [];
-      this.first = paginationDto.pageIndex * paginationDto.pageSize;
-      this.rows = paginationDto.pageSize;
-      this.totalRecords = paginationDto.totalPages;
+      this.totalRecords = 35;
 
       this.loading = false;
     }
