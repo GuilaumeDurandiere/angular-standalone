@@ -71,8 +71,48 @@
     >
       <input type="text" pInputText formControlName="mailReferent" />
     </app-form-control-presenter>
+    } @case (demandeType.DEMANDE_TRAVAUX) {
+    <app-form-control-presenter
+      [control]="formGroup.controls.workflowTravauxSimplifie"
+      [name]="'workflowTravauxSimplifie'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input
+        type="text"
+        pInputText
+        formControlName="workflowTravauxSimplifie"
+      />
+    </app-form-control-presenter>
 
-    } @case (demandeType.DEMANDE_HORS_TRAVAUX || demandeType.DEMANDE_TRAVAUX) {
+    <app-form-control-presenter
+      [control]="formGroup.controls.workflowId"
+      [name]="'workflowId'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="workflowId" />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.mailReferent"
+      [name]="'mailReferent'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="mailReferent" />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.accessibleATous"
+      [name]="'accessibleATous'"
+      [label]="'Nom du thème'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="accessibleATous" />
+    </app-form-control-presenter>
+
+    } @case (demandeType.DEMANDE_HORS_TRAVAUX) {
     <app-form-control-presenter
       [control]="formGroup.controls.workflowTravauxSimplifie"
       [name]="'workflowTravauxSimplifie'"
