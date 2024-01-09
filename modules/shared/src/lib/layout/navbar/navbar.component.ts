@@ -1,52 +1,63 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { BadgeModule } from 'primeng/badge';
+import { ButtonModule } from 'primeng/button';
+import { ToolbarModule } from 'primeng/toolbar';
+import { AvatarModule } from 'primeng/avatar';
+import { MenuModule } from 'primeng/menu';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, MenubarModule],
+  imports: [CommonModule, TabMenuModule, BadgeModule, ButtonModule, ToolbarModule, AvatarModule, MenuModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.less',
 })
 export class NavbarComponent {
-
   items: MenuItem[] = [
     {
-      label: $localize`:@@HOME_NAVBAR:Accueil`,
+      label: $localize`:@@HOME_NAVBAR:Accueil`.toUpperCase(),
       routerLink: ['/dashboard']
     },
     {
-      label: $localize`:@@BUSINESS_NAVBAR:Affaires`,
+      label: $localize`:@@BUSINESS_NAVBAR:Affaires`.toUpperCase(),
       routerLink: ['/business']
     },
     {
-      label: $localize`:@@DOCUMENTATION_NAVBAR:Documentation`,
+      label: $localize`:@@DOCUMENTATION_NAVBAR:Documentation`.toUpperCase(),
       routerLink: ['/documentation']
     },
     {
-      label: $localize`:@@LINKS_NAVBAR:Liens utiles`,
+      label: $localize`:@@LINKS_NAVBAR:Liens utiles`.toUpperCase(),
       routerLink: ['/link']
     },
     {
-      label: $localize`:@@INFORMATION_NAVBAR:Informations et services`,
+      label: $localize`:@@INFORMATION_NAVBAR:Informations et services`.toUpperCase(),
       routerLink: ['/contact']
     },
     {
-      label: $localize`:@@ADMINISTRATION_NAVBAR:Administration`,
+      label: $localize`:@@ADMINISTRATION_NAVBAR:Administration`.toUpperCase(),
       routerLink: ['/administration']
+    }
+  ];
+
+  notifications: MenuItem[] = [
+    {
+      label: 'Notification 1',
     },
     {
-      label: $localize`:@@NEW_BUSINESS_NAVBAR:Demande d'affaire`,
-      routerLink: ['/business-request']
+      label: 'Notification 2',
+    }
+  ];
+
+  profileMenu: MenuItem[] = [
+    {
+      label: $localize`:@@INFORMATION:Informations`,
     },
     {
-      icon: 'pi pi-bell'
-    },
-    {
-      label: 'Nom_prenom',
-      routerLink: ['/profile']
+      label: $localize`:@@DECONNECTION:Déconnexion`,
     }
   ];
 }
