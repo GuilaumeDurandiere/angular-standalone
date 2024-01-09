@@ -128,7 +128,7 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
       this.first = first
       this.rows = size;
       this.tableItems = paginationDto.results ?? [];
-      this.totalRecords = 35;
+      this.totalRecords = paginationDto.total;
 
       this.loading = false;
     }
