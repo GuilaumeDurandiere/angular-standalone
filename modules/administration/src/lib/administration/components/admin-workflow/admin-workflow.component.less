@@ -1,22 +1,14 @@
+@import '_colors.less';
+
 .title {
   font-weight: 700;
   font-size: xx-large;
   line-height: 18px;
 }
-
 .desactivated {
-  color: #8c90a1;
+  color: @lightgrey;
 }
-
-:host ::ng-deep .modify-copy-icon button:focus {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #1ea5b4, 0 1px 2px 0 black;
-}
-
-:host ::ng-deep .delete-icon button:focus {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #e14b0a, 0 1px 2px 0 black;
-}
-
 :host ::ng-deep .p-paginator-pages .p-highlight {
   background-color: rgba(50, 185, 200, 0.1);
-  color: #1ea5b4;
+  color: @cyan;
 }
