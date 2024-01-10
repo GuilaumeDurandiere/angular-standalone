@@ -28,10 +28,10 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
 
   @Input() autoLayout = false;
   @Input() loading = false;
-  @Input() first = 0;
+  @Input() first = 1;
   @Input() paginator = true;
   @Input() rowHover = true;
-  @Input() rows = 5;
+  @Input() rows = 15;
   @Input() rowsPerPageOptions = [5, 10, 20, 30, 50];
   @Input() sortField = '';
   @Input() sortOrder = 1;
@@ -82,7 +82,7 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
     this.loading = true;
 
     // Emit an event to notify parent component that a new page should be requested
-    this.loadPageData.emit({ pageIndex: event.first ?? 0, pageSize: event.rows ?? 5 });
+    this.loadPageData.emit({ pageIndex: event.first ?? 1, pageSize: event.rows ?? 15 });
   }
 
   /**

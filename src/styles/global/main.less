@@ -8,9 +8,15 @@
   &.modify-copy-icon > button {
     color: @cyan;
   }
+  &.modify-copy-icon > button:focus {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px @cyan, 0 1px 2px 0 black;
+  }
 
   &.delete-icon > button {
     color: @red;
+  }
+  &.delete-icon > button:focus {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px @red, 0 1px 2px 0 black;
   }
 }
 
@@ -22,7 +28,7 @@
   margin-right: -3px;
 
   .p-button-label {
-    font-size: @fs-title1;
+    font-size: @fs-normal;
     font-weight: @normal;
   }
 

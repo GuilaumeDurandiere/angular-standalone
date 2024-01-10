@@ -5,7 +5,6 @@ export const WorkflowSchema = z.object({
     id: z.number(),
     libelle: z.string(),
     actif: z.boolean(),
-    statut: z.string(),
     etapes: z.array(StepSchema),
 })
 

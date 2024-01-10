@@ -1,0 +1,16 @@
+<form [formGroup]="substepForm">
+    <app-form-control-presenter
+        [control]="substepForm.controls.libelle"
+        [name]="'substepName'"
+        [label]="'Nom de la sous-étape'"
+    >
+        <input type="text" pInputText formControlName="libelle" />
+    </app-form-control-presenter>
+    <app-form-control-presenter
+        [control]="substepForm.controls.description"
+        [name]="'substepDescription'"
+        [label]="'Description de la sous-étape'"
+    >
+        <input type="text" pInputText formControlName="description" />
+    </app-form-control-presenter>
+</form>

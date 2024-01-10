@@ -25,11 +25,13 @@
     [totalRecords]="totalRecords"
     [value]="tableItems"
     [paginatorDropdownAppendTo]="'body'"
+    paginatorLocale="fr-FR"
     responsiveLayout="scroll"
+    selectionMode="single"
   >
     <ng-template pTemplate="colgroup" *ngIf="resizeCol">
       <colgroup>
-        <col *ngFor="let col of columns; let i = index" [style]="col.size" />
+        <col *ngFor="let col of columns; let i = index" />
       </colgroup>
     </ng-template>
 
@@ -48,6 +50,7 @@
             [pSortableColumn]="col.field"
             [pSortableColumnDisabled]="!col.sort"
             class="headerCells"
+            [style]="col.style"
           >
             <ng-container>{{ col.header }}</ng-container>
             <p-sortIcon *ngIf="col.sort" field="{{ col.field }}"></p-sortIcon>

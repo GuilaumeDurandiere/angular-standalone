@@ -8,6 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class BoolToStringPipe implements PipeTransform {
 
   transform(value: unknown): string {
-    return value ? $localize`:@@YES:Oui` : $localize`:@@NO:Non`;
+    return value ? $localize`:@@ACTIVATED:Activé` : $localize`:@@DESACTIVATED:Désactivé`;
   }
 }

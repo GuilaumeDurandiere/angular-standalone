@@ -11,21 +11,18 @@
         pRipple
         i18n-label="@@CREATE_WORKFLOW"
         label="Créer un workflow"
-        icon="pi pi-pencil"
+        icon="pi pi-plus-circle"
         class="generic-button"
       ></button>
     </div>
   </div>
-  <!-- [lazy]="true"
-      (onLazyLoad)="getAll($event)"
-  -->
   <app-server-paginated-table
     [columns]="columns"
     [paginationData]="workflows$ | async"
     (loadPageData)="loadPageData($event)"
   >
     <ng-template pTemplate="body" let-item>
-      <tr class="dataRow">
+      <tr class="dataRow" (click)="selectRow(item.id)">
         <td *ngFor="let col of columns; let i = index">
           <ng-container [ngSwitch]="col.field">
             <ng-container *ngSwitchCase="'name'">
