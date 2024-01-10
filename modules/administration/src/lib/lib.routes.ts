@@ -43,11 +43,27 @@ export const administrationRoutes: Route[] = [
       },
       {
         path: 'theme',
-        component: AdminThemeComponent,
-        providers: [importProvidersFrom(NgxsModule.forFeature([ThemeState]))],
         data: {
           breadcrumb: $localize`:@@WORKFLOW_TABLE:Tableau des themes`
-        }
+        },
+        children: [
+          {
+            path: '',
+            component: AdminThemeComponent,
+            providers: [importProvidersFrom(NgxsModule.forFeature([ThemeState]))],
+            data: {
+              breadcrumb: null
+            }
+          },
+          {
+            path: ':id',
+            component: AdminThemeComponent,
+            providers: [importProvidersFrom(NgxsModule.forFeature([ThemeState]))],
+            data: {
+              breadcrumb: $localize`:@@WORKFLOW_TABLE:detail`
+            }
+          }
+        ]
       }
     ]
   },
