@@ -1,5 +1,5 @@
 export interface SubstepCreateDto {
-    libelle: string;
-    description?: string;
-    etapeId?: number;
+    libelle?: string | null;
+    description?: string | null;
+    etapeId?: number | null;
 };

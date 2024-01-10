@@ -7,7 +7,8 @@ import { AdminSelectionComponent } from './administration/components/admin-selec
 import { AdminThemeComponent } from './administration/components/admin-theme/admin-theme.component';
 import { AdminWorkflowComponent } from './administration/components/admin-workflow/admin-workflow.component';
 import { AdminStepComponent } from './administration/components/admin-step/admin-step.component';
-import { workflowResolver } from '@te44-front/shared';
+import { WorkflowState } from '../state/workflow.state';
+import { workflowResolver } from '../resolvers/WorkflowResolver';
 
 export const administrationRoutes: Route[] = [
   {
@@ -28,18 +29,28 @@ export const administrationRoutes: Route[] = [
       },
       {
         path: 'workflow',
-        component: AdminWorkflowComponent,
         data: {
           breadcrumb: $localize`:@@WORKFLOW_TABLE:Tableau des workflow`
         },
-      },
-      {
-        path: 'workflow/:id',
-        component: AdminStepComponent,
-        resolve: { workflow: workflowResolver },
-        data: {
-          breadcrumb: (data: any) => `${data.workflow.libelle}`,
-        },
+        children: [
+          {
+            path: '',
+            component: AdminWorkflowComponent,
+            providers: [importProvidersFrom(NgxsModule.forFeature([WorkflowState]))],
+            data: {
+              breadcrumb: null
+            }
+          },
+          {
+            path: ':id',
+            component: AdminStepComponent,
+            providers: [importProvidersFrom(NgxsModule.forFeature([WorkflowState]))],
+            resolve: { workflow: workflowResolver },
+            data: {
+              breadcrumb: (data: any) => `${data.workflow.libelle}`,
+            },
+          }
+        ]
       },
       {
         path: 'theme',

@@ -1,3 +1,5 @@
+@import '_colors.less';
+
 .title {
     font-weight: 700;
     font-size: xx-large;
@@ -7,11 +9,11 @@
     font-weight: 700;
     font-size: x-large;
     line-height: 24px;
-    color: #005186;
+    color: @darkblue;
 }
 .addStepButton {
     background: none;
-    color: #005186;
+    color: @darkblue;
     font-weight: 400;
     line-height: 18px;
     font-size: 16px;
@@ -23,18 +25,18 @@
 }
 :host ::ng-deep .infoContainer > div > div {
     background-color: #EBF7FF;
-    border: solid #005186;
+    border: solid @bd-darkblue;
     border-width: 0 0 0 6px;
 }
 .infoIcon {
-    color: #005186;
+    color: @darkblue;
 }
 .infoMessage {
-    color: #005186;
+    color: @darkblue;
     margin-left: 0.5rem;
 }
 .goBackButton {
-    background-color: #005186;
+    background-color: @bg-darkblue;
     border: none;
     margin-right: -3px;
 }
@@ -47,23 +49,23 @@
     border-bottom: 1px solid rgba(50,185,200,0.1);
 }
 :host ::ng-deep tbody tr td {
-    border-bottom: 1px solid #1EA5B4;
+    border-bottom: 1px solid @bd-cyan;
     padding: 0 0 0 1rem;
     cursor: pointer;
 }
 :host ::ng-deep .modifyIcon button {
-    color: #1EA5B4;
+    color: @cyan;
 }
 :host ::ng-deep .modifyIcon button:focus {
-    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #1EA5B4, 0 1px 2px 0 black;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px @cyan, 0 1px 2px 0 black;
 }
 :host ::ng-deep .deleteIcon button {
-    color: #E14B0A;
+    color: @red;
 }
 :host ::ng-deep .deleteIcon button:focus {
-    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #E14B0A, 0 1px 2px 0 black;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px @red, 0 1px 2px 0 black;
 }
 :host ::ng-deep .p-paginator-pages .p-highlight {
     background-color: rgba(50,185,200,0.1);
-    color: #1EA5B4;
+    color: @cyan;
 }

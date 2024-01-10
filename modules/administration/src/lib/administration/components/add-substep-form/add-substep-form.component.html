@@ -1,10 +1,16 @@
-<form [formGroup]="formGroup">
-    <div class="d-flex flex-column gap-2 mb-2">
-        <label for="substepName" class="label" i18n="@@SUBSTEP_NAME">Nom de la sous-étape</label>
-        <input pInputText id="substepName" formControlName="libelle" />
-    </div>
-    <div class="d-flex flex-column gap-2 mb-2">
-        <label for="substepDescription" class="label" i18n="@@SUBSTEP_DESCRIPTION">Description de la sous-étape <span class="facultative">(facultatif)</span></label>
-        <input pInputText id="substepDescription" formControlName="description" />
-    </div>
+<form [formGroup]="substepForm">
+    <app-form-control-presenter
+        [control]="substepForm.controls.libelle"
+        [name]="'substepName'"
+        [label]="'Nom de la sous-étape'"
+    >
+        <input type="text" pInputText formControlName="libelle" />
+    </app-form-control-presenter>
+    <app-form-control-presenter
+        [control]="substepForm.controls.description"
+        [name]="'substepDescription'"
+        [label]="'Description de la sous-étape'"
+    >
+        <input type="text" pInputText formControlName="description" />
+    </app-form-control-presenter>
 </form>

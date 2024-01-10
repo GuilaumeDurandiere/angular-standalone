@@ -1,5 +1,7 @@
+@import '_colors.less';
+
 .background {
-    background-color: #FEFEFE;
+    background-color: @bg-white;
 }
 ::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
     font-weight: 700;
@@ -14,18 +16,11 @@
     font-weight: 700;
     font-size: 20px;
     line-height: 24px;
-    color: #46505A;
+    color: @darkgrey;
 }
 .facultative {
-    color: #8C90A1;
+    color: @lightgrey;
     font-weight: 400;
-}
-.step-container {
-    box-shadow: 0 0 5px 0 rgba(68, 80, 85, 0.25);
-}
-.label {
-    font-size: 14px;
-    line-height: 12px;
 }
 .substep-container {
     background-color: rgba(50,185,200,0.1);
@@ -37,7 +32,7 @@
 }
 .add-substep-button {
     background: none;
-    color: #005186;
+    color: @darkblue;
     line-height: 18px;
     font-size: 16px;
     border: none;
@@ -47,18 +42,10 @@
 }
 .cancel-button {
     background: none;
-    border: 1px solid #005186;
-    color: #005186;
+    border: 1px solid @darkblue;
+    color: @darkblue;
 }
 :host ::ng-deep .cancel-button .p-button-label {
-    font-size: medium;
-    font-weight: 400;
-}
-.add-step-button {
-    background-color: #005186;
-    border: none;
-}
-:host ::ng-deep .add-step-button .p-button-label {
     font-size: medium;
     font-weight: 400;
 }

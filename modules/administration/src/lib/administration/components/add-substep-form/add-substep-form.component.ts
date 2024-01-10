@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { Subject, Subscription } from 'rxjs';
-import { SubstepForm, SubstepFormValue } from '@te44-front/shared';
+import { FormControlPresenterComponent, SubstepForm, SubstepFormValue } from '@te44-front/shared';
 
 @Component({
   selector: 'app-add-substep-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule, FormControlPresenterComponent],
   templateUrl: './add-substep-form.component.html',
   styleUrl: './add-substep-form.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,8 +19,7 @@ import { SubstepForm, SubstepFormValue } from '@te44-front/shared';
 })
 export class AddSubstepFormComponent implements ControlValueAccessor, OnDestroy, Validator {
   destroy$ = new Subject<void>();
-
-  formGroup: FormGroup<SubstepForm> = this.formBuilder.group<SubstepForm>({
+  substepForm: FormGroup<SubstepForm> = this.formBuilder.group<SubstepForm>({
     libelle: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string>('', { nonNullable: true }),
   })
@@ -31,13 +30,13 @@ export class AddSubstepFormComponent implements ControlValueAccessor, OnDestroy,
   constructor(private formBuilder: FormBuilder) { }
 
   registerOnChange(fn: any): void {
-    const sub = this.formGroup.valueChanges.subscribe(fn);
+    const sub = this.substepForm.valueChanges.subscribe(fn);
     this.onChangeSubs.push(sub);
   }
 
   writeValue(value: SubstepFormValue): void {
     if (value) {
-      this.formGroup.patchValue({ ...value });
+      this.substepForm.patchValue({ ...value });
     }
   }
 
@@ -47,9 +46,9 @@ export class AddSubstepFormComponent implements ControlValueAccessor, OnDestroy,
 
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.formGroup.disable();
+      this.substepForm.disable();
     } else {
-      this.formGroup.enable();
+      this.substepForm.enable();
     }
   }
 
