@@ -18,7 +18,6 @@ import { ModalDuplicateWorkflow } from '../modal-duplicate-workflow/modal-duplic
   imports: [CommonModule, ButtonModule, TableModule, ServerPaginatedTableComponent, SharedModule, BoolToStringPipe, RouterModule],
   templateUrl: './admin-workflow.component.html',
   styleUrl: './admin-workflow.component.less',
-  providers: [DialogService],
 })
 
 export class AdminWorkflowComponent {
@@ -35,7 +34,7 @@ export class AdminWorkflowComponent {
 
   constructor(private router: Router, private store: Store, public dialogService: DialogService) { }
   selectRow(id: number): void {
-    // this.router.navigate([`/administration/workflow/${id}`]);
+    this.router.navigate([`/administration/workflow/${id}`]);
   }
 
   loadPageData(event: PaginationData): void {
