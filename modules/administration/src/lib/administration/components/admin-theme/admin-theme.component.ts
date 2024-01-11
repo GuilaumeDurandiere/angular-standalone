@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { BoolToStringPipe, ColumnCustom, PaginationData, ServerPaginatedTableComponent, ThemeFormValue } from '@te44-front/shared';
+import { BoolToStringPipe, ColumnCustom, PaginationData, PaginationDto, ServerPaginatedTableComponent, Theme, ThemeFormValue } from '@te44-front/shared';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
-import { filter, take } from 'rxjs';
+import { Observable, filter, take } from 'rxjs';
 import { ThemeStateActions } from '../../../../state/actions/theme.actions';
 import { ThemeState } from '../../../../state/theme.state';
 import { ModalAddThemeComponent } from '../modal-add-theme/modal-add-theme.component';
@@ -26,7 +26,7 @@ import { ModalAddThemeComponent } from '../modal-add-theme/modal-add-theme.compo
   styleUrl: './admin-theme.component.less',
 })
 export class AdminThemeComponent {
-  theme$ = this.store.select(ThemeState.getTheme);
+  theme$: Observable<PaginationDto<Theme> | null> = this.store.select(ThemeState.getTheme);
 
   dialog: DynamicDialogRef | null = null;
 

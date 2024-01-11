@@ -1,0 +1,16 @@
+<p-fileUpload
+  mode="basic"
+  name="icon"
+  accept=".png,.svg"
+  [auto]="true"
+  [customUpload]="true"
+  (uploadHandler)="myUploader($event)"
+>
+  <ng-template pTemplate="chooseicon">
+    @if(icon) {
+    <img [src]="icon" class="white-icon" />
+    } @else {
+    <i class="pi pi-plus"></i>
+    }
+  </ng-template>
+</p-fileUpload>

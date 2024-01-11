@@ -1,7 +1,7 @@
-import { PaginationData, Workflow } from "@te44-front/shared";
+import { PaginationData, PaginationDto, Workflow } from "@te44-front/shared";
 
 export interface WorkflowStateModel {
-  workflows: Workflow[];
+  workflows: PaginationDto<Workflow> | null;
   workflow: Workflow | null;
   pagination: PaginationData;
 }

@@ -5,13 +5,32 @@
     background="cyan"
   >
     <app-form-control-presenter
-      [control]="formGroup.controls.name"
-      [name]="'name'"
+      [control]="formGroup.controls.libelle"
+      [name]="'libelle'"
       [label]="'Nom du thème'"
       [required]="true"
     >
-      <input type="text" pInputText formControlName="name" />
+      <input type="text" pInputText formControlName="libelle" />
     </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.icon"
+      [name]="'icon'"
+      [label]="'Icon'"
+      [required]="true"
+    >
+      <app-icon-uploader formControlName="icon"></app-icon-uploader>
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.couleur"
+      [name]="'couleur'"
+      [label]="'couleur'"
+      [required]="true"
+    >
+      <p-colorPicker formControlName="couleur"></p-colorPicker>
+    </app-form-control-presenter>
+
     <app-form-control-presenter
       [control]="formGroup.controls.description"
       [name]="'description'"
@@ -19,5 +38,136 @@
     >
       <input type="text" pInputText formControlName="description" />
     </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.refTypeOffreId"
+      [name]="'refTypeOffreId'"
+      [label]="'Description de l\'étape'"
+    >
+      <div class="flex flex-wrap gap-3">
+        <div *ngFor="let offer of offerTypes" class="flex align-items-center">
+          <p-radioButton
+            [inputId]="offer.key.toString()"
+            [value]="offer.key"
+            formControlName="refTypeOffreId"
+          ></p-radioButton>
+          <label [for]="offer.key" class="ml-2">{{ offer.value }}</label>
+        </div>
+      </div>
+    </app-form-control-presenter>
+
+    @switch (formGroup.controls.refTypeOffreId.value) { @case
+    (offerType.FORMULAIRE_SIMPLIFIE) {
+    <app-form-control-presenter
+      [control]="formGroup.controls.mailReferent"
+      [name]="'mailReferent'"
+      [label]="'Mail référent'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="mailReferent" />
+    </app-form-control-presenter>
+    } @case (offerType.DEMANDE_TRAVAUX) {
+    <app-form-control-presenter
+      [control]="formGroup.controls.workflowTravauxSimplifie"
+      [name]="'workflowTravauxSimplifie'"
+      [label]="'Type de workflow'"
+      [required]="true"
+    >
+      <input
+        type="text"
+        pInputText
+        formControlName="workflowTravauxSimplifie"
+      />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.workflowId"
+      [name]="'workflowId'"
+      [label]="'Worfklow lié'"
+      [required]="true"
+    >
+      <p-dropdown
+        *ngIf="workflow$ | async as workflows"
+        [options]="workflows"
+        optionLabel="libelle"
+        optionValue="id"
+        formControlName="workflowId"
+      ></p-dropdown>
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.mailReferent"
+      [name]="'mailReferent'"
+      [label]="'Mail référent'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="mailReferent" />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.accessibleATous"
+      [name]="'accessibleATous'"
+      [label]="'Accessible à tous'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="accessibleATous" />
+    </app-form-control-presenter>
+
+    } @case (offerType.DEMANDE_HORS_TRAVAUX) {
+    <app-form-control-presenter
+      [control]="formGroup.controls.workflowTravauxSimplifie"
+      [name]="'workflowTravauxSimplifie'"
+      [label]="'Type de workflow'"
+      [required]="true"
+    >
+      <input
+        type="text"
+        pInputText
+        formControlName="workflowTravauxSimplifie"
+      />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.workflowId"
+      [name]="'workflowId'"
+      [label]="'Worfklow lié'"
+      [required]="true"
+    >
+      <p-dropdown
+        *ngIf="workflow$ | async as workflows"
+        [options]="workflows"
+        optionLabel="libelle"
+        optionValue="id"
+        formControlName="workflowId"
+      ></p-dropdown>
+    </app-form-control-presenter>
+    <app-form-control-presenter
+      [control]="formGroup.controls.mailReferent"
+      [name]="'mailReferent'"
+      [label]="'Mail référent'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="mailReferent" />
+    </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.accessibleATous"
+      [name]="'accessibleATous'"
+      [label]="'Accessible à tous'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="accessibleATous" />
+    </app-form-control-presenter>
+
+    } @case (offerType.LIEN_EXTERNE) {
+    <app-form-control-presenter
+      [control]="formGroup.controls.lienExterne"
+      [name]="'lienExterne'"
+      [label]="'Lien externe'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="lienExterne" />
+    </app-form-control-presenter>
+    } }
   </app-form-group-presenter>
 </form>
