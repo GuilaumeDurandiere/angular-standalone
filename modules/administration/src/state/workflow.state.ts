@@ -6,7 +6,7 @@ import { WorkflowStateActions } from './actions/workflow.actions';
 import { WorkflowStateModel } from './models/workflow-state.model';
 
 export const initWorkflowStateModel: WorkflowStateModel = {
-  workflows: [],
+  workflows: null,
   workflow: null,
   pagination: { pageIndex: 1, pageSize: 15 }
 };
@@ -21,7 +21,7 @@ export class WorkflowState {
   constructor(private workflowHttpService: WorkflowHttpService) { }
 
   @Selector()
-  static getWorkflows(state: WorkflowStateModel): Workflow[] {
+  static getWorkflows(state: WorkflowStateModel): PaginationDto<Workflow> | null {
     return state.workflows;
   }
 
@@ -34,6 +34,13 @@ export class WorkflowState {
   init(ctx: StateContext<WorkflowStateModel>) {
     const pagination = ctx.getState().pagination
     ctx.dispatch(new WorkflowStateActions.LoadPageData(pagination))
+  }
+
+  @Action(WorkflowStateActions.InitWorkflow)
+  initWorkflow(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.InitWorkflow) {
+    return this.workflowHttpService.getOne(action.id).pipe(
+      tap((workflow: Workflow) => ctx.patchState({ workflow }))
+    )
   }
 
   @Action(WorkflowStateActions.Create)
@@ -62,8 +69,8 @@ export class WorkflowState {
     const pagination = action.paginationData;
     return this.workflowHttpService.getAll(pagination.pageIndex, pagination.pageSize).pipe(
       tap((workflows: PaginationDto<Workflow>) => ctx.patchState({
-        workflows: workflows.results,
-        pagination: { pageIndex: workflows.pageIndex, pageSize: workflows.pageSize}
+        workflows: workflows,
+        pagination: { pageIndex: workflows.pageIndex, pageSize: workflows.pageSize }
       }))
     )
   }

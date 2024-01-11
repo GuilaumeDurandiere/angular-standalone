@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { BoolToStringPipe, ColumnCustom, PaginationData, ServerPaginatedTableComponent, Workflow } from '@te44-front/shared';
+import { BoolToStringPipe, ColumnCustom, PaginationData, PaginationDto, ServerPaginatedTableComponent, Workflow } from '@te44-front/shared';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -18,7 +18,7 @@ import { WorkflowState } from '../../../../state/workflow.state';
   styleUrl: './admin-workflow.component.less',
 })
 export class AdminWorkflowComponent {
-  workflows$: Observable<Workflow[]> = this.store.select(WorkflowState.getWorkflows);
+  workflows$: Observable<PaginationDto<Workflow> | null> = this.store.select(WorkflowState.getWorkflows);
 
   columns: ColumnCustom[] = [
     { field: 'name', header: $localize`:@@NAME:Nom`, sort: true, style: 'width: 20%;' },

@@ -29,11 +29,11 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
 
   @Input() autoLayout = false;
   @Input() loading = false;
-  @Input() first = 1;
+  @Input() first = 0;
   @Input() paginator = true;
   @Input() rowHover = true;
   @Input() rows = 15;
-  @Input() rowsPerPageOptions = [5, 10, 20, 30, 50];
+  @Input() rowsPerPageOptions = [5, 15, 30, 50];
   @Input() sortField = '';
   @Input() sortOrder = 1;
   @Input() totalRecords = 0;
