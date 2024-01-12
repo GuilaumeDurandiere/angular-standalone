@@ -9,6 +9,8 @@ import { TableModule } from 'primeng/table';
 import { Observable } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { WorkflowState } from '../../../../state/workflow.state';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ModalDuplicateWorkflow } from '../modal-duplicate-workflow/modal-duplicate-workflow.component';
 
 @Component({
   selector: 'app-admin-workflow',
@@ -17,6 +19,7 @@ import { WorkflowState } from '../../../../state/workflow.state';
   templateUrl: './admin-workflow.component.html',
   styleUrl: './admin-workflow.component.less',
 })
+
 export class AdminWorkflowComponent {
   workflows$: Observable<PaginationDto<Workflow> | null> = this.store.select(WorkflowState.getWorkflows);
 
@@ -27,8 +30,9 @@ export class AdminWorkflowComponent {
     { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: true, style: 'width: 15%;' },
   ];
 
-  constructor(private router: Router, private store: Store) { }
+  ref: DynamicDialogRef | undefined;
 
+  constructor(private router: Router, private store: Store, public dialogService: DialogService) { }
   selectRow(id: number): void {
     this.router.navigate([`/administration/workflow/${id}`]);
   }
@@ -36,4 +40,9 @@ export class AdminWorkflowComponent {
   loadPageData(event: PaginationData): void {
     this.store.dispatch(new WorkflowStateActions.LoadPageData(event));
   }
+
+  show(id: number, name: string) {
+    this.ref = this.dialogService.open(ModalDuplicateWorkflow, {data: { workflowId: id, workflowName: name }});
+}
+
 }
