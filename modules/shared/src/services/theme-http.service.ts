@@ -25,7 +25,7 @@ export class ThemeHttpService extends BaseHttpService {
   }
 
   get(id: number): Observable<Theme> {
-    return this.http.get<Theme>(`${this.apiUrl}/${id}`).pipe(parseResponse(ThemeSchema));
+    return this.http.get<Theme>(`${this.apiUrl}/${id}`);
   }
 
   create(stepCreateDto: ThemeCreateDto): Observable<Theme> {

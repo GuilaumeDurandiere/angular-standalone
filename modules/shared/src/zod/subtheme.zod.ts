@@ -1,9 +1,8 @@
 import { z } from 'zod';
-import { OfferTypeEnum } from '../models/_index';
 
 const workflowItemResponseSchema = z.object({
-  id: z.number(),
-  libelle: z.string()
+  id: z.number().optional(),
+  libelle: z.string().optional()
 })
 
 const refOfferTypeSchema = z.object({
@@ -15,7 +14,6 @@ const refOfferTypeSchema = z.object({
 export const subthemeSchema = z.object({
   accessibleATous: z.boolean(),
   couleur: z.string(),
-  refTypeOffreId: z.nativeEnum(OfferTypeEnum),
   description: z.string().optional(),
   icone: z.string(),
   id: z.number(),
@@ -24,7 +22,7 @@ export const subthemeSchema = z.object({
   mailReferent: z.string().optional(),
   workflowTravauxSimplifie: z.boolean(),
   workflow: workflowItemResponseSchema.optional(),
-  refTyOffre: refOfferTypeSchema.optional(),
+  refTypeOffre: refOfferTypeSchema,
 })
 
 

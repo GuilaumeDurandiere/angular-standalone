@@ -22,7 +22,7 @@
     (loadPageData)="loadPageData($event)"
   >
     <ng-template pTemplate="body" let-item>
-      <tr class="dataRow" (click)="selectRow(item.id)">
+      <tr class="dataRow" [routerLink]="['/administration/workflow/', item.id]">
         <td *ngFor="let col of columns; let i = index">
           <ng-container [ngSwitch]="col.field">
             <ng-container *ngSwitchCase="'name'">

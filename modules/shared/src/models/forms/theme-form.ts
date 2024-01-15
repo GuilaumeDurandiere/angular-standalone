@@ -2,14 +2,14 @@ import { FormArray, FormControl } from "@angular/forms";
 import { SubThemeForm } from "./sub-theme-form";
 
 export interface ThemeForm {
-  icon: FormControl<string>;
+  icone: FormControl<string>;
   libelle: FormControl<string>;
   description: FormControl<string>;
   sousThemes: FormArray;
 };
 
 export interface ThemeFormValue {
-  icon: string;
+  icone: string;
   libelle: string;
   description: string;
   sousThemes: SubThemeForm[];
