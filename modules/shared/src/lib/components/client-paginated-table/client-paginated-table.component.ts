@@ -33,7 +33,7 @@ export class ClientPaginatedTableComponent implements AfterContentInit {
   @Input() first = 0;
   @Input() paginator = true;
   @Input() rowHover = true;
-  @Input() rows = 5;
+  @Input() rows = 15;
   @Input() rowsPerPageOptions = [5, 10, 20, 30, 50];
   @Input() sortField = '';
   @Input() sortOrder = 1;

@@ -81,10 +81,6 @@ export class AdminThemeDetailComponent {
     private store: Store,
   ) { }
 
-  addSubtheme(themeId: number | undefined): void {
-    console.log(themeId);
-  }
-
   openModalAddSubtheme(themeId: number | undefined): void {
     if (!themeId) {
       return;
@@ -134,7 +130,7 @@ export class AdminThemeDetailComponent {
 
   deleteSubtheme(subthemeId: number, libelle: string): void {
     this.confirmationService.confirm({
-      message: $localize`:@@CONFIRMATION_MESSAGE:Voulez-vous vraiment supprimer le sous-thème ${libelle} ?`,
+      message: $localize`:@@CONFIRMATION_MESSAGE_SUBTHEME:Voulez-vous vraiment supprimer le sous-thème ${libelle} ?`,
       header: $localize`:@@CONFIRMATION_HEADER:Confirmation de suppression`,
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: "p-button-danger p-button-text",
