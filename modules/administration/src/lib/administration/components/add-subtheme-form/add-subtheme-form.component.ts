@@ -5,6 +5,7 @@ import { Store } from '@ngxs/store';
 import { FormControlPresenterComponent, FormGroupPresenterComponent, IconUploaderComponent, OfferTypeEnum, SubThemeForm, SubThemeFormValue } from '@te44-front/shared';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { Subject, Subscription, filter, tap } from 'rxjs';
@@ -22,6 +23,7 @@ import { ThemeState } from '../../../../state/theme.state';
     FormControlPresenterComponent,
     FormGroupPresenterComponent,
     IconUploaderComponent,
+    InputSwitchModule,
     InputTextModule,
     RadioButtonModule,
     ReactiveFormsModule,
@@ -41,7 +43,7 @@ export class AddSubthemeFormComponent implements ControlValueAccessor, OnDestroy
   formGroup: FormGroup<SubThemeForm> = this.formBuilder.group<SubThemeForm>({
     libelle: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string>('', { nonNullable: true }),
-    icon: new FormControl<string>('', { nonNullable: true }),
+    icone: new FormControl<string>('', { nonNullable: true }),
     couleur: new FormControl<string>('', { nonNullable: true }),
     refTypeOffreId: new FormControl<OfferTypeEnum>(OfferTypeEnum.FORMULAIRE_SIMPLIFIE, { nonNullable: true }),
   })
@@ -60,7 +62,6 @@ export class AddSubthemeFormComponent implements ControlValueAccessor, OnDestroy
   constructor(private formBuilder: FormBuilder, private store: Store) {
     this.subscribeToDemandeTypeChange();
     this.store.dispatch(new ThemeStateActions.InitWorflow())
-
   }
 
   registerOnChange(fn: (arg: unknown) => void): void {

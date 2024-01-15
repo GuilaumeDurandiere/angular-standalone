@@ -1,14 +1,6 @@
 <form [formGroup]="formGroup">
   <app-form-group-presenter [title]="'Information du thème'">
     <app-form-control-presenter
-      [control]="formGroup.controls.icon"
-      [name]="'icon'"
-      [label]="'Ajouter une icône'"
-      [required]="true"
-    >
-      <app-icon-uploader formControlName="icon"></app-icon-uploader>
-    </app-form-control-presenter>
-    <app-form-control-presenter
       [control]="formGroup.controls.libelle"
       [name]="'libelle'"
       [label]="'Nom du thème'"
@@ -16,6 +8,16 @@
     >
       <input type="text" pInputText formControlName="libelle" />
     </app-form-control-presenter>
+
+    <app-form-control-presenter
+      [control]="formGroup.controls.icone"
+      [name]="'icone'"
+      [label]="'Ajouter une icône'"
+      [required]="true"
+    >
+      <app-icon-uploader formControlName="icone"></app-icon-uploader>
+    </app-form-control-presenter>
+
     <app-form-control-presenter
       [control]="formGroup.controls.description"
       [name]="'description'"
@@ -24,7 +26,7 @@
       <input type="text" pInputText formControlName="description" />
     </app-form-control-presenter>
 
-    <div formArrayName="sousThemes">
+    <div formArrayName="sousThemes" *ngIf="addTheme">
       <div
         class="form-group"
         *ngFor="let control of formSubtheme.controls; let i = index"

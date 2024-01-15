@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { BoolToStringPipe, ColumnCustom, PaginationData, PaginationDto, ServerPaginatedTableComponent, Workflow } from '@te44-front/shared';
 import { SharedModule } from 'primeng/api';
@@ -15,7 +15,7 @@ import { ModalDuplicateWorkflow } from '../modal-duplicate-workflow/modal-duplic
 @Component({
   selector: 'app-admin-workflow',
   standalone: true,
-  imports: [CommonModule, ButtonModule, TableModule, ServerPaginatedTableComponent, SharedModule, BoolToStringPipe],
+  imports: [CommonModule, ButtonModule, TableModule, ServerPaginatedTableComponent, SharedModule, BoolToStringPipe, RouterModule],
   templateUrl: './admin-workflow.component.html',
   styleUrl: './admin-workflow.component.less',
 })

@@ -1,12 +1,14 @@
 import { importProvidersFrom } from '@angular/core';
 import { Route } from '@angular/router';
 import { NgxsModule } from '@ngxs/store';
+import { subthemeResolver } from '../resolvers/subtheme.resolver';
 import { workflowResolver } from '../resolvers/workflow.resolver';
 import { ThemeState } from '../state/theme.state';
 import { WorkflowState } from '../state/workflow.state';
 import { AdministrationComponent } from './administration/administration.component';
 import { AdminSelectionComponent } from './administration/components/admin-selection/admin-selection.component';
 import { AdminStepComponent } from './administration/components/admin-step/admin-step.component';
+import { AdminThemeDetailComponent } from './administration/components/admin-theme-detail/admin-theme-detail.component';
 import { AdminThemeComponent } from './administration/components/admin-theme/admin-theme.component';
 import { AdminWorkflowComponent } from './administration/components/admin-workflow/admin-workflow.component';
 
@@ -44,7 +46,7 @@ export const administrationRoutes: Route[] = [
           {
             path: ':id',
             component: AdminStepComponent,
-            resolve: { workflow: workflowResolver },
+            resolve: { workflowResolver },
             data: {
               breadcrumb: (data: any) => `${data.workflow.libelle}`,
             },
@@ -67,7 +69,8 @@ export const administrationRoutes: Route[] = [
           },
           {
             path: ':id',
-            component: AdminThemeComponent,
+            component: AdminThemeDetailComponent,
+            resolve: { subthemeResolver },
             data: {
               breadcrumb: $localize`:@@WORKFLOW_TABLE:detail`
             }

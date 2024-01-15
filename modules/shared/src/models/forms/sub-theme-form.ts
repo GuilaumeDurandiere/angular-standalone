@@ -1,12 +1,11 @@
 import { FormControl } from "@angular/forms";
-import { OfferTypeEnum } from "../_index";
 
 export interface SubThemeForm {
   libelle: FormControl<string>;
   couleur: FormControl<string>;
-  icon: FormControl<string>;
+  icone: FormControl<string>;
   description: FormControl<string>;
-  refTypeOffreId: FormControl<OfferTypeEnum | null>;
+  refTypeOffreId: FormControl<number>;
   // S / HT / T
   mailReferent?: FormControl<string>;
   // HT / T
@@ -20,9 +19,9 @@ export interface SubThemeForm {
 export interface SubThemeFormValue {
   libelle: string;
   couleur: string;
-  icon: string;
-  descritpion: string;
-  refTypeOffreId: OfferTypeEnum | null;
+  icone: string;
+  description: string;
+  refTypeOffreId: number;
   mailReferent?: string;
   workflowTravauxSimplifie?: boolean;
   workflowId?: number;

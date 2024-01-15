@@ -1,1 +1,289 @@
-<p>admin-theme-detail works!</p>
+<div class="container-lg" *ngIf="viewModel$ | async as viewModel">
+  <div class="row">
+    <div class="p-3">
+      <h1 class="title">
+        {{ viewModel.theme?.libelle }}
+      </h1>
+    </div>
+  </div>
+  @if (viewModel.simple && viewModel.simple.length) {
+  <div class="row justify-content-between">
+    <div class="col-lg-8 p-3">
+      <h2 i18n="@@SUBTHEME_SIMPLE" class="subtitle">
+        Sous-thèmes de demandes simplifiées
+      </h2>
+    </div>
+    <div class="col-lg-4 p-3 text-end">
+      <button
+        pButton
+        pRipple
+        i18n-label="@@ADD_SUBTHEME"
+        label="Ajouter un sous-thème"
+        icon="pi pi-plus-circle"
+        class="generic-button borderless"
+        (click)="openModalAddSubtheme(viewModel.theme?.id)"
+      ></button>
+    </div>
+  </div>
+  <app-client-paginated-table
+    [columns]="columnsSimple"
+    [data]="viewModel.simple"
+  >
+    <ng-template pTemplate="body" let-item>
+      <tr class="dataRow">
+        <td *ngFor="let col of columnsSimple; let i = index">
+          <ng-container [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'icone'">
+              <img [src]="item.icone | base64ToImage" />
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'libelle'">
+              {{ item.libelle }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'description'">
+              {{ item.description }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'mailReferent'">
+              {{ item.mailReferent }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'actions'">
+              <span class="p-buttonset">
+                <p-button
+                  icon="pi pi-pencil"
+                  [text]="true"
+                  class="action-icon modify-copy-icon"
+                  (click)="openModalUpdateSubtheme(item)"
+                ></p-button>
+                <p-button
+                  icon="pi pi-trash"
+                  [text]="true"
+                  class="action-icon delete-icon"
+                  (onClick)="deleteSubtheme(item.id, item.libelle)"
+                ></p-button>
+              </span>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+  </app-client-paginated-table>
+  } @if (viewModel.excludingWork && viewModel.excludingWork.length) {
+  <div class="row justify-content-between">
+    <div class="col-lg-8 p-3">
+      <h2 i18n="@@SUBTHEME_EXCLUDING_WORK" class="subtitle">
+        Sous-thèmes de demandes hors travaux
+      </h2>
+    </div>
+    <div class="col-lg-4 p-3 text-end">
+      <button
+        pButton
+        pRipple
+        i18n-label="@@ADD_SUBTHEME"
+        label="Ajouter un sous-thème"
+        icon="pi pi-plus-circle"
+        class="generic-button borderless"
+        (click)="openModalAddSubtheme(viewModel.theme?.id)"
+      ></button>
+    </div>
+  </div>
+  <app-client-paginated-table
+    [columns]="columnsExcludingWork"
+    [data]="viewModel.excludingWork"
+  >
+    <ng-template pTemplate="body" let-item>
+      <tr class="dataRow">
+        <td *ngFor="let col of columnsExcludingWork; let i = index">
+          <ng-container [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'icone'">
+              <img [src]="item.icone | base64ToImage" />
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'libelle'">
+              {{ item.libelle }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'description'">
+              {{ item.description }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'accessibleATous'">
+              {{ item.accessibleATous }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'mailReferent'">
+              {{ item.mailReferent }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'workflowTravauxSimplifie'">
+              {{ item.workflowTravauxSimplifie }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'workflow.id'">
+              {{ item.workflow.id }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'actions'">
+              <span class="p-buttonset">
+                <p-button
+                  icon="pi pi-pencil"
+                  [text]="true"
+                  class="action-icon modify-copy-icon"
+                  (click)="openModalAddSubtheme(item)"
+                ></p-button>
+                <p-button
+                  icon="pi pi-trash"
+                  [text]="true"
+                  class="action-icon delete-icon"
+                  (onClick)="deleteSubtheme(item.id, item.libelle)"
+                ></p-button>
+              </span>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+  </app-client-paginated-table>
+  } @if (viewModel.work && viewModel.work.length) {
+  <div class="row justify-content-between">
+    <div class="col-lg-8 p-3">
+      <h2 i18n="@@SUBTHEME_WORK" class="subtitle">
+        Sous-thèmes des demandes travaux
+      </h2>
+    </div>
+    <div class="col-lg-4 p-3 text-end">
+      <button
+        pButton
+        pRipple
+        i18n-label="@@ADD_SUBTHEME"
+        label="Ajouter un sous-thème"
+        icon="pi pi-plus-circle"
+        class="generic-button borderless"
+        (click)="openModalAddSubtheme(viewModel.theme?.id)"
+      ></button>
+    </div>
+  </div>
+  <app-client-paginated-table [columns]="columnsWork" [data]="viewModel.work">
+    <ng-template pTemplate="body" let-item>
+      <tr class="dataRow">
+        <td *ngFor="let col of columnsWork; let i = index">
+          <ng-container [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'icone'">
+              <img [src]="item.icone | base64ToImage" />
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'libelle'">
+              {{ item.libelle }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'description'">
+              {{ item.description }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'accessibleATous'">
+              {{ item.accessibleATous }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'mailReferent'">
+              {{ item.mailReferent }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'workflow.id'">
+              {{ item.workflow.id }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'actions'">
+              <span class="p-buttonset">
+                <p-button
+                  icon="pi pi-pencil"
+                  [text]="true"
+                  class="action-icon modify-copy-icon"
+                  (click)="openModalAddSubtheme(item)"
+                ></p-button>
+                <p-button
+                  icon="pi pi-trash"
+                  [text]="true"
+                  class="action-icon delete-icon"
+                  (onClick)="deleteSubtheme(item.id, item.libelle)"
+                ></p-button>
+              </span>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+  </app-client-paginated-table>
+  } @if (viewModel.link && viewModel.link.length) {
+  <div class="row justify-content-between">
+    <div class="col-lg-8 p-3">
+      <h2 i18n="@@SUBTHEME_LINK" class="subtitle">
+        Sous-thèmes des demandes avec lien externe
+      </h2>
+    </div>
+    <div class="col-lg-4 p-3 text-end">
+      <button
+        pButton
+        pRipple
+        i18n-label="@@ADD_SUBTHEME"
+        label="Ajouter un sous-thème"
+        icon="pi pi-plus-circle"
+        class="borderless"
+        (click)="openModalAddSubtheme(viewModel.theme?.id)"
+      ></button>
+    </div>
+  </div>
+  <app-client-paginated-table [columns]="columnsLink" [data]="viewModel.link">
+    <ng-template pTemplate="body" let-item>
+      <tr class="dataRow">
+        <td *ngFor="let col of columnsLink; let i = index">
+          <ng-container [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'icone'">
+              <img [src]="item.icone | base64ToImage" />
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'libelle'">
+              {{ item.libelle }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'description'">
+              {{ item.description }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'lienExterne'">
+              {{ item.lienExterne }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'actions'">
+              <span class="p-buttonset">
+                <p-button
+                  icon="pi pi-pencil"
+                  [text]="true"
+                  class="action-icon modify-copy-icon"
+                  (click)="openModalAddSubtheme(item)"
+                ></p-button>
+                <p-button
+                  icon="pi pi-trash"
+                  [text]="true"
+                  class="action-icon delete-icon"
+                  (onClick)="deleteSubtheme(item.id, item.libelle)"
+                ></p-button>
+              </span>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+  </app-client-paginated-table>
+  }
+  <button
+    pButton
+    pRipple
+    i18n-label="@@BACK_TO_THEME_TABLE"
+    label="Retourner au tableau des thème"
+    icon="pi pi-arrow-circle-left"
+    class="generic-button"
+    [routerLink]="['/administration', 'theme']"
+  ></button>
+</div>

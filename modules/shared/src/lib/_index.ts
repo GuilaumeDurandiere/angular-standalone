@@ -1,3 +1,4 @@
+export * from './components/client-paginated-table/client-paginated-table.component';
 export * from './components/form-control-presenter/form-control-presenter.component';
 export * from './components/form-group-presenter/form-group-presenter.component';
 export * from './components/icon-uploader/icon-uploader.component';

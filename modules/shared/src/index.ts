@@ -1,5 +1,6 @@
 import '@angular/localize/init';
 
+export * from './helpers/_index';
 export * from './lib/_index';
 export * from './models/_index';
 export * from './pipes/_index';

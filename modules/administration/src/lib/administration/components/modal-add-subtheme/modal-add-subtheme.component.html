@@ -1,0 +1,22 @@
+<div [formGroup]="formGroup">
+  <app-add-subtheme-form formControlName="soustheme"></app-add-subtheme-form>
+</div>
+
+<div class="d-flex justify-content-sm-between mt-4">
+  <button
+    pButton
+    i18n-label="@@CANCEL"
+    label="Annuler"
+    icon="pi pi-times"
+    class="generic-button cancel"
+    (click)="cancel()"
+  ></button>
+  <button
+    pButton
+    i18n-label="@@ADD_THEME"
+    label="Ajouter le thème"
+    icon="pi pi-plus-circle"
+    class="generic-button"
+    (click)="validate()"
+  ></button>
+</div>

@@ -7,6 +7,7 @@ export * from './PaginationDto';
 export * from './StepCreateDto';
 export * from './StepUpdateDto';
 export * from './SubstepCreateDto';
+export * from './SubthemeDto';
 export * from './ThemeCreateDto';
 export * from './ThemeUpdateDto';
 export * from './WorkflowCreateDto';

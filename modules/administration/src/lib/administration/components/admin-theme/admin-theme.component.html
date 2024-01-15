@@ -18,41 +18,44 @@
 
   <app-server-paginated-table
     [columns]="columns"
-    [paginationData]="theme$ | async"
+    [paginationData]="themes$ | async"
     (loadPageData)="loadPageData($event)"
   >
     <ng-template pTemplate="body" let-item>
       <tr class="dataRow">
         <td *ngFor="let col of columns; let i = index">
           <ng-container [ngSwitch]="col.field">
-            <ng-container *ngSwitchCase="'name'">
+            <ng-container *ngSwitchCase="'icone'">
+              <img [src]="item.icone | base64ToImage" />
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'libelle'">
               {{ item.libelle }}
             </ng-container>
 
-            <ng-container *ngSwitchCase="'offer'">
-              {{ item?.offres?.join(' | ') }}
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'active'">
-              {{ item.actif | boolToString }}
+            <ng-container *ngSwitchCase="'description'">
+              {{ item.description }}
             </ng-container>
 
             <ng-container *ngSwitchCase="'actions'">
               <span class="p-buttonset">
                 <p-button
+                  icon="pi pi-eye"
+                  [text]="true"
+                  class="action-icon modify-copy-icon"
+                  [routerLink]="['/administration/theme/', item.id]"
+                ></p-button>
+                <p-button
                   icon="pi pi-pencil"
                   [text]="true"
                   class="action-icon modify-copy-icon"
-                ></p-button>
-                <p-button
-                  icon="pi pi-clone"
-                  [text]="true"
-                  class="action-icon modify-copy-icon"
+                  (click)="openModalUpdateTheme(item)"
                 ></p-button>
                 <p-button
                   icon="pi pi-trash"
                   [text]="true"
                   class="action-icon delete-icon"
+                  (click)="deleteTheme(item.id, item.libelle)"
                 ></p-button>
               </span>
             </ng-container>
@@ -61,4 +64,13 @@
       </tr>
     </ng-template>
   </app-server-paginated-table>
+  <button
+    pButton
+    pRipple
+    i18n-label="@@BACK_TO_ADMINISTRATION"
+    label="Retourner au tableau des thème"
+    icon="pi pi-arrow-circle-left"
+    class="generic-button"
+    [routerLink]="['/administration']"
+  ></button>
 </div>

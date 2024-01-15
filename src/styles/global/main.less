@@ -37,6 +37,19 @@
     background-color: @bg-white;
     border: 1px solid @darkblue;
   }
+
+  &.borderless {
+    background: none;
+    color: @darkblue;
+    font-weight: 400;
+    line-height: 18px;
+    font-size: 16px;
+    border: none;
+
+    .p-button-label {
+      text-decoration: underline;
+    }
+  }
 }
 
 .gradient-button {

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ThemeFormValue } from '@te44-front/shared';
+import { Theme, ThemeFormValue } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddThemeFormComponent } from '../add-theme-form/add-theme-form.component';
 
 @Component({
@@ -19,8 +19,11 @@ import { AddThemeFormComponent } from '../add-theme-form/add-theme-form.componen
 export class ModalAddThemeComponent {
 
   valueForm: ThemeFormValue | undefined = undefined;
+  theme: Theme | null = null;
 
-  constructor(private ref: DynamicDialogRef) { }
+  constructor(private ref: DynamicDialogRef, private config: DynamicDialogConfig) {
+    this.theme = this.config.data?.theme;
+  }
 
   validate(formValue: ThemeFormValue | null): void {
     this.ref.close(formValue)

@@ -14,12 +14,12 @@
     </app-form-control-presenter>
 
     <app-form-control-presenter
-      [control]="formGroup.controls.icon"
-      [name]="'icon'"
+      [control]="formGroup.controls.icone"
+      [name]="'icone'"
       [label]="'Icon'"
       [required]="true"
     >
-      <app-icon-uploader formControlName="icon"></app-icon-uploader>
+      <app-icon-uploader formControlName="icone"></app-icon-uploader>
     </app-form-control-presenter>
 
     <app-form-control-presenter
@@ -73,11 +73,34 @@
       [label]="'Type de workflow'"
       [required]="true"
     >
-      <input
-        type="text"
-        pInputText
-        formControlName="workflowTravauxSimplifie"
-      />
+      <div class="flex flex-wrap gap-3">
+        <div class="flex align-items-center">
+          <p-radioButton
+            name="workflowTravauxSimplifie"
+            [value]="true"
+            formControlName="workflowTravauxSimplifie"
+            inputId="workflowLie"
+          ></p-radioButton>
+          <label for="workflowLie" class="ml-2" i18n="@@LINKED_WORKFLOW"
+            >Workflow lié</label
+          >
+        </div>
+
+        <div class="flex align-items-center">
+          <p-radioButton
+            name="workflowTravauxSimplifie"
+            [value]="false"
+            formControlName="workflowTravauxSimplifie"
+            inputId="workflowSimplifie"
+          ></p-radioButton>
+          <label
+            for="workflowSimplifie"
+            class="ml-2"
+            i18n="@@SIMPLIFIED_WORKFLOW"
+            >Workflow simplifié</label
+          >
+        </div>
+      </div>
     </app-form-control-presenter>
 
     <app-form-control-presenter
@@ -110,24 +133,11 @@
       [label]="'Accessible à tous'"
       [required]="true"
     >
-      <input type="text" pInputText formControlName="accessibleATous" />
+      <p-inputSwitch formControlName="accessibleATous"></p-inputSwitch>
     </app-form-control-presenter>
 
     } @case (offerType.DEMANDE_HORS_TRAVAUX) {
     <app-form-control-presenter
-      [control]="formGroup.controls.workflowTravauxSimplifie"
-      [name]="'workflowTravauxSimplifie'"
-      [label]="'Type de workflow'"
-      [required]="true"
-    >
-      <input
-        type="text"
-        pInputText
-        formControlName="workflowTravauxSimplifie"
-      />
-    </app-form-control-presenter>
-
-    <app-form-control-presenter
       [control]="formGroup.controls.workflowId"
       [name]="'workflowId'"
       [label]="'Worfklow lié'"
@@ -156,7 +166,7 @@
       [label]="'Accessible à tous'"
       [required]="true"
     >
-      <input type="text" pInputText formControlName="accessibleATous" />
+      <p-inputSwitch formControlName="accessibleATous"></p-inputSwitch>
     </app-form-control-presenter>
 
     } @case (offerType.LIEN_EXTERNE) {
