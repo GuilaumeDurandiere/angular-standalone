@@ -22,7 +22,7 @@ export class ModalAddThemeComponent {
   theme: Theme | null = null;
 
   constructor(private ref: DynamicDialogRef, private config: DynamicDialogConfig) {
-    this.theme = this.config.data.theme;
+    this.theme = this.config.data?.theme;
   }
 
   validate(formValue: ThemeFormValue | null): void {
