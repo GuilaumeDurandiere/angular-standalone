@@ -9,7 +9,7 @@
   @if (viewModel.simple && viewModel.simple.length) {
   <div class="row justify-content-between">
     <div class="col-lg-8 p-3">
-      <h2 i18n="@@STEPS" class="subtitle">
+      <h2 i18n="@@SUBTHEME_SIMPLE" class="subtitle">
         Sous-thèmes de demandes simplifiées
       </h2>
     </div>
@@ -17,10 +17,10 @@
       <button
         pButton
         pRipple
-        i18n-label="@@ADD_STEP"
-        label="Ajouter une étape"
+        i18n-label="@@ADD_SUBTHEME"
+        label="Ajouter un sous-thème"
         icon="pi pi-plus-circle"
-        class="addStepButton"
+        class="generic-button borderless"
         (click)="openModalAddSubtheme(viewModel.theme?.id)"
       ></button>
     </div>
@@ -73,7 +73,7 @@
   } @if (viewModel.excludingWork && viewModel.excludingWork.length) {
   <div class="row justify-content-between">
     <div class="col-lg-8 p-3">
-      <h2 i18n="@@STEPS" class="subtitle">
+      <h2 i18n="@@SUBTHEME_EXCLUDING_WORK" class="subtitle">
         Sous-thèmes de demandes hors travaux
       </h2>
     </div>
@@ -81,10 +81,10 @@
       <button
         pButton
         pRipple
-        i18n-label="@@ADD_STEP"
-        label="Ajouter une étape"
+        i18n-label="@@ADD_SUBTHEME"
+        label="Ajouter un sous-thème"
         icon="pi pi-plus-circle"
-        class="addStepButton"
+        class="generic-button borderless"
         (click)="addSubtheme(viewModel.theme?.id)"
       ></button>
     </div>
@@ -149,16 +149,18 @@
   } @if (viewModel.work && viewModel.work.length) {
   <div class="row justify-content-between">
     <div class="col-lg-8 p-3">
-      <h2 i18n="@@STEPS" class="subtitle">Sous-thèmes des demandes travaux</h2>
+      <h2 i18n="@@SUBTHEME_WORK" class="subtitle">
+        Sous-thèmes des demandes travaux
+      </h2>
     </div>
     <div class="col-lg-4 p-3 text-end">
       <button
         pButton
         pRipple
-        i18n-label="@@ADD_STEP"
-        label="Ajouter une étape"
+        i18n-label="@@ADD_SUBTHEME"
+        label="Ajouter un sous-thème"
         icon="pi pi-plus-circle"
-        class="addStepButton"
+        class="generic-button borderless"
         (click)="addSubtheme(viewModel.theme?.id)"
       ></button>
     </div>
@@ -216,7 +218,7 @@
   } @if (viewModel.link && viewModel.link.length) {
   <div class="row justify-content-between">
     <div class="col-lg-8 p-3">
-      <h2 i18n="@@STEPS" class="subtitle">
+      <h2 i18n="@@SUBTHEME_LINK" class="subtitle">
         Sous-thèmes des demandes avec lien externe
       </h2>
     </div>
@@ -224,10 +226,10 @@
       <button
         pButton
         pRipple
-        i18n-label="@@ADD_STEP"
-        label="Ajouter une étape"
+        i18n-label="@@ADD_SUBTHEME"
+        label="Ajouter un sous-thème"
         icon="pi pi-plus-circle"
-        class="addStepButton"
+        class="borderless"
         (click)="addSubtheme(viewModel.theme?.id)"
       ></button>
     </div>
@@ -275,4 +277,13 @@
     </ng-template>
   </app-client-paginated-table>
   }
+  <button
+    pButton
+    pRipple
+    i18n-label="@@BACK_TO_THEME_TABLE"
+    label="Retourner au tableau des thème"
+    icon="pi pi-arrow-circle-left"
+    class="generic-button"
+    [routerLink]="['/administration', 'theme']"
+  ></button>
 </div>

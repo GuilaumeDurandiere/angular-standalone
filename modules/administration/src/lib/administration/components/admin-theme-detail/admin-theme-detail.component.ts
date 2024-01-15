@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Base64ToImagePipe, ClientPaginatedTableComponent, ColumnCustom, SubThemeFormValue, Subtheme } from '@te44-front/shared';
 import { ConfirmationService } from 'primeng/api';
@@ -15,7 +16,15 @@ import { ModalAddSubthemeComponent } from '../modal-add-subtheme/modal-add-subth
 @Component({
   selector: 'app-admin-theme-detail',
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, MessagesModule, ClientPaginatedTableComponent, Base64ToImagePipe],
+  imports: [
+    CommonModule,
+    TableModule,
+    ButtonModule,
+    MessagesModule,
+    ClientPaginatedTableComponent,
+    Base64ToImagePipe,
+    RouterModule
+  ],
   templateUrl: './admin-theme-detail.component.html',
   styleUrl: './admin-theme-detail.component.less',
 })
