@@ -7,6 +7,11 @@ export namespace BusinessStateActions {
   export class InitThemes {
     static readonly type = `${prefixAction} InitThemes`;
   }
+
+  export class getSubthemes {
+    static readonly type = `${prefixAction} getSubthemes`;
+    constructor(public themeId: number) { }
+  }
 }
 
 

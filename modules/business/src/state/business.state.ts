@@ -32,7 +32,7 @@ export class BusinessState {
   }
 
   @Selector()
-  static getSubtheme(state: BusinessStateModel): Subtheme[] {
+  static getSubthemes(state: BusinessStateModel): Subtheme[] {
     return state.subthemes
   }
 
@@ -44,6 +44,13 @@ export class BusinessState {
   initTheme(ctx: StateContext<BusinessStateModel>) {
     return this.themeHttpService.getAll().pipe(
       tap((themes: Theme[]) => ctx.patchState({ themes }))
+    )
+  }
+
+  @Action(BusinessStateActions.getSubthemes)
+  getSubtheme(ctx: StateContext<BusinessStateModel>, action: BusinessStateActions.getSubthemes) {
+    return this.subthemeHttpService.getByTheme(action.themeId).pipe(
+      tap((subthemes: Subtheme[]) => ctx.patchState({ subthemes }))
     )
   }
 
