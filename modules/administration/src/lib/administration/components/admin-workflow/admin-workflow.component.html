@@ -22,7 +22,7 @@
     (loadPageData)="loadPageData($event)"
   >
     <ng-template pTemplate="body" let-item>
-      <tr class="dataRow" [routerLink]="['/administration/workflow/', item.id]">
+      <tr class="dataRow">
         <td *ngFor="let col of columns; let i = index">
           <ng-container [ngSwitch]="col.field">
             <ng-container *ngSwitchCase="'name'">
@@ -40,6 +40,12 @@
             <ng-container *ngSwitchCase="'actions'">
               <span class="p-buttonset">
                 <p-button
+                  icon="pi pi-eye"
+                  [text]="true"
+                  class="action-icon modify-copy-icon"
+                  [routerLink]="['/administration/workflow/', item.id]"
+                ></p-button>
+                <p-button
                   icon="pi pi-pencil"
                   [text]="true"
                   class="action-icon modify-copy-icon"
@@ -54,12 +60,14 @@
                   icon="pi pi-trash"
                   [text]="true"
                   class="action-icon delete-icon"
+                  (click)="deleteWorkflow(item)"
                 ></p-button>
               </span>
             </ng-container>
           </ng-container>
         </td>
-      </tr>
+      </tr> 
+      <p-confirmDialog></p-confirmDialog>
     </ng-template>
   </app-server-paginated-table>
 </div>
