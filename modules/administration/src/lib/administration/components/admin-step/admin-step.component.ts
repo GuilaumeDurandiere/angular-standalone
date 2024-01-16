@@ -8,7 +8,6 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessagesModule } from 'primeng/messages';
-import { TableModule } from 'primeng/table';
 import { WorkflowState } from '../../../../state/workflow.state';
 import { AdminStepModalComponent } from '../admin-step-modal/admin-step-modal.component';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
@@ -16,7 +15,7 @@ import { WorkflowStateActions } from '../../../../state/actions/workflow.actions
 @Component({
   selector: 'app-admin-step',
   standalone: true,
-  imports: [RouterModule, CommonModule, ButtonModule, TableModule, MessagesModule, AsyncPipe, ConfirmDialogModule, ClientPaginatedTableComponent],
+  imports: [RouterModule, CommonModule, ButtonModule, MessagesModule, AsyncPipe, ConfirmDialogModule, ClientPaginatedTableComponent],
   templateUrl: './admin-step.component.html',
   styleUrl: './admin-step.component.less',
   providers: [DialogService, ConfirmationService]
@@ -28,7 +27,7 @@ export class AdminStepComponent implements OnDestroy {
     { field: 'libelle', header: $localize`:@@NAME:Nom`, sort: true, style: 'width: 20%;' },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
     { field: 'statut', header: $localize`:@@STEP_STATUS:Statut de l'étape`, sort: true },
-    { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: false, style: 'width: 14%;' },
+    { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: false, style: 'width: 15%;' },
   ];
 
   constructor(

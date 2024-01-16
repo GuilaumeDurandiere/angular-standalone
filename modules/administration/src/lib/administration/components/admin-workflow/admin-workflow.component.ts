@@ -27,12 +27,13 @@ export class AdminWorkflowComponent {
     { field: 'name', header: $localize`:@@NAME:Nom`, sort: true, style: 'width: 20%;' },
     { field: 'offer', header: $localize`:@@RELATED_OFFERS:Offres liées`, sort: true, style: 'width: 50%;' },
     { field: 'active', header: $localize`:@@ACTIVE:Actif`, sort: true, style: 'width: 15%;' },
-    { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: true, style: 'width: 15%;' },
+    { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: false, style: 'width: 15%;' },
   ];
 
   ref: DynamicDialogRef | undefined;
 
   constructor(private router: Router, private store: Store, public dialogService: DialogService) { }
+
   selectRow(id: number): void {
     this.router.navigate([`/administration/workflow/${id}`]);
   }
@@ -43,6 +44,5 @@ export class AdminWorkflowComponent {
 
   show(id: number, name: string) {
     this.ref = this.dialogService.open(ModalDuplicateWorkflow, {data: { workflowId: id, workflowName: name }});
-}
-
+  }
 }
