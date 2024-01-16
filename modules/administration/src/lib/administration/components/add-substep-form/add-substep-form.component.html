@@ -3,6 +3,7 @@
         [control]="substepForm.controls.libelle"
         [name]="'substepName'"
         [label]="'Nom de la sous-étape'"
+        [required]="nameRequired"
     >
         <input type="text" pInputText formControlName="libelle" />
     </app-form-control-presenter>

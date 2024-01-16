@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { PaginationDto, Workflow, WorkflowHttpService } from '@te44-front/shared';
+import { PaginationDto, Step, StepHttpService, Workflow, WorkflowHttpService } from '@te44-front/shared';
 import { tap } from 'rxjs';
 import { WorkflowStateActions } from './actions/workflow.actions';
 import { WorkflowStateModel } from './models/workflow-state.model';
@@ -8,6 +8,7 @@ import { WorkflowStateModel } from './models/workflow-state.model';
 export const initWorkflowStateModel: WorkflowStateModel = {
   workflows: null,
   workflow: null,
+  step: null,
   pagination: { pageIndex: 1, pageSize: 15 }
 };
 
@@ -18,7 +19,7 @@ export const initWorkflowStateModel: WorkflowStateModel = {
 @Injectable()
 export class WorkflowState {
 
-  constructor(private workflowHttpService: WorkflowHttpService) { }
+  constructor(private workflowHttpService: WorkflowHttpService, private stepHttpService: StepHttpService) { }
 
   @Selector()
   static getWorkflows(state: WorkflowStateModel): PaginationDto<Workflow> | null {
@@ -28,6 +29,11 @@ export class WorkflowState {
   @Selector()
   static getWorkflow(state: WorkflowStateModel): Workflow | null {
     return state.workflow;
+  }
+
+  @Selector()
+  static getStep(state: WorkflowStateModel): Step | null {
+    return state.step;
   }
 
   @Action(WorkflowStateActions.Init)
@@ -43,17 +49,17 @@ export class WorkflowState {
     )
   }
 
+  @Action(WorkflowStateActions.InitStep)
+  initStep(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.InitStep) {
+    return this.stepHttpService.getOne(action.id).pipe(
+      tap((step: Step) => ctx.patchState({ step }))
+    )
+  }
+
   @Action(WorkflowStateActions.Create)
   create(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.Create) {
     return this.workflowHttpService.create(action.workflowFormValue).pipe(
       tap(() => ctx.dispatch(new WorkflowStateActions.Refresh()))
-    )
-  }
-
-  @Action(WorkflowStateActions.GetOne)
-  getOne(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.GetOne) {
-    return this.workflowHttpService.getOne(action.id).pipe(
-      tap((workflow: Workflow) => ctx.patchState({ workflow }))
     )
   }
 

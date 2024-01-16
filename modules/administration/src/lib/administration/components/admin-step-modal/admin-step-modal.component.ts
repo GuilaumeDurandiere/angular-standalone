@@ -18,7 +18,7 @@ import { AddSubstepFormComponent } from '../add-substep-form/add-substep-form.co
 })
 export class AdminStepModalComponent {
   workflow$: Observable<Workflow | null> = of(null);
-  step: Step = {id: 0, libelle: '', statut: ''};
+  step: Step = {id: 0, libelle: '', statut: '', sousEtapes: []};
   stepForm: FormGroup<StepForm> = this.formBuilder.group<StepForm>({
     libelle: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string | null>('', { nonNullable: false }),

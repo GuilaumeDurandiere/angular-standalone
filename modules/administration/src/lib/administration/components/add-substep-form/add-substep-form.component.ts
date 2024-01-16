@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
@@ -22,7 +22,8 @@ export class AddSubstepFormComponent implements ControlValueAccessor, OnDestroy,
   substepForm: FormGroup<SubstepForm> = this.formBuilder.group<SubstepForm>({
     libelle: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string>('', { nonNullable: true }),
-  })
+  });
+  @Input() nameRequired: boolean = false;
 
   onTouched: Function = () => {};
   onChangeSubs: Subscription[] = [];

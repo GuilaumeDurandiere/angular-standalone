@@ -1,0 +1,80 @@
+<div class="container-lg" *ngIf="step$ | async as step">
+    <ng-container *ngIf="workflow$ | async as workflow">
+        <div class="row">
+            <div class="p-3">
+                <h1 class="title">
+                    {{ workflow.libelle }} - {{ step.libelle }}
+                </h1>
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            <div class="col-lg-8 p-3">
+                <h2 i18n="@@SUBSTEPS" class="subtitle">
+                    Sous-étape(s)
+                </h2>
+            </div>
+            <div class="col-lg-4 p-3 text-end">
+                <button
+                    pButton
+                    pRipple
+                    i18n-label="@@ADD_SUBSTEP"
+                    label="Ajouter une sous-étape"
+                    icon="pi pi-plus-circle"
+                    class="add-substep-button"
+                    (click)="showAddSubstepModal(step.libelle)"
+                ></button>
+            </div>
+        </div>
+        <p-table
+            [value]="step.sousEtapes"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [paginator]="true"
+            [rows]="15"
+            [showCurrentPageReport]="false"
+            paginatorLocale="fr-FR"
+            selectionMode="single"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th i18n="@@NAME" style="width: 25%">Nom</th>
+                    <th i18n="@@DESCRIPTION" style="width: 63%">Description</th>
+                    <th i18n="@@ACTIONS" style="width: 12%">Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-sousetape>
+                <tr
+                    [pSelectableRow]="sousetape"
+                >
+                    <td>{{ sousetape.libelle }}</td>
+                    <td>{{ sousetape.description }}</td>
+                    <td>
+                        <span class="p-buttonset">
+                            <p-button
+                            icon="pi pi-pencil"
+                            [text]="true"
+                            class="action-icon modify-copy-icon"
+                            (click)="showUpdateSubstepModal(sousetape)"
+                            ></p-button>
+                            <p-button
+                            icon="pi pi-trash"
+                            [text]="true"
+                            class="action-icon delete-icon"
+                            (click)="deleteConfirmation(step.sousEtapes, sousetape)"
+                            ></p-button>
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <button
+            pButton
+            pRipple
+            i18n-label="@@BACK_TO_STEP_TABLE"
+            label="Retourner au tableau des étapes"
+            icon="pi pi-arrow-circle-left"
+            class="generic-button"
+            [routerLink]="['/administration', 'workflow', workflow.id]"
+        ></button>
+        <p-confirmDialog></p-confirmDialog>
+    </ng-container>
+</div>

@@ -1,32 +1,31 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { Step, StepHttpService } from '@te44-front/shared';
+import { Substep, SubstepHttpService } from '@te44-front/shared';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { MessagesModule } from 'primeng/messages';
 import { TableModule } from 'primeng/table';
 import { WorkflowState } from '../../../../state/workflow.state';
-import { AdminStepModalComponent } from '../admin-step-modal/admin-step-modal.component';
+import { AdminSubstepModalComponent } from '../admin-substep-modal/admin-substep-modal.component';
 
 @Component({
-  selector: 'app-admin-step',
+  selector: 'app-admin-substep',
   standalone: true,
-  imports: [RouterModule, CommonModule, ButtonModule, TableModule, MessagesModule, AsyncPipe, ConfirmDialogModule],
-  templateUrl: './admin-step.component.html',
-  styleUrl: './admin-step.component.less',
+  imports: [RouterModule, CommonModule, ButtonModule, TableModule, AsyncPipe, ConfirmDialogModule],
+  templateUrl: './admin-substep.component.html',
+  styleUrl: './admin-substep.component.less',
   providers: [DialogService, ConfirmationService]
 })
-export class AdminStepComponent implements OnDestroy {
+export class AdminSubstepComponent implements OnDestroy {
+  step$ = this.store.select(WorkflowState.getStep);
   workflow$ = this.store.select(WorkflowState.getWorkflow);
   ref: DynamicDialogRef | undefined;
 
   constructor(
-    private router: Router, 
-    private stepService: StepHttpService,
+    private substepService: SubstepHttpService,
     private confirmationService: ConfirmationService,
     public dialogService: DialogService,
     private store: Store) { }
@@ -37,13 +36,9 @@ export class AdminStepComponent implements OnDestroy {
     }
   }
 
-  selectRow(workflowId: number, stepId: number): void {
-    this.router.navigate([`/administration/workflow/${workflowId}/etape/${stepId}`]);
-  }
-
-  showAddStepModal(workflowName: string): void {
-    this.ref = this.dialogService.open(AdminStepModalComponent, {
-      header: $localize`:@@ADD_STEP_AT:Ajouter une étape à ${workflowName}`,
+  showAddSubstepModal(stepName: string): void {
+    this.ref = this.dialogService.open(AdminSubstepModalComponent, {
+      header: $localize`:@@ADD_SUBSTEP_AT:Ajouter une sous-étape à ${stepName}`,
       width: '50vw',
       contentStyle: { overflow: 'auto' },
       breakpoints: {
@@ -51,15 +46,15 @@ export class AdminStepComponent implements OnDestroy {
         '640px': '90vw'
       },
       maximizable: true,
-      data: { workflow$: this.workflow$ },
+      data: { step$: this.step$ },
       dismissableMask: true,
       closeOnEscape: true
     });
   }
 
-  showUpdateStepModal(step: Step): void {
-    this.ref = this.dialogService.open(AdminStepModalComponent, {
-        header: $localize`:@@MODIFY_STEP:Modifier ${step.libelle}`,
+  showUpdateSubstepModal(substep: Substep): void {
+    this.ref = this.dialogService.open(AdminSubstepModalComponent, {
+        header: $localize`:@@MODIFY_STEP:Modifier ${substep.libelle}`,
         width: '50vw',
         contentStyle: { overflow: 'auto' },
         breakpoints: {
@@ -67,15 +62,15 @@ export class AdminStepComponent implements OnDestroy {
             '640px': '90vw'
         },
         maximizable: true,
-        data: {workflow$: this.workflow$, step},
+        data: {step$: this.step$, substep},
         dismissableMask: true,
         closeOnEscape: true
     });
   }
 
-  deleteConfirmation(steps: Step[], step: Step): void {
+  deleteConfirmation(substeps: Substep[], substep: Substep): void {
     this.confirmationService.confirm({
-      message: $localize`:@@CONFIRMATION_MESSAGE_STEP:Voulez-vous vraiment supprimer cette étape ?`,
+      message: $localize`:@@CONFIRMATION_MESSAGE_SUBSTEP:Voulez-vous vraiment supprimer cette sous-étape ?`,
       header: $localize`:@@CONFIRMATION_HEADER:Confirmation de suppression`,
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: "p-button-danger p-button-text",
@@ -86,8 +81,8 @@ export class AdminStepComponent implements OnDestroy {
       rejectLabel: $localize`:@@NO:Non`,
       dismissableMask: true,
       accept: () => {
-        this.stepService.delete(step.id).subscribe();
-        steps = steps.filter((val) => val.id !== step.id);
+        this.substepService.delete(substep.id).subscribe();
+        substeps = substeps.filter((val) => val.id !== substep.id);
       }
     });
   }

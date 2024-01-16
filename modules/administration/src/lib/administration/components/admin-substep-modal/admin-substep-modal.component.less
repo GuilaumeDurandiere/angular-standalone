@@ -1,0 +1,28 @@
+@import '_colors.less';
+
+.background {
+    background-color: @bg-white;
+}
+.subtitle {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: @darkgrey;
+}
+.substep-container {
+    background-color: rgba(50,185,200,0.1);
+}
+.substep-name {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 24px;
+}
+.cancel-button {
+    background: none;
+    border: 1px solid @darkblue;
+    color: @darkblue;
+}
+:host ::ng-deep .cancel-button .p-button-label {
+    font-size: medium;
+    font-weight: 400;
+}

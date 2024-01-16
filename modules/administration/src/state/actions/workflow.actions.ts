@@ -12,6 +12,11 @@ export namespace WorkflowStateActions {
     constructor(public id: number) { }
   }
 
+  export class InitStep {
+    static readonly type = `[WorkflowState] InitStep`;
+    constructor(public id: number) { }
+  }
+
   export class LoadPageData {
     static readonly type = `[WorkflowState] LoadPageData`;
     constructor(public paginationData: PaginationData) { }

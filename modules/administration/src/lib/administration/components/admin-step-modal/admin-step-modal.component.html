@@ -26,7 +26,7 @@
                 <input type="text" pInputText formControlName="statut" />
             </app-form-control-presenter>
             @if (step.id === 0) {
-                <p class="subtitle" i18n="@@SUBSTEP_INFO">Informations sous-étapes <span class="facultative">(facultatif)</span></p>
+                <p class="subtitle" i18n="@@SUBSTEP_INFO_FAC">Informations sous-étapes <span class="facultative">(facultatif)</span></p>
                 <div formArrayName="sousEtapes">
                     <div
                         class="substep-container p-3 mb-2"
@@ -77,8 +77,8 @@
                     pRipple
                     [disabled]="stepForm.invalid"
                     i18n-label="@@SAVE_STEP"
-                    label="Enregistrer l'étape"
-                    icon="pi pi-plus-circle"
+                    label="Enregistrer les modifications"
+                    icon="pi pi-save"
                     class="generic-button"
                     (click)="onUpdateSubmit(stepForm)"
                 ></button>

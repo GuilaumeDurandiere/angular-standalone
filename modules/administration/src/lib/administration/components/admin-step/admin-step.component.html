@@ -19,7 +19,7 @@
                 i18n-label="@@ADD_STEP"
                 label="Ajouter une étape"
                 icon="pi pi-plus-circle"
-                class="addStepButton"
+                class="add-step-button"
                 (click)="showAddStepModal(workflow.libelle)"
             ></button>
         </div>
@@ -54,6 +54,7 @@
         <ng-template pTemplate="body" let-etape>
             <tr
                 [pSelectableRow]="etape"
+                (click)="selectRow(workflow.id, etape.id)"
             >
                 <td>{{ etape.libelle }}</td>
                 <td>{{ etape.description }}</td>
@@ -83,7 +84,7 @@
         i18n-label="@@BACK_TO_WORKFLOW_TABLE"
         label="Retourner au tableau des workflow"
         icon="pi pi-arrow-circle-left"
-        class="goBackButton"
+        class="generic-button"
         [routerLink]="['/administration', 'workflow']"
     ></button>
     <p-confirmDialog></p-confirmDialog>

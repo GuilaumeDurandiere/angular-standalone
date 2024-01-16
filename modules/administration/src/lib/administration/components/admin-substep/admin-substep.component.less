@@ -1,0 +1,47 @@
+@import '_colors.less';
+
+.background {
+    background-color: @bg-white;
+}
+.title {
+    font-weight: 700;
+    font-size: xx-large;
+    line-height: 18px;
+}
+.subtitle {
+    font-weight: 700;
+    font-size: x-large;
+    line-height: 24px;
+    color: @darkblue;
+}
+.facultative {
+    color: @lightgrey;
+    font-weight: 400;
+}
+.substep-container {
+    background-color: rgba(50,185,200,0.1);
+}
+.substep-name {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 24px;
+}
+.add-substep-button {
+    background: none;
+    color: @darkblue;
+    line-height: 18px;
+    font-size: 16px;
+    border: none;
+}
+:host ::ng-deep .add-substep-button .p-button-label {
+    text-decoration: underline;
+}
+.cancel-button {
+    background: none;
+    border: 1px solid @darkblue;
+    color: @darkblue;
+}
+:host ::ng-deep .cancel-button .p-button-label {
+    font-size: medium;
+    font-weight: 400;
+}

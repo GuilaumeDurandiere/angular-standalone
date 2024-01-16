@@ -11,6 +11,8 @@ import { AdminStepComponent } from './administration/components/admin-step/admin
 import { AdminThemeDetailComponent } from './administration/components/admin-theme-detail/admin-theme-detail.component';
 import { AdminThemeComponent } from './administration/components/admin-theme/admin-theme.component';
 import { AdminWorkflowComponent } from './administration/components/admin-workflow/admin-workflow.component';
+import { AdminSubstepComponent } from './administration/components/admin-substep/admin-substep.component';
+import { stepResolver } from '../resolvers/step.resolver';
 
 export const administrationRoutes: Route[] = [
   {
@@ -45,11 +47,29 @@ export const administrationRoutes: Route[] = [
           },
           {
             path: ':id',
-            component: AdminStepComponent,
-            resolve: { workflowResolver },
             data: {
-              breadcrumb: (data: any) => `${data.workflow.libelle}`,
+              breadcrumb: 'Étapes'
             },
+            children: [
+              {
+                path: '',
+                component: AdminStepComponent,
+                resolve: { workflowResolver },
+                data: {
+                  // breadcrumb: (data: any) => `${data.workflow.libelle}`,
+                breadcrumb: null,
+                },
+              },
+              {
+                path: 'etape/:id',
+                component: AdminSubstepComponent,
+                resolve: { stepResolver },
+                data: {
+                  // breadcrumb: (data: any) => `${data.etape.libelle}`,
+                  breadcrumb: 'Sous-étapes',
+                },
+              }
+            ]
           }
         ]
       },
