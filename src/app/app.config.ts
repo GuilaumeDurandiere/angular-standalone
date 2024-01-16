@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,6 +28,7 @@ export const appConfig: ApplicationConfig = {
     PRIMENG_SERVICES,
     provideRouter(appRoutes),
     provideHttpClient(),
-    provideAnimations()
+    provideAnimations(),
+    importProvidersFrom(HttpClientModule),
   ],
 };

@@ -42,4 +42,9 @@ export class WorkflowHttpService extends BaseHttpService {
     delete(id: number): Observable<boolean> {
         return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
     }
+
+    duplicate(id: number, label: string): Observable<Workflow> {
+      console.log("calling → " + this.apiUrl+"/duplicate?id="+id+"&libelle="+label);
+      return this.http.post<Workflow>(`${this.apiUrl}/duplicate?id=${id}&libelle=${label}`, null).pipe(parseResponse(WorkflowSchema));
+    }
 }

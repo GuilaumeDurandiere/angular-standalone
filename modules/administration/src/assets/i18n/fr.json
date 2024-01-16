@@ -34,6 +34,10 @@
     "CONFIRMATION_MESSAGE": "Voulez-vous vraiment supprimer cette étape ?",
     "CONFIRMATION_HEADER": "Confirmation de suppression",
     "YES": "Oui",
-    "NO": "Non"
+    "NO": "Non",
+    "DUPLICATE_A_WORKFLOW": "Dupliquer un Workflow",
+    "DUPLICATE_THE_WORKFLOW": "Dupliquer le workflow",
+    "DUPLICATED_WORKFLOW_NAME": "Nom du workflow dupliqué",
+    "TRANSLATE": "Bravo c'est traduit"
   }
 }

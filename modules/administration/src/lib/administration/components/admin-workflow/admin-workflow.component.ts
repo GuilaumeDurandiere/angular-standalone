@@ -34,7 +34,7 @@ export class AdminWorkflowComponent {
 
   constructor(private router: Router, private store: Store, public dialogService: DialogService) { }
   selectRow(id: number): void {
-    this.router.navigate([`/administration/workflow/${id}`]);
+    // this.router.navigate([`/administration/workflow/${id}`]);
   }
 
   loadPageData(event: PaginationData): void {
@@ -42,7 +42,9 @@ export class AdminWorkflowComponent {
   }
 
   show(id: number, name: string) {
-    this.ref = this.dialogService.open(ModalDuplicateWorkflow, {data: { workflowId: id, workflowName: name }});
+    this.ref = this.dialogService.open(ModalDuplicateWorkflow, {
+      header: $localize`:@@DUPLICATE_A_WORKFLOW:Dupliquer un Workflow`,
+      data: { workflowId: id, workflowName: name }});
 }
 
 }
