@@ -21,13 +21,6 @@ export const appRoutes: Route[] = [
       import('@te44-front/documentation').then((m) => m.documentationRoutes),
   },
   {
-    path: 'business-request',
-    loadChildren: () =>
-      import('@te44-front/business-request').then(
-        (m) => m.businessRequestRoutes
-      ),
-  },
-  {
     path: 'profile',
     loadChildren: () =>
       import('@te44-front/profile').then((m) => m.profileRoutes),
