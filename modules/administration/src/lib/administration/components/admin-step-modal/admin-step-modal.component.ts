@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormControlPresenterComponent, FormGroupPresenterComponent, Step, StepForm, StepHttpService, SubstepForm, SubstepFormValue, Workflow } from '@te44-front/shared';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, FormGroup, FormControl, ReactiveFormsModule, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { Observable, of } from 'rxjs';
 import { AddSubstepFormComponent } from '../add-substep-form/add-substep-form.component';
+import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-admin-step-modal',
@@ -14,7 +16,6 @@ import { AddSubstepFormComponent } from '../add-substep-form/add-substep-form.co
   imports: [CommonModule, InputTextModule, FormsModule, ReactiveFormsModule, ButtonModule, AddSubstepFormComponent, FormControlPresenterComponent, FormGroupPresenterComponent],
   templateUrl: './admin-step-modal.component.html',
   styleUrl: './admin-step-modal.component.less',
-  providers: [DialogService]
 })
 export class AdminStepModalComponent {
   workflow$: Observable<Workflow | null> = of(null);
@@ -29,7 +30,7 @@ export class AdminStepModalComponent {
     })]),
   });
 
-  constructor(private formBuilder: FormBuilder, private stepService: StepHttpService, private dialogService: DialogService, private ref: DynamicDialogRef, public config: DynamicDialogConfig) {
+  constructor(private formBuilder: FormBuilder, private stepService: StepHttpService, private ref: DynamicDialogRef, public config: DynamicDialogConfig, private store: Store) {
     this.workflow$ = config.data.workflow$;
     this.subscribeToValueChange();
     if (config.data.step) {
@@ -49,12 +50,12 @@ export class AdminStepModalComponent {
 
   onCreateSubmit(form: FormGroup, workflowId: number): void {
     form.value.sousEtapes = form.value.sousEtapes.filter((x: SubstepFormValue) => x.libelle !== '');
-    this.stepService.create({libelle: form.value.libelle, description: form.value.description, statut: form.value.statut, workflowId, sousEtapes: form.value.sousEtapes}).subscribe();
+    this.store.dispatch(new WorkflowStateActions.CreateStep({libelle: form.value.libelle, description: form.value.description, statut: form.value.statut, workflowId, sousEtapes: form.value.sousEtapes}, workflowId));
     this.closeDialog();
   }
 
-  onUpdateSubmit(form: FormGroup): void {
-    this.stepService.update({id: this.step.id, libelle: form.value.libelle, description: form.value.description, statut: form.value.statut }).subscribe();
+  onUpdateSubmit(form: FormGroup, workflowId: number): void {
+    this.store.dispatch(new WorkflowStateActions.UpdateStep({id: this.step.id, libelle: form.value.libelle, description: form.value.description, statut: form.value.statut, sousEtapes: this.step.sousEtapes, workflowId }));
     this.closeDialog();
   }
 
@@ -71,7 +72,6 @@ export class AdminStepModalComponent {
   }
 
   closeDialog() {
-    //this.formValueEmitter.emit(null)
     this.ref.close();
   }
 }

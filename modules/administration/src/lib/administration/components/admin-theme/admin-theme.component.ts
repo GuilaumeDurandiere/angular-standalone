@@ -56,6 +56,8 @@ export class AdminThemeComponent {
       height: '80%',
       width: '60%',
       maximizable: true,
+      dismissableMask: true,
+      closeOnEscape: true,
     });
 
     this.dialog.onClose
@@ -74,6 +76,8 @@ export class AdminThemeComponent {
       height: '80%',
       width: '60%',
       maximizable: true,
+      dismissableMask: true,
+      closeOnEscape: true,
       data: {
         theme,
       }
@@ -101,6 +105,7 @@ export class AdminThemeComponent {
       acceptLabel: $localize`:@@YES:Oui`,
       rejectLabel: $localize`:@@NO:Non`,
       dismissableMask: true,
+      closeOnEscape: true,
       accept: () => {
         this.store.dispatch(new ThemeStateActions.DeleteTheme(themeId))
       }

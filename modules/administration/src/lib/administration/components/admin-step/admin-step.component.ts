@@ -2,7 +2,7 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { Step, StepHttpService } from '@te44-front/shared';
+import { ClientPaginatedTableComponent, ColumnCustom, Step } from '@te44-front/shared';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -11,11 +11,12 @@ import { MessagesModule } from 'primeng/messages';
 import { TableModule } from 'primeng/table';
 import { WorkflowState } from '../../../../state/workflow.state';
 import { AdminStepModalComponent } from '../admin-step-modal/admin-step-modal.component';
+import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 
 @Component({
   selector: 'app-admin-step',
   standalone: true,
-  imports: [RouterModule, CommonModule, ButtonModule, TableModule, MessagesModule, AsyncPipe, ConfirmDialogModule],
+  imports: [RouterModule, CommonModule, ButtonModule, TableModule, MessagesModule, AsyncPipe, ConfirmDialogModule, ClientPaginatedTableComponent],
   templateUrl: './admin-step.component.html',
   styleUrl: './admin-step.component.less',
   providers: [DialogService, ConfirmationService]
@@ -23,10 +24,15 @@ import { AdminStepModalComponent } from '../admin-step-modal/admin-step-modal.co
 export class AdminStepComponent implements OnDestroy {
   workflow$ = this.store.select(WorkflowState.getWorkflow);
   ref: DynamicDialogRef | undefined;
+  columns: ColumnCustom[] = [
+    { field: 'libelle', header: $localize`:@@NAME:Nom`, sort: true, style: 'width: 20%;' },
+    { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
+    { field: 'statut', header: $localize`:@@STEP_STATUS:Statut de l'étape`, sort: true },
+    { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: false, style: 'width: 14%;' },
+  ];
 
   constructor(
     private router: Router, 
-    private stepService: StepHttpService,
     private confirmationService: ConfirmationService,
     public dialogService: DialogService,
     private store: Store) { }
@@ -73,7 +79,7 @@ export class AdminStepComponent implements OnDestroy {
     });
   }
 
-  deleteConfirmation(steps: Step[], step: Step): void {
+  deleteConfirmation(step: Step): void {
     this.confirmationService.confirm({
       message: $localize`:@@CONFIRMATION_MESSAGE_STEP:Voulez-vous vraiment supprimer cette étape ?`,
       header: $localize`:@@CONFIRMATION_HEADER:Confirmation de suppression`,
@@ -86,8 +92,7 @@ export class AdminStepComponent implements OnDestroy {
       rejectLabel: $localize`:@@NO:Non`,
       dismissableMask: true,
       accept: () => {
-        this.stepService.delete(step.id).subscribe();
-        steps = steps.filter((val) => val.id !== step.id);
+        this.store.dispatch(new WorkflowStateActions.DeleteStep(step.id));
       }
     });
   }

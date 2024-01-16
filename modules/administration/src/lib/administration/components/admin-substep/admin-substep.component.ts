@@ -2,19 +2,19 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { Substep, SubstepHttpService } from '@te44-front/shared';
+import { ClientPaginatedTableComponent, ColumnCustom, Substep } from '@te44-front/shared';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { TableModule } from 'primeng/table';
 import { WorkflowState } from '../../../../state/workflow.state';
 import { AdminSubstepModalComponent } from '../admin-substep-modal/admin-substep-modal.component';
+import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 
 @Component({
   selector: 'app-admin-substep',
   standalone: true,
-  imports: [RouterModule, CommonModule, ButtonModule, TableModule, AsyncPipe, ConfirmDialogModule],
+  imports: [RouterModule, CommonModule, ButtonModule, AsyncPipe, ConfirmDialogModule, ClientPaginatedTableComponent],
   templateUrl: './admin-substep.component.html',
   styleUrl: './admin-substep.component.less',
   providers: [DialogService, ConfirmationService]
@@ -23,9 +23,13 @@ export class AdminSubstepComponent implements OnDestroy {
   step$ = this.store.select(WorkflowState.getStep);
   workflow$ = this.store.select(WorkflowState.getWorkflow);
   ref: DynamicDialogRef | undefined;
+  columns: ColumnCustom[] = [
+    { field: 'libelle', header: $localize`:@@NAME:Nom`, sort: true, style: 'width: 25%;' },
+    { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true, style: 'width: 63%;' },
+    { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: false, style: 'width: 12%;' },
+  ];
 
   constructor(
-    private substepService: SubstepHttpService,
     private confirmationService: ConfirmationService,
     public dialogService: DialogService,
     private store: Store) { }
@@ -68,7 +72,7 @@ export class AdminSubstepComponent implements OnDestroy {
     });
   }
 
-  deleteConfirmation(substeps: Substep[], substep: Substep): void {
+  deleteConfirmation(substep: Substep): void {
     this.confirmationService.confirm({
       message: $localize`:@@CONFIRMATION_MESSAGE_SUBSTEP:Voulez-vous vraiment supprimer cette sous-étape ?`,
       header: $localize`:@@CONFIRMATION_HEADER:Confirmation de suppression`,
@@ -80,9 +84,9 @@ export class AdminSubstepComponent implements OnDestroy {
       acceptLabel: $localize`:@@YES:Oui`,
       rejectLabel: $localize`:@@NO:Non`,
       dismissableMask: true,
+      closeOnEscape: true,
       accept: () => {
-        this.substepService.delete(substep.id).subscribe();
-        substeps = substeps.filter((val) => val.id !== substep.id);
+        this.store.dispatch(new WorkflowStateActions.DeleteSubstep(substep.id));
       }
     });
   }

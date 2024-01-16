@@ -1,6 +1,6 @@
 export interface StepUpdateDto {
-    id: number;
-    libelle: string;
-    description?: string;
-    statut: string;
+    id?: number | null;
+    libelle?: string | null;
+    description?: string | null;
+    statut?: string | null;
 }
