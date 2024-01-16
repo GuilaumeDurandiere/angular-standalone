@@ -10,7 +10,7 @@ import { Observable, filter, take } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { WorkflowState } from '../../../../state/workflow.state';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ModalDuplicateWorkflow } from '../modal-duplicate-workflow/modal-duplicate-workflow.component';
+import { ModalDuplicateWorkflowComponent } from '../modal-duplicate-workflow/modal-duplicate-workflow.component';
 
 @Component({
   selector: 'app-admin-workflow',
@@ -38,8 +38,8 @@ export class AdminWorkflowComponent {
     this.store.dispatch(new WorkflowStateActions.LoadPageData(event));
   }
 
-  show(id: number, name: string) : void {
-    this.ref = this.dialogService.open(ModalDuplicateWorkflow, {
+  openModalDuplicateWorkflow(id: number, name: string) : void {
+    this.ref = this.dialogService.open(ModalDuplicateWorkflowComponent, {
       header: $localize`:@@DUPLICATE_A_WORKFLOW:Dupliquer un Workflow`,
       data: {workflowName: name }
     });

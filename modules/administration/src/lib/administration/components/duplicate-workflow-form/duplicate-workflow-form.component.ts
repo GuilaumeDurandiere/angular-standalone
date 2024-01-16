@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormControlPresenterComponent, FormGroupPresenterComponent, IconUploaderComponent, DuplicateWorkflowForm, DuplicateWorkflowFormValue } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -36,7 +36,6 @@ export class DuplicateWorkflowFormComponent {
     if (this.formGroup.invalid) {
       console.error('error');
       console.error(this.formGroup.controls.libelle.errors);
-    // let result = this.getFormErrors(this.formGroup);
     } else {
       this.formValueEmitter.emit(this.formGroup.getRawValue());
     }
