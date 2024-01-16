@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { BoolToStringPipe, ColumnCustom, PaginationData, PaginationDto, ServerPaginatedTableComponent, Workflow } from '@te44-front/shared';
@@ -22,7 +22,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   providers: [DialogService, ConfirmationService]
 })
 
-export class AdminWorkflowComponent {
+export class AdminWorkflowComponent implements OnDestroy {
   workflows$: Observable<PaginationDto<Workflow> | null> = this.store.select(WorkflowState.getWorkflows);
 
   columns: ColumnCustom[] = [
@@ -36,8 +36,10 @@ export class AdminWorkflowComponent {
 
   constructor(private router: Router, private store: Store, public dialogService: DialogService, private confirmationService: ConfirmationService) { }
 
-  selectRow(id: number): void {
-    this.router.navigate([`/administration/workflow/${id}`]);
+  ngOnDestroy(): void {
+    if (this.ref) {
+      this.ref.close();
+    }
   }
 
   loadPageData(event: PaginationData): void {
