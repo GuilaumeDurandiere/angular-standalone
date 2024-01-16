@@ -86,4 +86,11 @@ export class WorkflowState {
       tap(() => ctx.dispatch(new WorkflowStateActions.Refresh()))
     )
   }
+
+  @Action(WorkflowStateActions.Duplicate)
+  duplicate(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.Duplicate) {
+    return this.workflowHttpService.duplicate(action.id, action.label).pipe(
+      tap(() => ctx.dispatch(new WorkflowStateActions.Refresh()))
+    )
+  }
 }

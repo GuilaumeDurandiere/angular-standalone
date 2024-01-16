@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { BoolToStringPipe, ColumnCustom, PaginationData, PaginationDto, ServerPaginatedTableComponent, Workflow } from '@te44-front/shared';
+import { BoolToStringPipe, ColumnCustom, DuplicateWorkflowFormValue, PaginationData, PaginationDto, ServerPaginatedTableComponent, Workflow } from '@te44-front/shared';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { Observable } from 'rxjs';
+import { Observable, filter, take } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { WorkflowState } from '../../../../state/workflow.state';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -33,18 +33,25 @@ export class AdminWorkflowComponent {
   ref: DynamicDialogRef | undefined;
 
   constructor(private router: Router, private store: Store, public dialogService: DialogService) { }
-  selectRow(id: number): void {
-    // this.router.navigate([`/administration/workflow/${id}`]);
-  }
 
   loadPageData(event: PaginationData): void {
     this.store.dispatch(new WorkflowStateActions.LoadPageData(event));
   }
 
-  show(id: number, name: string) {
+  show(id: number, name: string) : void {
     this.ref = this.dialogService.open(ModalDuplicateWorkflow, {
       header: $localize`:@@DUPLICATE_A_WORKFLOW:Dupliquer un Workflow`,
-      data: { workflowId: id, workflowName: name }});
+      data: {workflowName: name }
+    });
+    
+      this.ref.onClose
+      .pipe(
+        take(1),
+        filter<DuplicateWorkflowFormValue | null>(Boolean),
+      )
+      .subscribe((formValue: DuplicateWorkflowFormValue) => {
+        this.store.dispatch(new WorkflowStateActions.Duplicate(id, formValue.libelle));
+      });
 }
 
 }

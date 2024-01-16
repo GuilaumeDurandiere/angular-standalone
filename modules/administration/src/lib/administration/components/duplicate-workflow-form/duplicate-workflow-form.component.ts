@@ -34,8 +34,8 @@ export class DuplicateWorkflowFormComponent {
   validate(): void {
     this.formGroup.updateValueAndValidity();
     if (this.formGroup.invalid) {
-      console.log('error');
-      console.log(this.formGroup.controls.libelle.errors);
+      console.error('error');
+      console.error(this.formGroup.controls.libelle.errors);
     // let result = this.getFormErrors(this.formGroup);
     } else {
       this.formValueEmitter.emit(this.formGroup.getRawValue());
