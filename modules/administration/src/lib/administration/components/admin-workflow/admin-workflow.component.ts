@@ -52,7 +52,7 @@ export class AdminWorkflowComponent implements OnDestroy {
 
   deleteWorkflow(workflow: Workflow): void {
     this.confirmationService.confirm({
-      message: $localize`:@@CONFIRMATION_MESSAGE_SUBSTEP:Voulez-vous vraiment supprimer ce workflow ?`,
+      message: $localize`:@@CONFIRMATION_MESSAGE_WORKFLOW:Voulez-vous vraiment supprimer ce workflow ?`,
       header: $localize`:@@CONFIRMATION_HEADER:Confirmation de suppression`,
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: "p-button-danger p-button-text",

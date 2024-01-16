@@ -41,6 +41,7 @@
     "CONFIRMATION_MESSAGE_SUBSTEP": "Voulez-vous vraiment supprimer cette sous-étape ?",
     "SUBSTEPS": "Sous-étape(s)",
     "SUBSTEP": "Sous-étape",
-    "ADD_THE_SUBSTEP": "Ajouter la sous-étape"
+    "ADD_THE_SUBSTEP": "Ajouter la sous-étape",
+    "CONFIRMATION_MESSAGE_WORKFLOW": "Voulez-vous vraiment supprimer ce workflow ?"
   }
 }

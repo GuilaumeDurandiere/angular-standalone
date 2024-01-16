@@ -60,14 +60,14 @@
                   icon="pi pi-trash"
                   [text]="true"
                   class="action-icon delete-icon"
-                  (click)="deleteWorkflow(item)"
+                  (onClick)="deleteWorkflow(item)"
                 ></p-button>
               </span>
             </ng-container>
           </ng-container>
         </td>
       </tr> 
-      <p-confirmDialog></p-confirmDialog>
     </ng-template>
   </app-server-paginated-table>
+  <p-confirmDialog></p-confirmDialog>
 </div>

@@ -90,6 +90,7 @@ export class AdminStepComponent implements OnDestroy {
       acceptLabel: $localize`:@@YES:Oui`,
       rejectLabel: $localize`:@@NO:Non`,
       dismissableMask: true,
+      closeOnEscape: true,
       accept: () => {
         this.store.dispatch(new WorkflowStateActions.DeleteStep(step.id));
       }
