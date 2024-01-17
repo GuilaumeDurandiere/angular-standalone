@@ -1,17 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { TabMenuModule } from 'primeng/tabmenu';
+import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
-import { ToolbarModule } from 'primeng/toolbar';
-import { AvatarModule } from 'primeng/avatar';
 import { MenuModule } from 'primeng/menu';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, TabMenuModule, BadgeModule, ButtonModule, ToolbarModule, AvatarModule, MenuModule],
+  imports: [
+    AvatarModule,
+    BadgeModule,
+    ButtonModule,
+    CommonModule,
+    MenuModule,
+    RouterModule,
+    TabMenuModule,
+    ToolbarModule,
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.less',
 })

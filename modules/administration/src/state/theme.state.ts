@@ -41,22 +41,22 @@ export class ThemeState {
 
   @Selector()
   static getSubthemeSimple(state: ThemeStateModel): Subtheme[] | undefined {
-    return state.theme?.sousThemes.filter((subtheme: Subtheme) => subtheme.refTypeOffre.id === OfferTypeEnum.FORMULAIRE_SIMPLIFIE)
+    return state.theme?.sousThemes?.filter((subtheme: Subtheme) => subtheme.refTypeOffre.id === OfferTypeEnum.FORMULAIRE_SIMPLIFIE)
   }
 
   @Selector()
   static getSubthemeLink(state: ThemeStateModel): Subtheme[] | undefined {
-    return state.theme?.sousThemes.filter((subtheme: Subtheme) => subtheme.refTypeOffre.id === OfferTypeEnum.LIEN_EXTERNE)
+    return state.theme?.sousThemes?.filter((subtheme: Subtheme) => subtheme.refTypeOffre.id === OfferTypeEnum.LIEN_EXTERNE)
   }
 
   @Selector()
   static getSubthemeExcludingWork(state: ThemeStateModel): Subtheme[] | undefined {
-    return state.theme?.sousThemes.filter((subtheme: Subtheme) => subtheme.refTypeOffre.id === OfferTypeEnum.DEMANDE_HORS_TRAVAUX)
+    return state.theme?.sousThemes?.filter((subtheme: Subtheme) => subtheme.refTypeOffre.id === OfferTypeEnum.DEMANDE_HORS_TRAVAUX)
   }
 
   @Selector()
   static getSubthemeWork(state: ThemeStateModel): Subtheme[] | undefined {
-    return state.theme?.sousThemes.filter((subtheme: Subtheme) => subtheme.refTypeOffre.id === OfferTypeEnum.DEMANDE_TRAVAUX)
+    return state.theme?.sousThemes?.filter((subtheme: Subtheme) => subtheme.refTypeOffre.id === OfferTypeEnum.DEMANDE_TRAVAUX)
   }
 
   @Selector()
@@ -92,7 +92,7 @@ export class ThemeState {
   @Action(ThemeStateActions.CreateSubtheme)
   createSubthem(ctx: StateContext<ThemeStateModel>, action: ThemeStateActions.CreateSubtheme) {
     return this.subthemeHttpService.create({ ...action.subthemeFormValue, themeId: action.themeId }).pipe(
-      tap(() => ctx.dispatch(new ThemeStateActions.Refresh()))
+      tap(() => ctx.dispatch(new ThemeStateActions.RefreshSubtheme()))
     )
   }
 
@@ -106,7 +106,7 @@ export class ThemeState {
   @Action(ThemeStateActions.UpdateSubtheme)
   updateSubthem(ctx: StateContext<ThemeStateModel>, action: ThemeStateActions.UpdateSubtheme) {
     return this.subthemeHttpService.update({ ...action.subthemeFormValue, id: action.subthemeId }).pipe(
-      tap(() => ctx.dispatch(new ThemeStateActions.Refresh()))
+      tap(() => ctx.dispatch(new ThemeStateActions.RefreshSubtheme()))
     )
   }
 

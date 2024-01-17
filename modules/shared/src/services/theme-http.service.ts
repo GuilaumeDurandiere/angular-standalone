@@ -24,6 +24,10 @@ export class ThemeHttpService extends BaseHttpService {
     return this.http.get<PaginationDto<Theme>>(requestUrl);
   }
 
+  getAll(): Observable<Theme[]> {
+    return this.http.get<Theme[]>(`${this.apiUrl}`);
+  }
+
   get(id: number): Observable<Theme> {
     return this.http.get<Theme>(`${this.apiUrl}/${id}`);
   }
