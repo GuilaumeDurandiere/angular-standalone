@@ -40,6 +40,11 @@ export namespace WorkflowStateActions {
     static readonly type = `[WorkflowState] Delete`;
     constructor(public id: number) { }
   }
+
+  export class Duplicate {
+    static readonly type = `[WorkflowState] Duplicate`;
+    constructor(public id: number, public label: string) { }
+  }
 }
 
 
