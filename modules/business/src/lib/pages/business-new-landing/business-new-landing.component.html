@@ -1,7 +1,4 @@
-<app-main-page-title
-  i18n="@@NEW_BUSINESS_TITLE"
-  title="Faire une demande d'affaires"
->
+<div class="new-business-ctn">
   <ng-container *ngIf="viewModel$ | async as viewModel">
     <div class="theme-card-ctn">
       @for(theme of viewModel.themes; track theme.id) {
@@ -22,4 +19,4 @@
       }
     </div>
   </ng-container>
-</app-main-page-title>
+</div>
