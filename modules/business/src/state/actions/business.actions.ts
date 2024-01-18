@@ -8,11 +8,16 @@ export namespace BusinessStateActions {
     static readonly type = `${prefixAction} InitThemes`;
   }
 
-  export class getSubthemes {
-    static readonly type = `${prefixAction} getSubthemes`;
+  export class GetSubthemes {
+    static readonly type = `${prefixAction} GetSubthemes`;
     constructor(public themeId: number) { }
   }
+
+  export class Reset {
+    static readonly type = `${prefixAction} Reset`;
+  }
 }
+
 
 
 

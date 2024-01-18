@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { MainPageTitleComponent, OfferTypeEnum, Subtheme } from '@te44-front/shared';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { combineLatest, filter, take } from 'rxjs';
+import { Subject, combineLatest, filter, take } from 'rxjs';
 import { BusinessStateActions } from '../../../state/actions/business.actions';
 import { BusinessState } from '../../../state/business.state';
 import { ModalNewBusinessComponent } from '../../components/modal-new-business/modal-new-business.component';
@@ -22,7 +22,8 @@ import { ThemeCardComponent } from '../../components/theme-card/theme-card.compo
   templateUrl: './business-new-landing.component.html',
   styleUrl: './business-new-landing.component.less',
 })
-export class BusinessNewLandingComponent {
+export class BusinessNewLandingComponent implements OnDestroy {
+  private destroy$: Subject<void> = new Subject<void>();
 
   viewModel$ = combineLatest({
     themes: this.store.select(BusinessState.getThemes),
@@ -37,8 +38,15 @@ export class BusinessNewLandingComponent {
     private store: Store
   ) { }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+
+    this.store.dispatch(new BusinessStateActions.Reset());
+  }
+
   select(themeId: number): void {
-    this.store.dispatch(new BusinessStateActions.getSubthemes(themeId))
+    this.store.dispatch(new BusinessStateActions.GetSubthemes(themeId))
   }
 
   newBusiness(subtheme: Subtheme): void {

@@ -26,6 +26,7 @@
     "@nx/devkit": "^17.2.3",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.2",
+    "ngxs-reset-plugin": "^3.0.0",
     "primeicons": "^6.0.1",
     "primeng": "^17.1.0",
     "rxjs": "~7.8.0",

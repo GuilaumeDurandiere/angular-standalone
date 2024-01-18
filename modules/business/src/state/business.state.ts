@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Subtheme, SubthemeHttpService, Theme, ThemeHttpService } from '@te44-front/shared';
+import { StateReset } from 'ngxs-reset-plugin';
 import { tap } from 'rxjs';
 import { BusinessStateActions } from './actions/business.actions';
 import { BusinessStateModel } from './models/business-state.model';
+
 
 export const initBusinessStateModel: BusinessStateModel = {
   themes: [],
@@ -47,11 +49,16 @@ export class BusinessState {
     )
   }
 
-  @Action(BusinessStateActions.getSubthemes)
-  getSubtheme(ctx: StateContext<BusinessStateModel>, action: BusinessStateActions.getSubthemes) {
+  @Action(BusinessStateActions.GetSubthemes)
+  getSubthemes(ctx: StateContext<BusinessStateModel>, action: BusinessStateActions.GetSubthemes) {
     return this.subthemeHttpService.getByTheme(action.themeId).pipe(
       tap((subthemes: Subtheme[]) => ctx.patchState({ subthemes }))
     )
+  }
+
+  @Action(BusinessStateActions.Reset)
+  reset(ctx: StateContext<BusinessStateModel>) {
+    ctx.dispatch(new StateReset(BusinessState));
   }
 
 }
