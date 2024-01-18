@@ -1,9 +1,20 @@
 <div class="container-lg" *ngIf="viewModel$ | async as viewModel">
-  <div class="row">
-    <div class="p-3">
-      <h1 class="title">
+  <div class="row justify-content-between">
+    <div class="col-lg-8 p-3">
+      <h2 class="title">
         {{ viewModel.theme?.libelle }}
-      </h1>
+      </h2>
+    </div>
+    <div class="col-lg-4 p-3 text-end">
+      <button
+        pButton
+        pRipple
+        i18n-label="@@ADD_SUBTHEME"
+        label="Ajouter un sous-thème"
+        icon="pi pi-plus-circle"
+        class="generic-button borderless"
+        (click)="openModalAddSubtheme(viewModel.theme?.id)"
+      ></button>
     </div>
   </div>
   @if (viewModel.simple && viewModel.simple.length) {
