@@ -1,0 +1,34 @@
+<div [formGroup]="formGroup" class="formContainer p-3 mb-2">
+    <app-add-substep-form formControlName="sousEtapes" [nameRequired]="true"></app-add-substep-form>
+</div>
+<div class="d-flex justify-content-sm-between mt-4">
+<button
+    pButton
+    i18n-label="@@CANCEL"
+    label="Annuler"
+    icon="pi pi-times"
+    class="generic-button cancel"
+    (click)="cancel()"
+></button>
+@if (substep) {
+    <button
+        pButton
+        pRipple
+        i18n-label="@@SAVE_STEP"
+        label="Enregistrer les modifications"
+        icon="pi pi-save"
+        class="generic-button"
+        (click)="validate()"
+    ></button>
+} @else {
+    <button
+        pButton
+        i18n-label="@@ADD_SUBSTEP"
+        label="Ajouter la sous-étape"
+        icon="pi pi-plus-circle"
+        class="generic-button"
+        (click)="validate()"
+    ></button>
+}
+</div>
+  

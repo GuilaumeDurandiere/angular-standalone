@@ -1,21 +1,22 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { Step, StepHttpService } from '@te44-front/shared';
+import { ClientPaginatedTableComponent, ColumnCustom, Step, StepFormValue, SubstepFormValue, Workflow } from '@te44-front/shared';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessagesModule } from 'primeng/messages';
-import { TableModule } from 'primeng/table';
+import { filter, take } from 'rxjs';
+import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { WorkflowState } from '../../../../state/workflow.state';
-import { AdminStepModalComponent } from '../admin-step-modal/admin-step-modal.component';
+import { ModalUpsertStepComponent } from '../modal-upsert-step/modal-upsert-step.component';
 
 @Component({
   selector: 'app-admin-step',
   standalone: true,
-  imports: [RouterModule, CommonModule, ButtonModule, TableModule, MessagesModule, AsyncPipe, ConfirmDialogModule],
+  imports: [RouterModule, CommonModule, ButtonModule, MessagesModule, AsyncPipe, ConfirmDialogModule, ClientPaginatedTableComponent],
   templateUrl: './admin-step.component.html',
   styleUrl: './admin-step.component.less',
   providers: [DialogService, ConfirmationService]
@@ -23,9 +24,15 @@ import { AdminStepModalComponent } from '../admin-step-modal/admin-step-modal.co
 export class AdminStepComponent implements OnDestroy {
   workflow$ = this.store.select(WorkflowState.getWorkflow);
   ref: DynamicDialogRef | undefined;
+  columns: ColumnCustom[] = [
+    { field: 'libelle', header: $localize`:@@NAME:Nom`, sort: true, style: 'width: 20%;' },
+    { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
+    { field: 'statut', header: $localize`:@@STEP_STATUS:Statut de l'étape`, sort: true },
+    { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: false, style: 'width: 15%;' },
+  ];
 
   constructor(
-    private stepService: StepHttpService,
+    private router: Router, 
     private confirmationService: ConfirmationService,
     public dialogService: DialogService,
     private store: Store) { }
@@ -36,9 +43,12 @@ export class AdminStepComponent implements OnDestroy {
     }
   }
 
-  showAddStepModal(workflowName: string): void {
-    this.ref = this.dialogService.open(AdminStepModalComponent, {
-      header: $localize`:@@ADD_STEP_AT:Ajouter une étape à ${workflowName}`,
+  showAddStepModal(workflow: Workflow | null): void {
+    if (!workflow) {
+      return
+    }
+    this.ref = this.dialogService.open(ModalUpsertStepComponent, {
+      header: $localize`:@@ADD_STEP_AT:Ajouter une étape à ${workflow.libelle}`,
       width: '50vw',
       contentStyle: { overflow: 'auto' },
       breakpoints: {
@@ -46,43 +56,66 @@ export class AdminStepComponent implements OnDestroy {
         '640px': '90vw'
       },
       maximizable: true,
-      data: { workflow$: this.workflow$ },
       dismissableMask: true,
       closeOnEscape: true
     });
+
+    this.ref.onClose
+      .pipe(
+        take(1),
+        filter<StepFormValue | null>(Boolean),
+      )
+      .subscribe((formValue: StepFormValue) => {
+        formValue.sousEtapes = formValue.sousEtapes.filter((x: SubstepFormValue) => x.libelle !== '');
+        this.store.dispatch(new WorkflowStateActions.CreateStep(formValue, workflow.id));
+      });
   }
 
   showUpdateStepModal(step: Step): void {
-    this.ref = this.dialogService.open(AdminStepModalComponent, {
-      header: $localize`:@@MODIFY_STEP:Modifier l'étape ${step.libelle}`,
+    if (!step) {
+      return
+    }
+    this.ref = this.dialogService.open(ModalUpsertStepComponent, {
+      header: $localize`:@@MODIFY_STEP:Modifier ${step.libelle}`,
       width: '50vw',
       contentStyle: { overflow: 'auto' },
       breakpoints: {
-        '960px': '75vw',
-        '640px': '90vw'
+          '960px': '75vw',
+          '640px': '90vw'
       },
       maximizable: true,
-      data: { workflow$: this.workflow$, step },
+      data: {
+        step
+      },
       dismissableMask: true,
       closeOnEscape: true
     });
+
+    this.ref.onClose
+      .pipe(
+        take(1),
+        filter<StepFormValue | null>(Boolean),
+      )
+      .subscribe((formValue: StepFormValue) => {
+        this.store.dispatch(new WorkflowStateActions.UpdateStep(formValue, step.id));
+      });
   }
 
-  deleteConfirmation(steps: Step[], step: Step): void {
+  deleteConfirmation(step: Step): void {
     this.confirmationService.confirm({
-      message: $localize`:@@CONFIRMATION_MESSAGE:Voulez-vous vraiment supprimer cette étape ?`,
+      message: $localize`:@@CONFIRMATION_MESSAGE_STEP:Voulez-vous vraiment supprimer cette étape ?`,
       header: $localize`:@@CONFIRMATION_HEADER:Confirmation de suppression`,
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: "p-button-danger p-button-text",
-      rejectButtonStyleClass: "p-button-text p-button-text",
+      rejectButtonStyleClass: "p-button-text",
       acceptIcon: "none",
       rejectIcon: "none",
       acceptLabel: $localize`:@@YES:Oui`,
       rejectLabel: $localize`:@@NO:Non`,
       dismissableMask: true,
+      closeOnEscape: true,
       accept: () => {
-        this.stepService.delete(step.id).subscribe();
-        steps = steps.filter((val) => val.id !== step.id);
+        this.store.dispatch(new WorkflowStateActions.DeleteStep(step.id));
       }
     });
   }

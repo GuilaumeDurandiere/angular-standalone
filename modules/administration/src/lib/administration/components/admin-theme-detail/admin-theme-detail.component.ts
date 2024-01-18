@@ -7,7 +7,6 @@ import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessagesModule } from 'primeng/messages';
-import { TableModule } from 'primeng/table';
 import { combineLatest, filter, take } from 'rxjs';
 import { ThemeStateActions } from '../../../../state/actions/theme.actions';
 import { ThemeState } from '../../../../state/theme.state';
@@ -18,7 +17,6 @@ import { ModalAddSubthemeComponent } from '../modal-add-subtheme/modal-add-subth
   standalone: true,
   imports: [
     CommonModule,
-    TableModule,
     ButtonModule,
     MessagesModule,
     ClientPaginatedTableComponent,
@@ -91,6 +89,8 @@ export class AdminThemeDetailComponent {
       height: '80%',
       width: '60%',
       maximizable: true,
+      dismissableMask: true,
+      closeOnEscape: true,
     });
 
     this.dialog.onClose
@@ -113,6 +113,8 @@ export class AdminThemeDetailComponent {
       height: '80%',
       width: '60%',
       maximizable: true,
+      dismissableMask: true,
+      closeOnEscape: true,
       data: {
         subtheme
       }
@@ -134,12 +136,13 @@ export class AdminThemeDetailComponent {
       header: $localize`:@@CONFIRMATION_HEADER:Confirmation de suppression`,
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: "p-button-danger p-button-text",
-      rejectButtonStyleClass: "p-button-text p-button-text",
+      rejectButtonStyleClass: "p-button-text",
       acceptIcon: "none",
       rejectIcon: "none",
       acceptLabel: $localize`:@@YES:Oui`,
       rejectLabel: $localize`:@@NO:Non`,
       dismissableMask: true,
+      closeOnEscape: true,
       accept: () => {
         this.store.dispatch(new ThemeStateActions.DeleteSubtheme(subthemeId))
       }

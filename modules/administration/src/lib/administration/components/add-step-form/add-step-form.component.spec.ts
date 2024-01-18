@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdminStepModalComponent } from './admin-step-modal.component';
+import { AddStepFormComponent } from './add-step-form.component';
 
-describe('AdminStepModalComponent', () => {
-  let component: AdminStepModalComponent;
-  let fixture: ComponentFixture<AdminStepModalComponent>;
+describe('AddStepFormComponent', () => {
+  let component: AddStepFormComponent;
+  let fixture: ComponentFixture<AddStepFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminStepModalComponent],
+      imports: [AddStepFormComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminStepModalComponent);
+    fixture = TestBed.createComponent(AddStepFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,6 +6,7 @@ export interface SubstepForm {
 };
 
 export interface SubstepFormValue {
+    id?: number | null;
     libelle?: string | null;
     description?: string | null;
 };

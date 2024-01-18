@@ -14,5 +14,5 @@ export interface StepFormValue {
     description?: string | null;
     statut: string;
     sousEtapes: SubstepFormValue[];
-    workflowId: number;
+    workflowId?: number | null;
 }

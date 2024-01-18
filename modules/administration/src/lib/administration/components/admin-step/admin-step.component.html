@@ -19,8 +19,8 @@
                 i18n-label="@@ADD_STEP"
                 label="Ajouter une étape"
                 icon="pi pi-plus-circle"
-                class="addStepButton"
-                (click)="showAddStepModal(workflow.libelle)"
+                class="add-step-button"
+                (click)="showAddStepModal(workflow)"
             ></button>
         </div>
     </div>
@@ -30,60 +30,57 @@
             <div i18n="@@SUBSTEP_CREATION_INFO" class="infoMessage">Pour créer une sous-étape, cliquez sur une étape.</div>
         </ng-template>
     </p-messages>
-    <!-- [lazy]="true"
-        (onLazyLoad)="getAll($event)"
-        (onRowSelect)="onRowSelect($event)"
-    -->
-    <p-table
-        [value]="workflow.etapes"
-        [tableStyle]="{ 'min-width': '50rem' }"
-        [paginator]="true"
-        [rows]="15"
-        [showCurrentPageReport]="false"
-        paginatorLocale="fr-FR"
-        selectionMode="single"
+    <app-client-paginated-table
+        [columns]="columns"
+        [data]="workflow.etapes"
     >
-        <ng-template pTemplate="header">
-            <tr>
-                <th i18n="@@NAME" style="width: 20%">Nom</th>
-                <th i18n="@@DESCRIPTION">Description</th>
-                <th i18n="@@STEP_STATUS">Statut de l'étape</th>
-                <th i18n="@@ACTIONS" style="width: 12%">Actions</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-etape>
-            <tr
-                [pSelectableRow]="etape"
-            >
-                <td>{{ etape.libelle }}</td>
-                <td>{{ etape.description }}</td>
-                <td>{{ etape.statut }}</td>
-                <td>
+        <ng-template pTemplate="body" let-item>
+            <tr class="dataRow">
+                <td *ngFor="let col of columns; let i = index">
+                <ng-container [ngSwitch]="col.field">
+                    <ng-container *ngSwitchCase="'libelle'">
+                        {{ item.libelle }}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'description'">
+                        {{ item.description }}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'statut'">
+                        {{ item.statut }}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'actions'">
                     <span class="p-buttonset">
+                        <p-button
+                        icon="pi pi-eye"
+                        [text]="true"
+                        class="action-icon modify-copy-icon"
+                        [routerLink]="['/administration/workflow/', workflow.id, 'etape', item.id]"
+                        ></p-button>
                         <p-button
                         icon="pi pi-pencil"
                         [text]="true"
                         class="action-icon modify-copy-icon"
-                        (click)="showUpdateStepModal(etape)"
+                        (click)="showUpdateStepModal(item)"
                         ></p-button>
                         <p-button
                         icon="pi pi-trash"
                         [text]="true"
                         class="action-icon delete-icon"
-                        (click)="deleteConfirmation(workflow.etapes, etape)"
+                        (onClick)="deleteConfirmation(item)"
                         ></p-button>
                     </span>
+                    </ng-container>
+                </ng-container>
                 </td>
             </tr>
         </ng-template>
-    </p-table>
+    </app-client-paginated-table>
     <button
         pButton
         pRipple
         i18n-label="@@BACK_TO_WORKFLOW_TABLE"
         label="Retourner au tableau des workflow"
         icon="pi pi-arrow-circle-left"
-        class="goBackButton"
+        class="generic-button"
         [routerLink]="['/administration', 'workflow']"
     ></button>
     <p-confirmDialog></p-confirmDialog>

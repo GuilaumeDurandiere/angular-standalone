@@ -6,7 +6,7 @@ export const StepSchema = z.object({
     libelle: z.string(),
     description: z.string().optional(),
     statut: z.string(),
-    sousEtapes: z.array(SubstepSchema).optional()
+    sousEtapes: z.array(SubstepSchema),
 })
 
 export type Step = z.infer<typeof StepSchema>

@@ -52,10 +52,12 @@ export class AdminThemeComponent {
 
   openModalAddTheme(): void {
     this.dialog = this.dialogService.open(ModalAddThemeComponent, {
-      header: $localize`:@@ADD_THEME_TITLE:Ajouter un theme`,
+      header: $localize`:@@ADD_THEME_TITLE:Ajouter un thème`,
       height: '80%',
       width: '60%',
       maximizable: true,
+      dismissableMask: true,
+      closeOnEscape: true,
     });
 
     this.dialog.onClose
@@ -70,10 +72,12 @@ export class AdminThemeComponent {
 
   openModalUpdateTheme(theme: Theme): void {
     this.dialog = this.dialogService.open(ModalAddThemeComponent, {
-      header: $localize`:@@ADD_THEME_TITLE:Ajouter un theme`,
+      header: $localize`:@@UPDATE_THEME_TITLE:Modifier ${theme.libelle}`,
       height: '80%',
       width: '60%',
       maximizable: true,
+      dismissableMask: true,
+      closeOnEscape: true,
       data: {
         theme,
       }
@@ -91,16 +95,17 @@ export class AdminThemeComponent {
 
   deleteTheme(themeId: number, libelle: string): void {
     this.confirmationService.confirm({
-      message: $localize`:@@CONFIRMATION_MESSAGE:Voulez-vous vraiment supprimer le sous-thème ${libelle} ?`,
+      message: $localize`:@@CONFIRMATION_MESSAGE:Voulez-vous vraiment supprimer le thème ${libelle} ?`,
       header: $localize`:@@CONFIRMATION_HEADER:Confirmation de suppression`,
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: "p-button-danger p-button-text",
-      rejectButtonStyleClass: "p-button-text p-button-text",
+      rejectButtonStyleClass: "p-button-text",
       acceptIcon: "none",
       rejectIcon: "none",
       acceptLabel: $localize`:@@YES:Oui`,
       rejectLabel: $localize`:@@NO:Non`,
       dismissableMask: true,
+      closeOnEscape: true,
       accept: () => {
         this.store.dispatch(new ThemeStateActions.DeleteTheme(themeId))
       }
