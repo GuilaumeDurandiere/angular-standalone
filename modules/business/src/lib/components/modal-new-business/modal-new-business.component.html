@@ -1,1 +1,44 @@
-<p>modal-new-business works!</p>
+<form [formGroup]="formGroup">
+  <app-form-control-presenter
+    [control]="formGroup.controls['telephone']"
+    [name]="'telephone'"
+    [label]="'Nom du Workflow'"
+    i18n-label
+    [required]="true"
+  >
+    <p-inputMask
+      mask="(+33)9-99-99-99-99"
+      formControlName="telephone"
+      placeholder="(+33)0-00-00-00-00"
+    ></p-inputMask>
+  </app-form-control-presenter>
+
+  <app-form-control-presenter
+    [control]="formGroup.controls['message']"
+    [name]="'message'"
+    [label]="'Nom du Workflow'"
+    i18n-label
+    [required]="true"
+  >
+    <input type="text" pInputText formControlName="message" />
+  </app-form-control-presenter>
+</form>
+
+<div class="d-flex justify-content-sm-between mt-4">
+  <button
+    pButton
+    i18n-label="@@CANCEL"
+    label="Annuler"
+    icon="pi pi-times"
+    class="generic-button cancel"
+    (click)="cancel()"
+  ></button>
+  <button
+    pButton
+    i18n-label="@@SEND_REQUEST"
+    label="Envoyer la demande"
+    icon="pi pi-send"
+    class="generic-button"
+    (click)="validate()"
+  ></button>
+</div>
