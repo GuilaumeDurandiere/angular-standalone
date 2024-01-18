@@ -1,0 +1,31 @@
+<form [formGroup]="formGroup">
+    <app-form-control-presenter
+      [control]="formGroup.controls.libelle"
+      [name]="'libelle'"
+      [label]="'Nom du Workflow'"
+      i18n-label
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="libelle" />
+    </app-form-control-presenter>
+</form>
+
+<div class="d-flex justify-content-sm-between mt-4">
+  <button
+    pButton
+    i18n-label="@@CANCEL"
+    label="Annuler"
+    icon="pi pi-times"
+    class="generic-button cancel"
+    (click)="cancel()"
+  ></button>
+  <button
+    pButton
+    i18n-label="@@DUPLICATE_THE_WORKFLOW"
+    label="Dupliquer le workflow"
+    icon="pi pi-plus-circle"
+    class="generic-button"
+    [disabled]="disabled$ | async"
+    (click)="validate()"
+  ></button>
+</div>

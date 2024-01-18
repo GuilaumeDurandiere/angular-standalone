@@ -1,0 +1,25 @@
+<app-main-page-title
+  i18n="@@NEW_BUSINESS_TITLE"
+  title="Faire une demande d'affaires"
+>
+  <ng-container *ngIf="viewModel$ | async as viewModel">
+    <div class="theme-card-ctn">
+      @for(theme of viewModel.themes; track theme.id) {
+      <app-theme-card
+        [title]="theme.libelle"
+        [icon]="theme.icone"
+        (click)="select(theme.id)"
+      ></app-theme-card>
+      }
+    </div>
+    <div class="subtheme-card-ctn">
+      @for(subtheme of viewModel.subthemes; track subtheme.id) {
+      <app-subtheme-card
+        [icon]="subtheme.icone"
+        [title]="subtheme.libelle"
+        (newBusinessEmmiter)="newBusiness(subtheme)"
+      ></app-subtheme-card>
+      }
+    </div>
+  </ng-container>
+</app-main-page-title>

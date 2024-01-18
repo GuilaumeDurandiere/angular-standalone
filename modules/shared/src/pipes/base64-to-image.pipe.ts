@@ -6,7 +6,10 @@ import { getImagefromBase64 } from '../helpers/images.helper';
   standalone: true,
 })
 export class Base64ToImagePipe implements PipeTransform {
-  transform(value: string): string | undefined {
+  transform(value: string | null): string | undefined {
+    if (!value) {
+      return ''
+    }
     return getImagefromBase64(value);
   }
 }

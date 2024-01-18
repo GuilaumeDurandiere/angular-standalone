@@ -2,16 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { BoolToStringPipe, ColumnCustom, PaginationData, PaginationDto, ServerPaginatedTableComponent, Workflow } from '@te44-front/shared';
+import { BoolToStringPipe, ColumnCustom, DuplicateWorkflowFormValue, PaginationData, PaginationDto, ServerPaginatedTableComponent, Workflow } from '@te44-front/shared';
 import { ConfirmationService, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
-import { Observable } from 'rxjs';
+import { Observable, filter, take } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { WorkflowState } from '../../../../state/workflow.state';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ModalDuplicateWorkflow } from '../modal-duplicate-workflow/modal-duplicate-workflow.component';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ModalDuplicateWorkflowComponent } from '../modal-duplicate-workflow/modal-duplicate-workflow.component';
 
 @Component({
   selector: 'app-admin-workflow',
@@ -46,9 +46,21 @@ export class AdminWorkflowComponent implements OnDestroy {
     this.store.dispatch(new WorkflowStateActions.LoadPageData(event));
   }
 
-  show(id: number, name: string) {
-    this.ref = this.dialogService.open(ModalDuplicateWorkflow, {data: { workflowId: id, workflowName: name }});
-  }
+  openModalDuplicateWorkflow(id: number, name: string) : void {
+    this.ref = this.dialogService.open(ModalDuplicateWorkflowComponent, {
+      header: $localize`:@@DUPLICATE_A_WORKFLOW:Dupliquer un Workflow`,
+      data: {workflowName: name }
+    });
+    
+      this.ref.onClose
+      .pipe(
+        take(1),
+        filter<DuplicateWorkflowFormValue | null>(Boolean),
+      )
+      .subscribe((formValue: DuplicateWorkflowFormValue) => {
+        this.store.dispatch(new WorkflowStateActions.Duplicate(id, formValue.libelle));
+      });
+}
 
   deleteWorkflow(workflow: Workflow): void {
     this.confirmationService.confirm({

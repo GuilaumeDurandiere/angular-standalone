@@ -42,6 +42,9 @@
     "SUBSTEPS": "Sous-étape(s)",
     "SUBSTEP": "Sous-étape",
     "ADD_THE_SUBSTEP": "Ajouter la sous-étape",
-    "CONFIRMATION_MESSAGE_WORKFLOW": "Voulez-vous vraiment supprimer ce workflow ?"
+    "CONFIRMATION_MESSAGE_WORKFLOW": "Voulez-vous vraiment supprimer ce workflow ?",
+    "DUPLICATE_A_WORKFLOW": "Dupliquer un Workflow",
+    "DUPLICATE_THE_WORKFLOW": "Dupliquer le workflow",
+    "DUPLICATED_WORKFLOW_NAME": "Nom du workflow dupliqué"
   }
 }

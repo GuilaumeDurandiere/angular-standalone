@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BusinessComponent } from './business.component';
+import { SubthemeCardComponent } from './subtheme-card.component';
 
-describe('BusinessComponent', () => {
-  let component: BusinessComponent;
-  let fixture: ComponentFixture<BusinessComponent>;
+describe('SubthemeCardComponent', () => {
+  let component: SubthemeCardComponent;
+  let fixture: ComponentFixture<SubthemeCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BusinessComponent],
+      imports: [SubthemeCardComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BusinessComponent);
+    fixture = TestBed.createComponent(SubthemeCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
