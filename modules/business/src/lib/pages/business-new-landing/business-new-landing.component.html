@@ -1,6 +1,9 @@
 <div class="new-business-ctn">
   <ng-container *ngIf="viewModel$ | async as viewModel">
-    <div class="theme-card-ctn">
+    <div
+      class="theme-card-ctn"
+      [ngClass]="viewModel.subthemes.length ? 'selected' : 'unselected'"
+    >
       @for(theme of viewModel.themes; track theme.id) {
       <app-theme-card
         [title]="theme.libelle"
@@ -14,6 +17,7 @@
       <app-subtheme-card
         [icon]="subtheme.icone"
         [title]="subtheme.libelle"
+        [description]="subtheme.description"
         (newBusinessEmmiter)="newBusiness(subtheme)"
       ></app-subtheme-card>
       }

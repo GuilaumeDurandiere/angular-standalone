@@ -1,12 +1,19 @@
 <div class="subtheme-card">
-  <img [src]="icon | base64ToImage" class="center-image" />
-  <div class="container">
-    <h4>
-      <b class="justify-center">{{ title }}</b>
-    </h4>
+  <div class="subtheme-start-ctn">
+    <div class="image-ctn">
+      <img [src]="icon | base64ToImage" />
+    </div>
+    <div class="subtheme-title-ctn">
+      <h4>
+        <b class="justify-center">{{ title }}</b>
+      </h4>
+      <p>
+        {{ description }}
+      </p>
+    </div>
   </div>
   <p-button
-    class="gradient-button"
+    class="gradient-button subtheme-button"
     i18n="@@New_BUSINESS"
     (click)="newBusiness()"
     >Demande d'affaire</p-button
