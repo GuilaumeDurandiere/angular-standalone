@@ -93,14 +93,14 @@ export class WorkflowState {
 
   @Action(WorkflowStateActions.UpdateStep)
   updateStep(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.UpdateStep) {
-    return this.stepHttpService.update(action.stepFormValue).pipe(
+    return this.stepHttpService.update({ ...action.stepFormValue, id: action.stepId }).pipe(
       tap(() => ctx.dispatch(new WorkflowStateActions.RefreshStep()))
     )
   }
 
   @Action(WorkflowStateActions.UpdateSubstep)
   updateSubstep(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.UpdateSubstep) {
-    return this.substepHttpService.update(action.substepFormValue).pipe(
+    return this.substepHttpService.update({ ...action.substepFormValue, id: action.substepId }).pipe(
       tap(() => ctx.dispatch(new WorkflowStateActions.RefreshSubstep()))
     )
   }

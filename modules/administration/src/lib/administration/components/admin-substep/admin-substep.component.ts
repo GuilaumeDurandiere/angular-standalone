@@ -2,14 +2,15 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { ClientPaginatedTableComponent, ColumnCustom, Substep } from '@te44-front/shared';
+import { ClientPaginatedTableComponent, ColumnCustom, Step, Substep, SubstepFormValue } from '@te44-front/shared';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { WorkflowState } from '../../../../state/workflow.state';
-import { AdminSubstepModalComponent } from '../admin-substep-modal/admin-substep-modal.component';
+import { combineLatest, filter, take } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
+import { WorkflowState } from '../../../../state/workflow.state';
+import { ModalUpsertSubstepComponent } from '../modal-upsert-substep/modal-upsert-substep.component';
 
 @Component({
   selector: 'app-admin-substep',
@@ -20,9 +21,11 @@ import { WorkflowStateActions } from '../../../../state/actions/workflow.actions
   providers: [DialogService, ConfirmationService]
 })
 export class AdminSubstepComponent implements OnDestroy {
-  step$ = this.store.select(WorkflowState.getStep);
-  workflow$ = this.store.select(WorkflowState.getWorkflow);
-  ref: DynamicDialogRef | undefined;
+  viewModel$ = combineLatest({ 
+    step: this.store.select(WorkflowState.getStep), 
+    workflow: this.store.select(WorkflowState.getWorkflow) 
+  });
+  dialog: DynamicDialogRef | undefined;
   columns: ColumnCustom[] = [
     { field: 'libelle', header: $localize`:@@NAME:Nom`, sort: true, style: 'width: 25%;' },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true, style: 'width: 63%;' },
@@ -35,14 +38,17 @@ export class AdminSubstepComponent implements OnDestroy {
     private store: Store) { }
 
   ngOnDestroy(): void {
-    if (this.ref) {
-      this.ref.close();
+    if (this.dialog) {
+      this.dialog.close();
     }
   }
 
-  showAddSubstepModal(stepName: string): void {
-    this.ref = this.dialogService.open(AdminSubstepModalComponent, {
-      header: $localize`:@@ADD_SUBSTEP_AT:Ajouter une sous-étape à ${stepName}`,
+  showAddSubstepModal(step: Step | null): void {
+    if (!step) {
+      return;
+    }
+    this.dialog = this.dialogService.open(ModalUpsertSubstepComponent, {
+      header: $localize`:@@ADD_SUBSTEP_AT:Ajouter une sous-étape à ${step.libelle}`,
       width: '50vw',
       contentStyle: { overflow: 'auto' },
       breakpoints: {
@@ -50,26 +56,48 @@ export class AdminSubstepComponent implements OnDestroy {
         '640px': '90vw'
       },
       maximizable: true,
-      data: { step$: this.step$ },
       dismissableMask: true,
-      closeOnEscape: true
+      closeOnEscape: true,
     });
+    this.dialog.onClose
+      .pipe(
+        take(1),
+        filter<SubstepFormValue | null>(Boolean),
+      )
+      .subscribe((formValue: SubstepFormValue) => {
+        this.store.dispatch(new WorkflowStateActions.CreateSubstep(formValue, step.id));
+      });
   }
 
   showUpdateSubstepModal(substep: Substep): void {
-    this.ref = this.dialogService.open(AdminSubstepModalComponent, {
-        header: $localize`:@@MODIFY_STEP:Modifier ${substep.libelle}`,
-        width: '50vw',
-        contentStyle: { overflow: 'auto' },
-        breakpoints: {
-            '960px': '75vw',
-            '640px': '90vw'
-        },
-        maximizable: true,
-        data: {step$: this.step$, substep},
-        dismissableMask: true,
-        closeOnEscape: true
+    if (!substep) {
+      return;
+    }
+
+    this.dialog = this.dialogService.open(ModalUpsertSubstepComponent, {
+      header: $localize`:@@MODIFY_STEP:Modifier ${substep.libelle}`,
+      width: '50vw',
+      contentStyle: { overflow: 'auto' },
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw'
+      },
+      maximizable: true,
+      dismissableMask: true,
+      closeOnEscape: true,
+      data: {
+        substep
+      }
     });
+
+    this.dialog.onClose
+      .pipe(
+        take(1),
+        filter<SubstepFormValue | null>(Boolean),
+      )
+      .subscribe((formValue: SubstepFormValue) => {
+        this.store.dispatch(new WorkflowStateActions.UpdateSubstep(formValue, substep.id));
+      });
   }
 
   deleteConfirmation(substep: Substep): void {

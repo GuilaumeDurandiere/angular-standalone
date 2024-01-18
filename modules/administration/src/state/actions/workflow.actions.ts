@@ -54,12 +54,12 @@ export namespace WorkflowStateActions {
 
   export class UpdateStep {
     static readonly type = `[WorkflowState] UpdateStep`;
-    constructor(public stepFormValue: StepFormValue) { }
+    constructor(public stepFormValue: StepFormValue, public stepId: number) { }
   }
 
   export class UpdateSubstep {
     static readonly type = `[WorkflowState] UpdateSubstep`;
-    constructor(public substepFormValue: SubstepFormValue) { }
+    constructor(public substepFormValue: SubstepFormValue, public substepId: number) { }
   }
 
   export class Refresh {

@@ -1,0 +1,33 @@
+<div [formGroup]="formGroup">
+  <app-add-step-form formControlName="etapes" [isCreate]="step ? false : true"></app-add-step-form>
+</div>
+<div class="d-flex justify-content-sm-between mt-4">
+<button
+  pButton
+  i18n-label="@@CANCEL"
+  label="Annuler"
+  icon="pi pi-times"
+  class="generic-button cancel"
+  (click)="cancel()"
+></button>
+@if (step) {
+  <button
+      pButton
+      pRipple
+      i18n-label="@@SAVE_STEP"
+      label="Enregistrer les modifications"
+      icon="pi pi-save"
+      class="generic-button"
+      (click)="validate()"
+  ></button>
+} @else {
+  <button
+      pButton
+      i18n-label="@@ADD_STEP"
+      label="Ajouter l'étape"
+      icon="pi pi-plus-circle"
+      class="generic-button"
+      (click)="validate()"
+  ></button>
+}
+</div>
