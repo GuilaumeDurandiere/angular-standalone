@@ -1,8 +1,29 @@
+.new-business-ctn {
+  padding: 5% 10%;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 40px;
+}
+
 .theme-card-ctn {
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+
+  &.selected {
+    flex-flow: column nowrap;
+  }
+
+  &.unselected {
+    flex-flow: row wrap;
+  }
 }
 
 .subtheme-card-ctn {
-  padding-top: 20px;
   display: flex;
+  flex-direction: column;
+  flex: auto;
+  gap: 24px;
 }

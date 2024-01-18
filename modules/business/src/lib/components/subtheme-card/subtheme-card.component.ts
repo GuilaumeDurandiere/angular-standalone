@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 })
 export class SubthemeCardComponent {
   @Input() title: string | null = null;
+  @Input() description: string | undefined = undefined;
   @Input() icon: string | null = null;
 
   @Output() newBusinessEmmiter: EventEmitter<void> = new EventEmitter();
