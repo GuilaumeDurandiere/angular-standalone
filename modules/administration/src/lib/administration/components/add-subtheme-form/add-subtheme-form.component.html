@@ -1,13 +1,13 @@
 <form [formGroup]="formGroup">
   <app-form-group-presenter
-    [title]="'Information du thème'"
+    [title]="'Information du sous-thème'"
     [collapsable]="true"
     background="cyan"
   >
     <app-form-control-presenter
       [control]="formGroup.controls.libelle"
       [name]="'libelle'"
-      [label]="'Nom du thème'"
+      [label]="'Nom du sous-thème'"
       [required]="true"
     >
       <input type="text" pInputText formControlName="libelle" />
@@ -16,7 +16,7 @@
     <app-form-control-presenter
       [control]="formGroup.controls.icone"
       [name]="'icone'"
-      [label]="'Icon'"
+      [label]="'Ajouter une icône'"
       [required]="true"
     >
       <app-icon-uploader formControlName="icone"></app-icon-uploader>
@@ -25,7 +25,7 @@
     <app-form-control-presenter
       [control]="formGroup.controls.couleur"
       [name]="'couleur'"
-      [label]="'couleur'"
+      [label]="'Couleur'"
       [required]="true"
     >
       <p-colorPicker formControlName="couleur"></p-colorPicker>
@@ -34,7 +34,7 @@
     <app-form-control-presenter
       [control]="formGroup.controls.description"
       [name]="'description'"
-      [label]="'Description de l\'étape'"
+      [label]="'Description du sous-thème'"
     >
       <input type="text" pInputText formControlName="description" />
     </app-form-control-presenter>
@@ -42,7 +42,7 @@
     <app-form-control-presenter
       [control]="formGroup.controls.refTypeOffreId"
       [name]="'refTypeOffreId'"
-      [label]="'Description de l\'étape'"
+      [label]="'Type de demande'"
     >
       <div class="flex flex-wrap gap-3">
         <div *ngFor="let offer of offerTypes" class="flex align-items-center">

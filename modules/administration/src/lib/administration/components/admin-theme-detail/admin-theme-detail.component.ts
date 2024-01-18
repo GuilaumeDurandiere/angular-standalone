@@ -136,7 +136,7 @@ export class AdminThemeDetailComponent {
       header: $localize`:@@CONFIRMATION_HEADER:Confirmation de suppression`,
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: "p-button-danger p-button-text",
-      rejectButtonStyleClass: "p-button-text p-button-text",
+      rejectButtonStyleClass: "p-button-text",
       acceptIcon: "none",
       rejectIcon: "none",
       acceptLabel: $localize`:@@YES:Oui`,
