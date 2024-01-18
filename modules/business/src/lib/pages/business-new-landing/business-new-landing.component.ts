@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { MainPageTitleComponent, OfferTypeEnum, Subtheme } from '@te44-front/shared';
-import { combineLatest } from 'rxjs';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { combineLatest, filter, take } from 'rxjs';
 import { BusinessStateActions } from '../../../state/actions/business.actions';
 import { BusinessState } from '../../../state/business.state';
+import { ModalNewBusinessComponent } from '../../components/modal-new-business/modal-new-business.component';
 import { SubthemeCardComponent } from '../../components/subtheme-card/subtheme-card.component';
 import { ThemeCardComponent } from '../../components/theme-card/theme-card.component';
 
@@ -27,7 +29,11 @@ export class BusinessNewLandingComponent {
     subthemes: this.store.select(BusinessState.getSubthemes),
   })
 
+  dialog: DynamicDialogRef | null = null;
+
+
   constructor(
+    private dialogService: DialogService,
     private store: Store
   ) { }
 
@@ -47,10 +53,33 @@ export class BusinessNewLandingComponent {
         console.log('demande travaux', subtheme.mailReferent)
         break;
       case OfferTypeEnum.FORMULAIRE_SIMPLIFIE:
-        console.log('formulaire simplifié', subtheme.mailReferent)
+        this.openModalNewBusiness(subtheme.libelle)
         break;
       default:
         break;
     }
+  }
+
+  openModalNewBusiness(subthemeName: string): void {
+    this.dialog = this.dialogService.open(ModalNewBusinessComponent, {
+      header: $localize`:@@NEW_BUSINNESS:Faire une demande`,
+      height: '80%',
+      width: '60%',
+      maximizable: true,
+      dismissableMask: true,
+      closeOnEscape: true,
+      data: {
+        name: subthemeName
+      },
+    });
+
+    this.dialog.onClose
+      .pipe(
+        take(1),
+        filter<string | null>(Boolean),
+      )
+      .subscribe(() => {
+
+      });
   }
 }
