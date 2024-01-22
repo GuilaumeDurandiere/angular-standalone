@@ -1,11 +1,11 @@
 import { FormControl } from "@angular/forms";
 
 export interface RequestForm {
-  telephone: FormControl<string>;
-  message?: FormControl<string>;
+  telephone: FormControl<string | null>;
+  message: FormControl<string | null>;
 };
 
 export interface RequestFormValue {
-  telephone: string;
-  message?: string;
+  telephone: string | null;
+  message: string | null;
 }
