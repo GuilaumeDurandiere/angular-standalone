@@ -1,3 +1,4 @@
+import { RequestFormValue } from "@te44-front/shared";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BusinessStateActions {
@@ -11,6 +12,11 @@ export namespace BusinessStateActions {
   export class GetSubthemes {
     static readonly type = `${prefixAction} GetSubthemes`;
     constructor(public themeId: number) { }
+  }
+
+  export class SendRequestForm {
+    static readonly type = `${prefixAction} SendRequestForm`;
+    constructor(public data: RequestFormValue, public subthemeId: number) { }
   }
 
   export class Reset {

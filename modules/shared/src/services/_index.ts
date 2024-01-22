@@ -1,3 +1,4 @@
+export * from './mail-http.service';
 export * from './step-http.service';
 export * from './substep-http.service';
 export * from './subtheme-http.service';

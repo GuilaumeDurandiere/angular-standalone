@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { MainPageTitleComponent, OfferTypeEnum, Subtheme } from '@te44-front/shared';
+import { MainPageTitleComponent, OfferTypeEnum, RequestFormValue, Subtheme } from '@te44-front/shared';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject, combineLatest, filter, take } from 'rxjs';
 import { BusinessStateActions } from '../../../state/actions/business.actions';
@@ -52,7 +52,7 @@ export class BusinessNewLandingComponent implements OnDestroy {
   newBusiness(subtheme: Subtheme): void {
     switch (subtheme.refTypeOffre.id) {
       case OfferTypeEnum.LIEN_EXTERNE:
-        console.log('lien externe', subtheme.lienExterne)
+        this.openLink(subtheme?.lienExterne);
         break;
       case OfferTypeEnum.DEMANDE_HORS_TRAVAUX:
         console.log('demande hors travaux', subtheme.mailReferent)
@@ -61,21 +61,21 @@ export class BusinessNewLandingComponent implements OnDestroy {
         console.log('demande travaux', subtheme.mailReferent)
         break;
       case OfferTypeEnum.FORMULAIRE_SIMPLIFIE:
-        this.openModalNewBusiness(subtheme.libelle)
+        this.openModalNewBusiness(subtheme.libelle, subtheme.id)
         break;
       default:
         break;
     }
   }
 
-  openModalNewBusiness(subthemeName: string): void {
+  openModalNewBusiness(subthemeName: string, subthemeId: number): void {
     this.dialog = this.dialogService.open(ModalNewBusinessComponent, {
       header: $localize`:@@NEW_BUSINNESS:Faire une demande`,
       height: '80%',
       width: '60%',
       maximizable: true,
       dismissableMask: true,
-      closeOnEscape: true,
+      closeOnEscape: false,
       data: {
         name: subthemeName
       },
@@ -84,10 +84,18 @@ export class BusinessNewLandingComponent implements OnDestroy {
     this.dialog.onClose
       .pipe(
         take(1),
-        filter<string | null>(Boolean),
+        filter<RequestFormValue | null>(Boolean),
       )
-      .subscribe(() => {
+      .subscribe((value: RequestFormValue) =>
+        this.store.dispatch(new BusinessStateActions.SendRequestForm(value, subthemeId)));
+  }
 
-      });
+  openLink(lienExterne: string | undefined): void {
+    if (lienExterne) {
+      window.open(lienExterne, '_blank');
+    }
   }
 }
+
+
+
