@@ -52,8 +52,8 @@ export class BusinessState {
 
   @Action(BusinessStateActions.GetSubthemes)
   getSubthemes(ctx: StateContext<BusinessStateModel>, action: BusinessStateActions.GetSubthemes) {
-    return this.subthemeHttpService.getByTheme(action.themeId).pipe(
-      tap((subthemes: Subtheme[]) => ctx.patchState({ subthemes }))
+    return this.themeHttpService.get(action.themeId).pipe(
+      tap((theme: Theme) => ctx.patchState({ subthemes: theme.sousThemes }))
     )
   }
 
