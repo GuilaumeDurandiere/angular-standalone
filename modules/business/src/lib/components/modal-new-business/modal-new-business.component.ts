@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormControlPresenterComponent, FormGroupPresenterComponent } from '@te44-front/shared';
+import { FormControlPresenterComponent, FormGroupPresenterComponent, RequestForm, RequestFormValue } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputMaskModule } from 'primeng/inputmask';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { Observable, map, startWith } from 'rxjs';
 @Component({
   selector: 'app-modal-new-business',
   standalone: true,
@@ -15,7 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
     FormControlPresenterComponent,
     FormGroupPresenterComponent,
     InputMaskModule,
-    InputTextModule,
+    InputTextareaModule,
     ReactiveFormsModule,
   ],
   templateUrl: './modal-new-business.component.html',
@@ -23,14 +24,19 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class ModalNewBusinessComponent {
 
-  formGroup: FormGroup = this.formBuilder.group({
-    message: new FormControl<string>(''),
-    telephone: new FormControl<string | null>(null, { validators: Validators.required })
+  formGroup: FormGroup = this.formBuilder.group<RequestForm>({
+    message: new FormControl<string | null>(''),
+    telephone: new FormControl<string>('', { validators: Validators.required, nonNullable: true })
   })
+
+  disabled$: Observable<boolean> = this.formGroup.statusChanges.pipe(startWith('INVALID'), map((status: string) => status !== 'VALID'))
+
+  title: string = this.config.data.name;
 
   constructor(
     private formBuilder: FormBuilder,
-    private ref: DynamicDialogRef
+    private ref: DynamicDialogRef,
+    private config: DynamicDialogConfig,
   ) { }
 
   cancel(): void {
@@ -38,12 +44,10 @@ export class ModalNewBusinessComponent {
   }
 
   validate(): void {
-    this.formGroup.updateValueAndValidity();
-    this.formGroup.markAllAsTouched();
-    this.formGroup.markAsTouched();
-    this.formGroup.markAsDirty();
     if (this.formGroup.valid) {
-      this.ref.close(this.formGroup.getRawValue());
+      const result: RequestFormValue = this.formGroup.getRawValue();
+
+      this.ref.close({ ...result, telephone: result.telephone.replace(/\./g, '') });
     }
   }
 }

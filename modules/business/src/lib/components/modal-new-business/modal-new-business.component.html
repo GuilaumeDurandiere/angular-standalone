@@ -1,27 +1,32 @@
 <form [formGroup]="formGroup">
-  <app-form-control-presenter
-    [control]="formGroup.controls['telephone']"
-    [name]="'telephone'"
-    [label]="'Nom du Workflow'"
-    i18n-label
-    [required]="true"
-  >
-    <p-inputMask
-      mask="(+33)9-99-99-99-99"
-      formControlName="telephone"
-      placeholder="(+33)0-00-00-00-00"
-    ></p-inputMask>
-  </app-form-control-presenter>
+  <app-form-group-presenter [title]="title">
+    <app-form-control-presenter
+      [control]="formGroup.controls['telephone']"
+      [name]="'telephone'"
+      [label]="'Numéro de téléphone'"
+      i18n-label
+      [required]="true"
+    >
+      <p-inputMask
+        mask="99.99.99.99.99"
+        formControlName="telephone"
+        placeholder="00.00.00.00.00"
+      ></p-inputMask>
+    </app-form-control-presenter>
 
-  <app-form-control-presenter
-    [control]="formGroup.controls['message']"
-    [name]="'message'"
-    [label]="'Nom du Workflow'"
-    i18n-label
-    [required]="true"
-  >
-    <input type="text" pInputText formControlName="message" />
-  </app-form-control-presenter>
+    <app-form-control-presenter
+      [control]="formGroup.controls['message']"
+      [name]="'message'"
+      [label]="'Message'"
+      i18n-label
+    >
+      <textarea
+        pInputTextarea
+        formControlName="message"
+        [autoResize]="true"
+      ></textarea>
+    </app-form-control-presenter>
+  </app-form-group-presenter>
 </form>
 
 <div class="d-flex justify-content-sm-between mt-4">
@@ -35,10 +40,11 @@
   ></button>
   <button
     pButton
-    i18n-label="@@SEND_REQUEST"
-    label="Envoyer la demande"
+    i18n-label="@@SEND"
+    label="Envoyer"
     icon="pi pi-send"
     class="generic-button"
+    [disabled]="disabled$ | async"
     (click)="validate()"
   ></button>
 </div>
