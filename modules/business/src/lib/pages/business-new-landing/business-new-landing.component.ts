@@ -38,7 +38,7 @@ export class BusinessNewLandingComponent {
   newBusiness(subtheme: Subtheme): void {
     switch (subtheme.refTypeOffre.id) {
       case OfferTypeEnum.LIEN_EXTERNE:
-        console.log('lien externe', subtheme.lienExterne)
+        this.openExternalLink(subtheme.lienExterne);
         break;
       case OfferTypeEnum.DEMANDE_HORS_TRAVAUX:
         console.log('demande hors travaux', subtheme.mailReferent)
@@ -51,6 +51,12 @@ export class BusinessNewLandingComponent {
         break;
       default:
         break;
+    }
+  }
+
+  openExternalLink(link: string | undefined) : void {
+    if(link) {
+      window.open(link, "_blank");
     }
   }
 }

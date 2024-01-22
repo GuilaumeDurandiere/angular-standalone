@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Subtheme, SubthemeHttpService, Theme, ThemeHttpService } from '@te44-front/shared';
-import { tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { BusinessStateActions } from './actions/business.actions';
 import { BusinessStateModel } from './models/business-state.model';
 
@@ -49,9 +49,10 @@ export class BusinessState {
 
   @Action(BusinessStateActions.getSubthemes)
   getSubtheme(ctx: StateContext<BusinessStateModel>, action: BusinessStateActions.getSubthemes) {
-    return this.subthemeHttpService.getByTheme(action.themeId).pipe(
-      tap((subthemes: Subtheme[]) => ctx.patchState({ subthemes }))
-    )
+    return this.themeHttpService.get(action.themeId).pipe(
+      map((theme: Theme) => theme.sousThemes),
+      tap((subTheme: Subtheme[] | undefined) => ctx.patchState({ subthemes:subTheme }))
+    );
   }
 
 }
