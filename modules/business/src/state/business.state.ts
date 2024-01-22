@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { Subtheme, SubthemeHttpService, Theme, ThemeHttpService } from '@te44-front/shared';
+import { MailHttpService, Subtheme, SubthemeHttpService, Theme, ThemeHttpService } from '@te44-front/shared';
+import { StateReset } from 'ngxs-reset-plugin';
 import { tap } from 'rxjs';
 import { BusinessStateActions } from './actions/business.actions';
 import { BusinessStateModel } from './models/business-state.model';
+
 
 export const initBusinessStateModel: BusinessStateModel = {
   themes: [],
@@ -18,8 +20,9 @@ export const initBusinessStateModel: BusinessStateModel = {
 export class BusinessState {
 
   constructor(
+    private mailHttpService: MailHttpService,
+    private subthemeHttpService: SubthemeHttpService,
     private themeHttpService: ThemeHttpService,
-    private subthemeHttpService: SubthemeHttpService
   ) { }
 
   /*************
@@ -47,11 +50,21 @@ export class BusinessState {
     )
   }
 
-  @Action(BusinessStateActions.getSubthemes)
-  getSubtheme(ctx: StateContext<BusinessStateModel>, action: BusinessStateActions.getSubthemes) {
-    return this.subthemeHttpService.getByTheme(action.themeId).pipe(
-      tap((subthemes: Subtheme[]) => ctx.patchState({ subthemes }))
+  @Action(BusinessStateActions.GetSubthemes)
+  getSubthemes(ctx: StateContext<BusinessStateModel>, action: BusinessStateActions.GetSubthemes) {
+    return this.themeHttpService.get(action.themeId).pipe(
+      tap((theme: Theme) => ctx.patchState({ subthemes: theme.sousThemes }))
     )
+  }
+
+  @Action(BusinessStateActions.SendRequestForm)
+  sendRequestForm(ctx: StateContext<BusinessStateModel>, action: BusinessStateActions.SendRequestForm) {
+    return this.mailHttpService.formulaireSimplifie({ ...action.data, sousThemeId: action.subthemeId });
+  }
+
+  @Action(BusinessStateActions.Reset)
+  reset(ctx: StateContext<BusinessStateModel>) {
+    ctx.dispatch(new StateReset(BusinessState));
   }
 
 }

@@ -23,11 +23,9 @@
   </div>
 
   <div class="row">
-    <ng-container
-      *ngIf="control && (control.touched || control.dirty) && control.errors"
-    >
+    <ng-container *ngIf="control && control.dirty && control.errors">
       <p class="input-error">
-        {{ control.errors }}
+        {{ control.errors | errorsToMessage }}
       </p>
     </ng-container>
   </div>
