@@ -40,7 +40,9 @@
                 <div *ngFor="let control of etapes?.controls; let i = index">
                     <div class="d-flex justify-content-between">
                         <p i18n="@@STEP_NUMBER">Étape {{i + 1}}</p>
-                        <span (click)="onRemoveStep(i)" class="pi pi-times-circle"></span>
+                        @if (i !== 0) {
+                            <span (click)="onRemoveStep(i)" class="pi pi-times-circle"></span>
+                        }
                     </div>
                     <app-add-step-form [formControlName]="i" [isCreate]="true"></app-add-step-form>
                 </div>
@@ -78,6 +80,7 @@
                         label="Créer le workflow"
                         icon="pi pi-pencil"
                         class="generic-button ms-3"
+                        [disabled]="disabled$ | async"
                         (click)="createWorkflow()"
                     ></button>
                 </div>

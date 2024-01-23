@@ -8,6 +8,7 @@ import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepsModule } from 'primeng/steps';
+import { Observable, map } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { AddStepFormComponent } from '../add-step-form/add-step-form.component';
 
@@ -19,7 +20,7 @@ import { AddStepFormComponent } from '../add-step-form/add-step-form.component';
   styleUrl: './admin-new-workflow.component.less',
 })
 export class AdminNewWorkflowComponent {
-  formGroup: FormGroup<WorkflowForm> = this.formBuilder.group<WorkflowForm>({
+  formGroup: FormGroup<WorkflowForm> = this.formBuilder.nonNullable.group<WorkflowForm>({
     libelle: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     etapes: new FormArray<FormControl<StepFormValue>>([new FormControl<StepFormValue>({ libelle: '', description: '', statut: '', sousEtapes: [] }, { nonNullable: true })])
   });
@@ -32,6 +33,9 @@ export class AdminNewWorkflowComponent {
     }
   ];
   activeIndex: number = 0;
+  disabled$: Observable<boolean> = this.formGroup.statusChanges.pipe(
+    map((status: string) => status !== 'VALID')
+  );
 
   constructor(private formBuilder: FormBuilder, private store: Store, private router: Router) {}
 
@@ -52,12 +56,16 @@ export class AdminNewWorkflowComponent {
   }
 
   createWorkflow(): void {
-    this.formGroup.value.etapes = this.formGroup.value.etapes?.filter((x: StepFormValue) => x.libelle !== '');
-    this.formGroup.value.etapes.map((etape: Step, index: number) => {
-      this.formGroup.value.etapes[index].sousEtapes = this.formGroup.value.etapes[index].sousEtapes.filter((x: SubstepFormValue) => x.libelle !== '')
-    })
-    this.store.dispatch(new WorkflowStateActions.Create(this.formGroup.getRawValue()));
-    this.router.navigateByUrl('/administration/workflow');
+    if (this.formGroup.invalid || this.formGroup.value.etapes[0].libelle === '' || this.formGroup.value.etapes[0].statut === '') {
+      console.error('error');
+    } else {
+      this.formGroup.value.etapes = this.formGroup.value.etapes?.filter((x: StepFormValue) => x.libelle !== '');
+      this.formGroup.value.etapes.map((etape: Step, index: number) => {
+        this.formGroup.value.etapes[index].sousEtapes = this.formGroup.value.etapes[index].sousEtapes.filter((x: SubstepFormValue) => x.libelle !== '')
+      })
+      this.store.dispatch(new WorkflowStateActions.Create(this.formGroup.getRawValue()));
+      this.router.navigateByUrl('/administration/workflow');
+    }
   }
 
   onRemoveStep(i: number): void {

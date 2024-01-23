@@ -14,7 +14,7 @@ import { AddStepFormComponent } from '../add-step-form/add-step-form.component';
   styleUrl: './modal-upsert-step.component.less',
 })
 export class ModalUpsertStepComponent {
-  formGroup: FormGroup = this.formBuilder.group({
+  formGroup: FormGroup = this.formBuilder.nonNullable.group({
     etapes: new FormControl<StepFormValue>({ libelle: '', description: '', statut: '', sousEtapes: [] }, { nonNullable: true })
   });
   valueForm: StepFormValue | undefined = undefined;
@@ -27,7 +27,12 @@ export class ModalUpsertStepComponent {
   }
 
   validate(): void {
-    this.ref.close(this.formGroup.controls['etapes'].getRawValue());
+    this.formGroup.updateValueAndValidity();
+    if (this.formGroup.invalid || this.formGroup.value.etapes['libelle'] === '' || this.formGroup.value.etapes['statut'] === '') {
+      console.log('error');
+    } else {
+      this.ref.close(this.formGroup.controls['etapes'].getRawValue());
+    }
   }
 
   cancel(): void {
