@@ -4,7 +4,7 @@
     [collapsable]="true"
     background="cyan"
   >
-    <app-form-control-presenter
+    <app-form-control-presenter class="subtheme-form-label"
       [control]="formGroup.controls.libelle"
       [name]="'libelle'"
       [label]="'Nom du sous-thème'"
@@ -13,7 +13,7 @@
       <input type="text" pInputText formControlName="libelle" />
     </app-form-control-presenter>
 
-    <app-form-control-presenter
+    <app-form-control-presenter class="icon-uploader"
       [control]="formGroup.controls.icone"
       [name]="'icone'"
       [label]="'Ajouter une icône'"
@@ -22,7 +22,7 @@
       <app-icon-uploader formControlName="icone"></app-icon-uploader>
     </app-form-control-presenter>
 
-    <app-form-control-presenter
+    <app-form-control-presenter class="color-picker"
       [control]="formGroup.controls.couleur"
       [name]="'couleur'"
       [label]="'Couleur'"
@@ -30,7 +30,7 @@
     >
       <p-colorPicker formControlName="couleur"></p-colorPicker>
     </app-form-control-presenter>
-
+    <div style="clear:both;"></div>
     <app-form-control-presenter
       [control]="formGroup.controls.description"
       [name]="'description'"
@@ -44,7 +44,7 @@
       [name]="'refTypeOffreId'"
       [label]="'Type de demande'"
     >
-      <div class="flex flex-wrap gap-3">
+      <div class="demande-type-ctn">
         <div *ngFor="let offer of offerTypes" class="flex align-items-center">
           <p-radioButton
             [inputId]="offer.key.toString()"
