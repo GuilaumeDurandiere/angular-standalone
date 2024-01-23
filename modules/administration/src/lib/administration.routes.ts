@@ -13,6 +13,7 @@ import { AdminSubstepComponent } from './administration/components/admin-substep
 import { AdminThemeDetailComponent } from './administration/components/admin-theme-detail/admin-theme-detail.component';
 import { AdminThemeComponent } from './administration/components/admin-theme/admin-theme.component';
 import { AdminWorkflowComponent } from './administration/components/admin-workflow/admin-workflow.component';
+import { AdminNewWorkflowComponent } from './administration/components/admin-new-workflow/admin-new-workflow.component';
 
 export const administrationRoutes: Route[] = [
   {
@@ -43,6 +44,13 @@ export const administrationRoutes: Route[] = [
             component: AdminWorkflowComponent,
             data: {
               breadcrumb: null
+            }
+          },
+          {
+            path: 'nouveau',
+            component: AdminNewWorkflowComponent,
+            data: {
+              breadcrumb: $localize`:@@CREATE_WORKFLOW:Créer un workflow`
             }
           },
           {

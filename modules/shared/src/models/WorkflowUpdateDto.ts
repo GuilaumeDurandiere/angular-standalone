@@ -1,5 +1,5 @@
 export interface WorkflowUpdateDto {
     id?: number;
     libelle: string;
-    actif: boolean;
+    actif?: boolean | null;
 }

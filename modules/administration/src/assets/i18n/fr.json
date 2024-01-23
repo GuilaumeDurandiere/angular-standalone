@@ -3,6 +3,9 @@
   "translations": {
     "EXCLUDING_WORK_WORKFLOW": "Workflow hors travaux",
     "CREATE_WORKFLOW": "Créer un workflow",
+    "WORKFLOW_CREATION": "Création d'un workflow hors-travaux",
+    "WORKFLOW_INFO": "Informations workflow",
+    "STEPS_AND_SUBSTEPS": "Étapes et sous-étapes",
     "NAME": "Nom",
     "RELATED_OFFERS": "Offres liées",
     "ACTIVE": "Actif",

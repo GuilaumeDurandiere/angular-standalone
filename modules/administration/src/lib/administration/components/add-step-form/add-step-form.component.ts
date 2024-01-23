@@ -34,7 +34,10 @@ export class AddStepFormComponent implements ControlValueAccessor, OnDestroy, Va
   onTouched: Function = () => {};
   onChangeSubs: Subscription[] = [];
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {
+    
+    console.log(this.stepForm)
+   }
 
   registerOnChange(fn: any): void {
     const sub = this.stepForm.valueChanges.subscribe(fn);
@@ -73,11 +76,12 @@ export class AddStepFormComponent implements ControlValueAccessor, OnDestroy, Va
   }
 
   onAddSubstep(): void {
-    this.stepForm.controls.sousEtapes.push(new FormControl<SubstepFormValue>({ libelle: '', description: '' }, { nonNullable: true }));
+    console.log(this.stepForm)
+    this.sousEtapes?.push(new FormControl<SubstepFormValue>({ libelle: '', description: '' }, { nonNullable: true }));
   }
 
   onRemoveSubstep(i: number): void {
-    this.stepForm.controls.sousEtapes.removeAt(i);
+    this.sousEtapes?.removeAt(i);
   }
 
   get sousEtapes() {

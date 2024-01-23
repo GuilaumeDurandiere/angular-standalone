@@ -65,9 +65,7 @@ export class WorkflowState {
 
   @Action(WorkflowStateActions.Create)
   create(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.Create) {
-    return this.workflowHttpService.create(action.workflowFormValue).pipe(
-      tap(() => ctx.dispatch(new WorkflowStateActions.Refresh()))
-    )
+    return this.workflowHttpService.create(action.workflowFormValue);
   }
 
   @Action(WorkflowStateActions.CreateStep)
