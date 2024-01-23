@@ -44,7 +44,7 @@
       [name]="'refTypeOffreId'"
       [label]="'Type de demande'"
     >
-      <div class="demande-type-ctn">
+      <div class="radio-button-flew-row">
         <div *ngFor="let offer of offerTypes" class="flex align-items-center">
           <p-radioButton
             [inputId]="offer.key.toString()"
@@ -73,7 +73,7 @@
       [label]="'Type de workflow'"
       [required]="true"
     >
-      <div class="flex flex-wrap gap-3">
+      <div class="radio-button-flew-row">
         <div class="flex align-items-center">
           <p-radioButton
             name="workflowTravauxSimplifie"
