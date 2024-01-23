@@ -84,7 +84,7 @@ export class WorkflowState {
 
   @Action(WorkflowStateActions.Update)
   update(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.Update) {
-    return this.workflowHttpService.update(action.workflowFormValue).pipe(
+    return this.workflowHttpService.update({...action.workflowFormValue, id: action.workflowId}).pipe(
       tap(() => ctx.dispatch(new WorkflowStateActions.Refresh()))
     )
   }

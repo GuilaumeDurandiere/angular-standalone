@@ -6,6 +6,7 @@
     "WORKFLOW_CREATION": "Création d'un workflow hors-travaux",
     "WORKFLOW_INFO": "Informations workflow",
     "STEPS_AND_SUBSTEPS": "Étapes et sous-étapes",
+    "MODIFY_WORKFLOW": "Modifier {$PH}",
     "NAME": "Nom",
     "RELATED_OFFERS": "Offres liées",
     "ACTIVE": "Actif",
@@ -46,8 +47,8 @@
     "SUBSTEP": "Sous-étape",
     "ADD_THE_SUBSTEP": "Ajouter la sous-étape",
     "CONFIRMATION_MESSAGE_WORKFLOW": "Voulez-vous vraiment supprimer ce workflow ?",
-    "DUPLICATE_A_WORKFLOW": "Dupliquer un Workflow",
-    "DUPLICATE_THE_WORKFLOW": "Dupliquer le workflow",
+    "DUPLICATE_A_WORKFLOW": "Dupliquer un workflow",
+    "DUPLICATE_THE_WORKFLOW": "Dupliquer le workflow {$PH}",
     "DUPLICATED_WORKFLOW_NAME": "Nom du workflow dupliqué"
   }
 }

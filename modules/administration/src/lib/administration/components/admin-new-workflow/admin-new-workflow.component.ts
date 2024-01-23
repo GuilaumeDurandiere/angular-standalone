@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormArray, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { FormControlPresenterComponent, StepForm, StepFormValue, SubstepForm, WorkflowForm, WorkflowFormValue } from '@te44-front/shared';
+import { FormControlPresenterComponent, Step, StepFormValue, SubstepFormValue, WorkflowForm } from '@te44-front/shared';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepsModule } from 'primeng/steps';
-import { Subscription } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { AddStepFormComponent } from '../add-step-form/add-step-form.component';
 
@@ -18,26 +17,11 @@ import { AddStepFormComponent } from '../add-step-form/add-step-form.component';
   imports: [CommonModule, StepsModule, FormControlPresenterComponent, ButtonModule, FormControlPresenterComponent, ReactiveFormsModule, InputTextModule, AddStepFormComponent],
   templateUrl: './admin-new-workflow.component.html',
   styleUrl: './admin-new-workflow.component.less',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, multi: true, useExisting: AdminNewWorkflowComponent },
-    { provide: NG_VALIDATORS, multi: true, useExisting: AdminNewWorkflowComponent },
-  ],
 })
-export class AdminNewWorkflowComponent implements ControlValueAccessor, Validator {
-  onTouched: Function = () => {};
-  onChangeSubs: Subscription[] = [];
-  workflowForm: FormGroup<WorkflowForm> = this.formBuilder.group<WorkflowForm>({
+export class AdminNewWorkflowComponent {
+  formGroup: FormGroup<WorkflowForm> = this.formBuilder.group<WorkflowForm>({
     libelle: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
-    etapes: new FormArray<FormGroup<StepForm>>([this.formBuilder.group<StepForm>({
-      libelle: new FormControl<string | null>('', { nonNullable: false }),
-      description: new FormControl<string | null>('', { nonNullable: false }),
-      statut: new FormControl<string | null>('', { nonNullable: false }),
-      sousEtapes: new FormArray<FormGroup<SubstepForm>>([this.formBuilder.group<SubstepForm>({
-        libelle: new FormControl<string>('', { nonNullable: false }),
-        description: new FormControl<string | null>('', { nonNullable: false }),
-      })]),
-    })]),
+    etapes: new FormArray<FormControl<StepFormValue>>([new FormControl<StepFormValue>({ libelle: '', description: '', statut: '', sousEtapes: [] }, { nonNullable: true })])
   });
   items: MenuItem[] = [
     {
@@ -52,7 +36,7 @@ export class AdminNewWorkflowComponent implements ControlValueAccessor, Validato
   constructor(private formBuilder: FormBuilder, private store: Store, private router: Router) {}
 
   get etapes() {
-    return this.workflowForm.controls.etapes;
+    return this.formGroup.controls.etapes;
   }
 
   onActiveIndexChange(event: number) {
@@ -67,9 +51,12 @@ export class AdminNewWorkflowComponent implements ControlValueAccessor, Validato
     --this.activeIndex;
   }
 
-  createWorkflow(formValue: FormGroup): void {
-    formValue.value.etapes = formValue.value.etapes?.filter((x: StepFormValue) => x.libelle !== '');
-    this.store.dispatch(new WorkflowStateActions.Create({libelle: formValue.value.libelle, etapes: formValue.value.etapes}));
+  createWorkflow(): void {
+    this.formGroup.value.etapes = this.formGroup.value.etapes?.filter((x: StepFormValue) => x.libelle !== '');
+    this.formGroup.value.etapes.map((etape: Step, index: number) => {
+      this.formGroup.value.etapes[index].sousEtapes = this.formGroup.value.etapes[index].sousEtapes.filter((x: SubstepFormValue) => x.libelle !== '')
+    })
+    this.store.dispatch(new WorkflowStateActions.Create(this.formGroup.getRawValue()));
     this.router.navigateByUrl('/administration/workflow');
   }
 
@@ -79,24 +66,5 @@ export class AdminNewWorkflowComponent implements ControlValueAccessor, Validato
 
   onAddStep(): void {
     this.etapes?.push(new FormControl<StepFormValue>({ libelle: '', description: '', statut: '', sousEtapes: [] }, { nonNullable: true }));
-  }
-
-  registerOnChange(fn: any): void {
-    const sub = this.workflowForm.valueChanges.subscribe(fn);
-    this.onChangeSubs.push(sub);
-  }
-
-  writeValue(value: WorkflowFormValue): void {
-    if (value) {
-      this.workflowForm.patchValue({ ...value });
-    }
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  validate(control: AbstractControl<any, any>): ValidationErrors | null {
-    return null;
   }
 }

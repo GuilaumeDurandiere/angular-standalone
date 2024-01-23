@@ -49,7 +49,7 @@ export namespace WorkflowStateActions {
 
   export class Update {
     static readonly type = `[WorkflowState] Update`;
-    constructor(public workflowFormValue: WorkflowFormValue) { }
+    constructor(public workflowFormValue: WorkflowFormValue, public workflowId: number) { }
   }
 
   export class UpdateStep {
@@ -88,6 +88,7 @@ export namespace WorkflowStateActions {
     static readonly type = `[WorkflowState] DeleteSubstep`;
     constructor(public id: number) { }
   }
+
   export class Duplicate {
     static readonly type = `[WorkflowState] Duplicate`;
     constructor(public id: number, public label: string) { }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormArray, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
-import { FormControlPresenterComponent, FormGroupPresenterComponent, StepForm, StepFormValue, SubstepForm, SubstepFormValue } from '@te44-front/shared';
+import { FormControlPresenterComponent, FormGroupPresenterComponent, StepForm, StepFormValue, SubstepFormValue } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Subject, Subscription } from 'rxjs';
@@ -26,18 +26,12 @@ export class AddStepFormComponent implements ControlValueAccessor, OnDestroy, Va
     libelle: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string | null>('', { nonNullable: false }),
     statut: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
-    sousEtapes: new FormArray<FormGroup<SubstepForm>>([this.formBuilder.group<SubstepForm>({
-      libelle: new FormControl<string>('', { nonNullable: false }),
-      description: new FormControl<string | null>('', { nonNullable: false }),
-    })]),
+    sousEtapes: new FormArray<FormControl<SubstepFormValue>>([new FormControl<SubstepFormValue>({ libelle: '', description: '' }, { nonNullable: true })])
   });
   onTouched: Function = () => {};
   onChangeSubs: Subscription[] = [];
 
-  constructor(private formBuilder: FormBuilder) {
-    
-    console.log(this.stepForm)
-   }
+  constructor(private formBuilder: FormBuilder) { }
 
   registerOnChange(fn: any): void {
     const sub = this.stepForm.valueChanges.subscribe(fn);
@@ -76,7 +70,6 @@ export class AddStepFormComponent implements ControlValueAccessor, OnDestroy, Va
   }
 
   onAddSubstep(): void {
-    console.log(this.stepForm)
     this.sousEtapes?.push(new FormControl<SubstepFormValue>({ libelle: '', description: '' }, { nonNullable: true }));
   }
 

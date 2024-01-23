@@ -1,12 +1,12 @@
 <div class="container">
     <h1 i18n="@@WORKFLOW_CREATION">Création d'un workflow hors-travaux</h1>
     <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
-    <form [formGroup]="workflowForm">
+    <form [formGroup]="formGroup">
         @if (activeIndex === 0) {
             <div>
                 <h3 class="subtitle" i18n="@@WORKFLOW_INFO">Informations workflow</h3>
                 <app-form-control-presenter
-                    [control]="workflowForm.controls.libelle"
+                    [control]="formGroup.controls['libelle']"
                     [name]="'workflowName'"
                     [label]="'Nom du workflow'"
                     [required]="true"
@@ -78,7 +78,7 @@
                         label="Créer le workflow"
                         icon="pi pi-pencil"
                         class="generic-button ms-3"
-                        (click)="createWorkflow(workflowForm)"
+                        (click)="createWorkflow()"
                     ></button>
                 </div>
               </div>

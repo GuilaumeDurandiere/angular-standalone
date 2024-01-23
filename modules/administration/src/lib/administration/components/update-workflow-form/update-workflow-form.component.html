@@ -1,0 +1,16 @@
+<form [formGroup]="workflowForm" class="form-container">
+  <div class="libelle-container">
+    <app-form-control-presenter
+      [control]="workflowForm.controls.libelle"
+      [name]="'libelle'"
+      [label]="'Nom du workflow'"
+      [required]="true"
+    >
+      <input type="text" pInputText formControlName="libelle" />
+    </app-form-control-presenter>
+  </div>
+  <div class="switch-container">
+    <p-inputSwitch name="activeSwitch" formControlName="actif" class="switch"></p-inputSwitch>
+    <label for="activeSwitch" i18n="@@ACTIVE" class="switch-label">Actif</label>
+  </div>
+</form>
