@@ -1,87 +1,97 @@
 <div class="container">
-    <h1 i18n="@@WORKFLOW_CREATION">Création d'un workflow hors-travaux</h1>
-    <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
-    <form [formGroup]="workflowForm">
-        @if (activeIndex === 0) {
-            <div>
-                <h3 class="subtitle" i18n="@@WORKFLOW_INFO">Informations workflow</h3>
-                <app-form-control-presenter
-                    [control]="workflowForm.controls.libelle"
-                    [name]="'workflowName'"
-                    [label]="'Nom du workflow'"
-                    [required]="true"
-                >
-                    <input type="text" pInputText formControlName="libelle" />
-                </app-form-control-presenter>
-                <div class="d-flex justify-content-sm-between mt-4">
-                    <button
-                      pButton
-                      i18n-label="@@CANCEL"
-                      label="Annuler"
-                      icon="pi pi-times"
-                      class="generic-button cancel"
-                      [routerLink]="['/administration', 'workflow']"
-                    ></button>
-                    <button
-                      pButton
-                      i18n-label="@@NEXT"
-                      label="Suivant"
-                      icon="pi pi-chevron-circle-right"
-                      iconPos="right"
-                      class="generic-button"
-                      (click)="nextStep()"
-                    ></button>
-                  </div>
-            </div>
-        } @else {
-            <h3 class="subtitle" i18n="@@STEPS">Étape(s)</h3>
-            <p class="mandatory-help-text" i18n="@@ALL_FIELDS_MANDATORY">Tous les champs sont obligatoires*</p>
-            <div formArrayName="etapes">
-                <div *ngFor="let control of etapes?.controls; let i = index">
-                    <div class="d-flex justify-content-between">
-                        <p i18n="@@STEP_NUMBER">Étape {{i + 1}}</p>
-                        <span (click)="onRemoveStep(i)" class="pi pi-times-circle"></span>
-                    </div>
-                    <app-add-step-form [formControlName]="i" [isCreate]="true"></app-add-step-form>
-                </div>
-            </div>
-            <button
-                pButton
-                pRipple
-                i18n-label="@@ADD_STEP"
-                label="Ajouter une étape"
-                icon="pi pi-plus-circle"
-                class="add-step-button"
-                (click)="onAddStep()"
-            ></button>
-            <div class="d-flex justify-content-sm-between mt-4">
-                <button
-                  pButton
-                  i18n-label="@@CANCEL"
-                  label="Annuler"
-                  icon="pi pi-times"
-                  class="generic-button cancel"
-                  [routerLink]="['/administration', 'workflow']"
-                ></button>
-                <div>
-                    <button
-                        pButton
-                        i18n-label="@@PREVIOUS"
-                        label="Précédent"
-                        icon="pi pi-chevron-circle-left"
-                        class="generic-button cancel"
-                        (click)="previousStep()"
-                    ></button>
-                    <button
-                    pButton
-                        i18n-label="@@CREATE_THE_WORKFLOW"
-                        label="Créer le workflow"
-                        icon="pi pi-pencil"
-                        class="generic-button ms-3"
-                        (click)="createWorkflow(workflowForm)"
-                    ></button>
-                </div>
-              </div>
-        }
-    </form>
+  <h1 i18n="@@WORKFLOW_CREATION">Création d'un workflow hors-travaux</h1>
+  <p-steps
+    [model]="items"
+    [readonly]="false"
+    [activeIndex]="activeIndex"
+    (activeIndexChange)="onActiveIndexChange($event)"
+  ></p-steps>
+  <form [formGroup]="workflowForm">
+    @if (activeIndex === 0) {
+    <div>
+      <h3 class="subtitle" i18n="@@WORKFLOW_INFO">Informations workflow</h3>
+      <app-form-control-presenter
+        [control]="workflowForm.controls.libelle"
+        [name]="'workflowName'"
+        [label]="'Nom du workflow'"
+        [required]="true"
+      >
+        <input type="text" pInputText formControlName="libelle" />
+      </app-form-control-presenter>
+      <div class="d-flex justify-content-sm-between mt-4">
+        <button
+          pButton
+          i18n-label="@@CANCEL"
+          label="Annuler"
+          icon="pi pi-times"
+          class="generic-button cancel"
+          [routerLink]="['/administration', 'workflow']"
+        ></button>
+        <button
+          pButton
+          i18n-label="@@NEXT"
+          label="Suivant"
+          icon="pi pi-chevron-circle-right"
+          iconPos="right"
+          class="generic-button"
+          (click)="nextStep()"
+        ></button>
+      </div>
+    </div>
+    } @else {
+    <h3 class="subtitle" i18n="@@STEPS">Étape(s)</h3>
+    <p class="mandatory-help-text" i18n="@@ALL_FIELDS_MANDATORY">
+      Tous les champs sont obligatoires*
+    </p>
+    <div formArrayName="etapes">
+      <div *ngFor="let control of etapes?.controls; let i = index">
+        <div class="d-flex justify-content-between">
+          <p i18n="@@STEP_NUMBER">Étape {{ i + 1 }}</p>
+          <span (click)="onRemoveStep(i)" class="pi pi-times-circle"></span>
+        </div>
+        <app-add-step-form
+          [formControlName]="i"
+          [isCreate]="true"
+        ></app-add-step-form>
+      </div>
+    </div>
+    <button
+      pButton
+      pRipple
+      i18n-label="@@ADD_STEP"
+      label="Ajouter une étape"
+      icon="pi pi-plus-circle"
+      class="add-step-button"
+      (click)="onAddStep()"
+    ></button>
+    <div class="d-flex justify-content-sm-between mt-4">
+      <button
+        pButton
+        i18n-label="@@CANCEL"
+        label="Annuler"
+        icon="pi pi-times"
+        class="generic-button cancel"
+        [routerLink]="['/administration', 'workflow']"
+      ></button>
+      <div>
+        <button
+          pButton
+          i18n-label="@@PREVIOUS"
+          label="Précédent"
+          icon="pi pi-chevron-circle-left"
+          class="generic-button cancel"
+          (click)="previousStep()"
+        ></button>
+        <button
+          pButton
+          i18n-label="@@CREATE_THE_WORKFLOW"
+          label="Créer le workflow"
+          icon="pi pi-pencil"
+          class="generic-button ms-3"
+          (click)="createWorkflow()"
+        ></button>
+      </div>
+    </div>
+    }
+  </form>
 </div>
