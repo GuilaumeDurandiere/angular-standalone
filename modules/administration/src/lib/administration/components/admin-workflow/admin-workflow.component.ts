@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { BoolToStringPipe, ColumnCustom, DuplicateWorkflowFormValue, PaginationData, PaginationDto, ServerPaginatedTableComponent, Workflow, WorkflowFormValue } from '@te44-front/shared';
-import { ConfirmationService, SharedModule } from 'primeng/api';
+import { ConfirmationService, MessageService, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -35,7 +35,12 @@ export class AdminWorkflowComponent implements OnDestroy {
 
   ref: DynamicDialogRef | undefined;
 
-  constructor(private router: Router, private store: Store, public dialogService: DialogService, private confirmationService: ConfirmationService) { }
+  constructor(
+    private confirmationService: ConfirmationService,
+    private dialogService: DialogService,
+    private messageService: MessageService,
+    private store: Store,
+  ) { }
 
   ngOnDestroy(): void {
     if (this.ref) {
@@ -47,7 +52,7 @@ export class AdminWorkflowComponent implements OnDestroy {
     this.store.dispatch(new WorkflowStateActions.LoadPageData(event));
   }
 
-  openModalDuplicateWorkflow(id: number, name: string) : void {
+  openModalDuplicateWorkflow(id: number, name: string): void {
     this.ref = this.dialogService.open(ModalDuplicateWorkflowComponent, {
       header: $localize`:@@DUPLICATE_A_WORKFLOW:Dupliquer un workflow`,
       data: { workflowName: name },
@@ -55,14 +60,15 @@ export class AdminWorkflowComponent implements OnDestroy {
       dismissableMask: true,
       closeOnEscape: true
     });
-    
-      this.ref.onClose
+
+    this.ref.onClose
       .pipe(
         take(1),
         filter<DuplicateWorkflowFormValue | null>(Boolean),
       )
       .subscribe((formValue: DuplicateWorkflowFormValue) => {
         this.store.dispatch(new WorkflowStateActions.Duplicate(id, formValue.libelle));
+        this.messageService.add({ severity: 'success', summary: 'Modifier', detail: `Le workflow ${formValue.libelle} a été crée` })
       });
   }
 
@@ -75,8 +81,8 @@ export class AdminWorkflowComponent implements OnDestroy {
       width: '50vw',
       contentStyle: { overflow: 'auto' },
       breakpoints: {
-          '960px': '75vw',
-          '640px': '90vw'
+        '960px': '75vw',
+        '640px': '90vw'
       },
       maximizable: true,
       data: {
@@ -93,6 +99,7 @@ export class AdminWorkflowComponent implements OnDestroy {
       )
       .subscribe((formValue: WorkflowFormValue) => {
         this.store.dispatch(new WorkflowStateActions.Update(formValue, workflow.id));
+        this.messageService.add({ severity: 'success', summary: 'Modifier', detail: `Le workflow ${formValue.libelle} a été modifié` })
       });
   }
 
@@ -111,6 +118,7 @@ export class AdminWorkflowComponent implements OnDestroy {
       closeOnEscape: true,
       accept: () => {
         this.store.dispatch(new WorkflowStateActions.Delete(workflow.id));
+        this.messageService.add({ severity: 'success', summary: 'Suppression', detail: `Le workflow ${workflow.libelle} a été supprimé` })
       }
     });
   }

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Base64ToImagePipe, BoolToStringPipe, ColumnCustom, PaginationData, PaginationDto, ServerPaginatedTableComponent, Theme, ThemeFormValue } from '@te44-front/shared';
-import { ConfirmationService, SharedModule } from 'primeng/api';
+import { ConfirmationService, MessageService, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
@@ -11,6 +11,7 @@ import { Observable, filter, take } from 'rxjs';
 import { ThemeStateActions } from '../../../../state/actions/theme.actions';
 import { ThemeState } from '../../../../state/theme.state';
 import { ModalAddThemeComponent } from '../modal-add-theme/modal-add-theme.component';
+
 
 @Component({
   selector: 'app-admin-theme',
@@ -43,6 +44,7 @@ export class AdminThemeComponent {
   constructor(
     private confirmationService: ConfirmationService,
     private dialogService: DialogService,
+    private messageService: MessageService,
     private store: Store
   ) { }
 
@@ -67,6 +69,7 @@ export class AdminThemeComponent {
       )
       .subscribe((formValue: ThemeFormValue) => {
         this.store.dispatch(new ThemeStateActions.Create(formValue));
+        this.messageService.add({ severity: 'success', summary: 'Modifier', detail: `Le thème ${formValue.libelle} a été crée` })
       });
   }
 
@@ -90,6 +93,7 @@ export class AdminThemeComponent {
       )
       .subscribe((formValue: ThemeFormValue) => {
         this.store.dispatch(new ThemeStateActions.Update(formValue, theme.id));
+        this.messageService.add({ severity: 'success', summary: 'Modifier', detail: `Le thème ${theme.libelle} a été modifié` })
       });
   }
 
@@ -108,6 +112,7 @@ export class AdminThemeComponent {
       closeOnEscape: true,
       accept: () => {
         this.store.dispatch(new ThemeStateActions.DeleteTheme(themeId))
+        this.messageService.add({ severity: 'success', summary: 'Suppression', detail: `Le thème a été supprimé` })
       }
     });
   }
