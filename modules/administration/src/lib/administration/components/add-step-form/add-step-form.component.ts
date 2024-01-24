@@ -26,14 +26,14 @@ export class AddStepFormComponent implements ControlValueAccessor, OnDestroy, Va
     libelle: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string | null>('', { nonNullable: false }),
     statut: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
-    sousEtapes: new FormArray<FormControl<SubstepFormValue>>([new FormControl<SubstepFormValue>({ libelle: '', description: '' }, { nonNullable: true })])
+    sousEtapes: new FormArray<FormControl<SubstepFormValue>>([new FormControl<SubstepFormValue>({ libelle: '', description: '' }, { nonNullable: true, validators: Validators.required })])
   });
-  onTouched: Function = () => {};
+  onTouched = () => { };
   onChangeSubs: Subscription[] = [];
 
   constructor(private formBuilder: FormBuilder) { }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: () => void): void {
     const sub = this.stepForm.valueChanges.subscribe(fn);
     this.onChangeSubs.push(sub);
   }
@@ -44,7 +44,7 @@ export class AddStepFormComponent implements ControlValueAccessor, OnDestroy, Va
     }
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
@@ -56,8 +56,28 @@ export class AddStepFormComponent implements ControlValueAccessor, OnDestroy, Va
     }
   }
 
-  validate(control: AbstractControl<any, any>): ValidationErrors | null {
-    return null;
+  validate(): ValidationErrors | null {
+    if (this.stepForm.valid) {
+      return null;
+    }
+
+    let errors: ValidationErrors = {};
+
+    errors = this.addControlErrors(errors, this.stepForm.controls.libelle, 'libelle');
+    errors = this.addControlErrors(errors, this.stepForm.controls.statut, 'statut');
+    this.stepForm.controls.sousEtapes.controls.forEach((control: AbstractControl, index: number) => errors = this.addControlErrors(errors, control, `[${index}] sousEtapes`))
+
+    return errors;
+  }
+
+  addControlErrors(allErrors: ValidationErrors, control: AbstractControl | undefined, controlName: string): ValidationErrors {
+    const errors = { ...allErrors };
+
+    if (control?.errors) {
+      errors[controlName] = control.errors;
+    }
+
+    return errors;
   }
 
   ngOnDestroy(): void {

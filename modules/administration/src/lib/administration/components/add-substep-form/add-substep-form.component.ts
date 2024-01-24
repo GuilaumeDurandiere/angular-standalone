@@ -25,12 +25,12 @@ export class AddSubstepFormComponent implements ControlValueAccessor, OnDestroy,
   });
   @Input() nameRequired: boolean = false;
 
-  onTouched: Function = () => {};
+  onTouched = () => { };
   onChangeSubs: Subscription[] = [];
 
   constructor(private formBuilder: FormBuilder) { }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: () => void): void {
     const sub = this.substepForm.valueChanges.subscribe(fn);
     this.onChangeSubs.push(sub);
   }
@@ -41,7 +41,7 @@ export class AddSubstepFormComponent implements ControlValueAccessor, OnDestroy,
     }
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
@@ -53,8 +53,25 @@ export class AddSubstepFormComponent implements ControlValueAccessor, OnDestroy,
     }
   }
 
-  validate(control: AbstractControl<any, any>): ValidationErrors | null {
-    return null;
+  validate(): ValidationErrors | null {
+    if (this.substepForm.valid) {
+      return null;
+    }
+
+    let errors: ValidationErrors = {};
+    errors = this.addControlErrors(errors, this.substepForm.controls.libelle, 'libelle');
+
+    return errors;
+  }
+
+  addControlErrors(allErrors: ValidationErrors, control: AbstractControl | undefined, controlName: string): ValidationErrors {
+    const errors = { ...allErrors };
+
+    if (control?.errors) {
+      errors[controlName] = control.errors;
+    }
+
+    return errors;
   }
 
   ngOnDestroy(): void {
