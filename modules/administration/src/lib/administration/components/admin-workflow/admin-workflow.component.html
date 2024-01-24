@@ -13,6 +13,7 @@
         label="Créer un workflow"
         icon="pi pi-plus-circle"
         class="generic-button"
+        [routerLink]="['/administration/workflow/nouveau']"
       ></button>
     </div>
   </div>
@@ -49,6 +50,7 @@
                   icon="pi pi-pencil"
                   [text]="true"
                   class="action-icon modify-copy-icon"
+                  (click)="showUpdateWorkflowModal(item)"
                 ></p-button>
                 <p-button
                   icon="pi pi-clone"

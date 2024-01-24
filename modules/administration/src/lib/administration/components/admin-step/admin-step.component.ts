@@ -66,7 +66,7 @@ export class AdminStepComponent implements OnDestroy {
         filter<StepFormValue | null>(Boolean),
       )
       .subscribe((formValue: StepFormValue) => {
-        formValue.sousEtapes = formValue.sousEtapes.filter((x: SubstepFormValue) => x.libelle !== '');
+        formValue.sousEtapes = formValue.sousEtapes?.filter((x: SubstepFormValue) => x.libelle !== '');
         this.store.dispatch(new WorkflowStateActions.CreateStep(formValue, workflow.id));
       });
   }

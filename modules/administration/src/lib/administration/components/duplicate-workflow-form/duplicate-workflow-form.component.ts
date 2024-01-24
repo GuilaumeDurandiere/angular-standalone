@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormControlPresenterComponent, FormGroupPresenterComponent, IconUploaderComponent, DuplicateWorkflowForm, DuplicateWorkflowFormValue } from '@te44-front/shared';
+import { DuplicateWorkflowForm, DuplicateWorkflowFormValue, FormControlPresenterComponent } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Observable, map } from 'rxjs';
@@ -9,7 +9,7 @@ import { Observable, map } from 'rxjs';
 @Component({
   selector: 'app-duplicate-workflow-form',
   standalone: true,
-  imports: [CommonModule, ButtonModule, FormGroupPresenterComponent, FormControlPresenterComponent, InputTextModule, ReactiveFormsModule, IconUploaderComponent],
+  imports: [CommonModule, ButtonModule, FormControlPresenterComponent, InputTextModule, ReactiveFormsModule],
   templateUrl: './duplicate-workflow-form.component.html',
   styleUrl: './duplicate-workflow-form.component.less',
 })

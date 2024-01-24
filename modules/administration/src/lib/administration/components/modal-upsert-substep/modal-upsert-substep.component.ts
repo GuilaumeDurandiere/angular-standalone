@@ -14,7 +14,7 @@ import { AddSubstepFormComponent } from '../add-substep-form/add-substep-form.co
   styleUrl: './modal-upsert-substep.component.less',
 })
 export class ModalUpsertSubstepComponent {
-  formGroup: FormGroup = this.formBuilder.group({
+  formGroup: FormGroup = this.formBuilder.nonNullable.group({
     sousEtapes: new FormControl<SubstepFormValue>({ libelle: '', description: '' }, { nonNullable: true })
   });
   valueForm: SubstepFormValue | undefined = undefined;
@@ -27,7 +27,12 @@ export class ModalUpsertSubstepComponent {
   }
 
   validate(): void {
-    this.ref.close(this.formGroup.controls['sousEtapes'].getRawValue());
+    this.formGroup.updateValueAndValidity();
+    if (this.formGroup.invalid || this.formGroup.value.sousEtapes['libelle'] === '') {
+      console.log('error');
+    } else {
+      this.ref.close(this.formGroup.controls['sousEtapes'].getRawValue());
+    }
   }
 
   cancel(): void {

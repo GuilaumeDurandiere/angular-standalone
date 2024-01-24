@@ -1,0 +1,33 @@
+@import '_colors.less';
+
+.container {
+  width: 75%;
+}
+.mandatory-help-text {
+  font-size: 14px;
+  line-height: 12px;
+}
+:host ::ng-deep .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+  color: @purple;
+  border-color: @bd-purple;
+}
+:host ::ng-deep .p-steps .p-steps-item.p-highlight .p-steps-number {
+  background: @bg-purple;
+  color: @white;
+}
+.subtitle {
+  color: @darkblue;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+}
+.add-step-button {
+  background: none;
+  color: @darkblue;
+  line-height: 18px;
+  font-size: 16px;
+  border: none;
+}
+:host ::ng-deep .add-step-button .p-button-label {
+  text-decoration: underline;
+}

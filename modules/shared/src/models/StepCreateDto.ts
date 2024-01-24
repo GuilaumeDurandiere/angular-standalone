@@ -1,9 +1,9 @@
 import { SubstepCreateDto } from "./SubstepCreateDto";
 
 export interface StepCreateDto {
-    libelle: string;
+    libelle?: string | null;
     description?: string | null;
-    statut: string;
+    statut?: string | null;
     workflowId?: number | null;
-    sousEtapes: Array<SubstepCreateDto>
+    sousEtapes: Array<SubstepCreateDto>;
 };

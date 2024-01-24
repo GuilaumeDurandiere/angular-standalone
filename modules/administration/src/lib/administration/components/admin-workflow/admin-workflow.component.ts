@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { BoolToStringPipe, ColumnCustom, DuplicateWorkflowFormValue, PaginationData, PaginationDto, ServerPaginatedTableComponent, Workflow } from '@te44-front/shared';
+import { BoolToStringPipe, ColumnCustom, DuplicateWorkflowFormValue, PaginationData, PaginationDto, ServerPaginatedTableComponent, Workflow, WorkflowFormValue } from '@te44-front/shared';
 import { ConfirmationService, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -12,6 +12,7 @@ import { Observable, filter, take } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { WorkflowState } from '../../../../state/workflow.state';
 import { ModalDuplicateWorkflowComponent } from '../modal-duplicate-workflow/modal-duplicate-workflow.component';
+import { ModalUpdateWorkflowComponent } from '../modal-update-workflow/modal-update-workflow.component';
 
 @Component({
   selector: 'app-admin-workflow',
@@ -48,8 +49,11 @@ export class AdminWorkflowComponent implements OnDestroy {
 
   openModalDuplicateWorkflow(id: number, name: string) : void {
     this.ref = this.dialogService.open(ModalDuplicateWorkflowComponent, {
-      header: $localize`:@@DUPLICATE_A_WORKFLOW:Dupliquer un Workflow`,
-      data: {workflowName: name }
+      header: $localize`:@@DUPLICATE_A_WORKFLOW:Dupliquer un workflow`,
+      data: { workflowName: name },
+      maximizable: true,
+      dismissableMask: true,
+      closeOnEscape: true
     });
     
       this.ref.onClose
@@ -60,7 +64,37 @@ export class AdminWorkflowComponent implements OnDestroy {
       .subscribe((formValue: DuplicateWorkflowFormValue) => {
         this.store.dispatch(new WorkflowStateActions.Duplicate(id, formValue.libelle));
       });
-}
+  }
+
+  showUpdateWorkflowModal(workflow: Workflow): void {
+    if (!workflow) {
+      return
+    }
+    this.ref = this.dialogService.open(ModalUpdateWorkflowComponent, {
+      header: $localize`:@@MODIFY_WORKFLOW:Modifier ${workflow.libelle}`,
+      width: '50vw',
+      contentStyle: { overflow: 'auto' },
+      breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw'
+      },
+      maximizable: true,
+      data: {
+        workflow
+      },
+      dismissableMask: true,
+      closeOnEscape: true
+    });
+
+    this.ref.onClose
+      .pipe(
+        take(1),
+        filter<WorkflowFormValue | null>(Boolean),
+      )
+      .subscribe((formValue: WorkflowFormValue) => {
+        this.store.dispatch(new WorkflowStateActions.Update(formValue, workflow.id));
+      });
+  }
 
   deleteWorkflow(workflow: Workflow): void {
     this.confirmationService.confirm({
