@@ -33,7 +33,6 @@ export class BusinessNewLandingComponent implements OnDestroy {
 
   dialog: DynamicDialogRef | null = null;
 
-
   constructor(
     private dialogService: DialogService,
     private store: Store
@@ -96,8 +95,7 @@ export class BusinessNewLandingComponent implements OnDestroy {
         filter<RequestFormValue | null>(Boolean),
       )
       .subscribe((value: RequestFormValue) =>
-        this.store.dispatch(new BusinessStateActions.SendRequestForm(value, subthemeId))
-      );
+        this.store.dispatch(new BusinessStateActions.SendRequestForm(value, subthemeId)));
   }
 
   openModalNewBusinessRequest(subthemeName: string, isHorsTravaux: boolean = false): void {

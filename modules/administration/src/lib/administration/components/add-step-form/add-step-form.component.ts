@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormArray, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { FormControlPresenterComponent, FormGroupPresenterComponent, StepForm, StepFormValue, SubstepFormValue } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -16,7 +16,6 @@ import { AddSubstepFormComponent } from '../add-substep-form/add-substep-form.co
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: NG_VALUE_ACCESSOR, multi: true, useExisting: AddStepFormComponent },
-    { provide: NG_VALIDATORS, multi: true, useExisting: AddStepFormComponent },
   ],
 })
 export class AddStepFormComponent implements ControlValueAccessor, OnDestroy, Validator {
