@@ -6,6 +6,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject, combineLatest, filter, take } from 'rxjs';
 import { BusinessStateActions } from '../../../state/actions/business.actions';
 import { BusinessState } from '../../../state/business.state';
+import { ModalNewBusinessRequestComponent } from '../../components/modal-new-business-request/modal-new-business-request.component';
 import { ModalNewBusinessComponent } from '../../components/modal-new-business/modal-new-business.component';
 import { SubthemeCardComponent } from '../../components/subtheme-card/subtheme-card.component';
 import { ThemeCardComponent } from '../../components/theme-card/theme-card.component';
@@ -55,10 +56,18 @@ export class BusinessNewLandingComponent implements OnDestroy {
         this.openLink(subtheme?.lienExterne);
         break;
       case OfferTypeEnum.DEMANDE_HORS_TRAVAUX:
-        console.log('demande hors travaux', subtheme.mailReferent)
+        if (subtheme.accessibleATous) {
+          this.openModalNewBusiness(subtheme.libelle, subtheme.id);
+        } else {
+          this.openModalNewBusinessRequest()
+        }
         break;
       case OfferTypeEnum.DEMANDE_TRAVAUX:
-        console.log('demande travaux', subtheme.mailReferent)
+        if (subtheme.accessibleATous) {
+          this.openModalNewBusiness(subtheme.libelle, subtheme.id);
+        } else {
+          this.openModalNewBusinessRequest()
+        }
         break;
       case OfferTypeEnum.FORMULAIRE_SIMPLIFIE:
         this.openModalNewBusiness(subtheme.libelle, subtheme.id)
@@ -87,7 +96,27 @@ export class BusinessNewLandingComponent implements OnDestroy {
         filter<RequestFormValue | null>(Boolean),
       )
       .subscribe((value: RequestFormValue) =>
-        this.store.dispatch(new BusinessStateActions.SendRequestForm(value, subthemeId)));
+        this.store.dispatch(new BusinessStateActions.SendRequestForm(value, subthemeId))
+      );
+  }
+
+  openModalNewBusinessRequest(): void {
+    this.dialog = this.dialogService.open(ModalNewBusinessRequestComponent, {
+      header: $localize`:@@NEW_BUSINNESS:Faire une demande`,
+      height: '80%',
+      width: '60%',
+      maximizable: true,
+      dismissableMask: true,
+      closeOnEscape: false,
+    });
+
+    this.dialog.onClose
+      .pipe(
+        take(1),
+      )
+      .subscribe((value: unknown) =>
+        console.log(value)
+      );
   }
 
   openLink(lienExterne: string | undefined): void {
