@@ -56,14 +56,14 @@ export class BusinessNewLandingComponent implements OnDestroy {
         this.openLink(subtheme?.lienExterne);
         break;
       case OfferTypeEnum.DEMANDE_HORS_TRAVAUX:
-        if (subtheme.accessibleATous) {
+        if (!subtheme.accessible) {
           this.openModalNewBusiness(subtheme.libelle, subtheme.id);
         } else {
           this.openModalNewBusinessRequest()
         }
         break;
       case OfferTypeEnum.DEMANDE_TRAVAUX:
-        if (subtheme.accessibleATous) {
+        if (!subtheme.accessible) {
           this.openModalNewBusiness(subtheme.libelle, subtheme.id);
         } else {
           this.openModalNewBusinessRequest()
