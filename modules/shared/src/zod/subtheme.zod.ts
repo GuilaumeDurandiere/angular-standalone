@@ -13,7 +13,6 @@ const refOfferTypeSchema = z.object({
 
 export const subthemeSchema = z.object({
   accessibleATous: z.boolean(),
-  accessible: z.boolean().optional(),
   couleur: z.string(),
   description: z.string().optional(),
   icone: z.string(),

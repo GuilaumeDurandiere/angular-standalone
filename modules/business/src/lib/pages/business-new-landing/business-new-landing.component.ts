@@ -55,18 +55,10 @@ export class BusinessNewLandingComponent implements OnDestroy {
         this.openLink(subtheme?.lienExterne);
         break;
       case OfferTypeEnum.DEMANDE_HORS_TRAVAUX:
-        if (!subtheme.accessible) {
-          this.openModalNewBusiness(subtheme.libelle, subtheme.id)
-        } else {
-          console.log('demande hors travaux', subtheme.mailReferent)
-        }
+        console.log('demande hors travaux', subtheme.mailReferent)
         break;
       case OfferTypeEnum.DEMANDE_TRAVAUX:
-        if (!subtheme.accessible) {
-          this.openModalNewBusiness(subtheme.libelle, subtheme.id)
-        } else {
-          console.log('demande travaux', subtheme.mailReferent)
-        }
+        console.log('demande travaux', subtheme.mailReferent)
         break;
       case OfferTypeEnum.FORMULAIRE_SIMPLIFIE:
         this.openModalNewBusiness(subtheme.libelle, subtheme.id)
