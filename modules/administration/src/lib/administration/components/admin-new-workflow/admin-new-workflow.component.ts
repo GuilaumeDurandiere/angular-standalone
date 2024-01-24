@@ -4,12 +4,12 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { FormControlPresenterComponent, StepFormValue, SubstepFormValue, WorkflowForm, WorkflowFormValue } from '@te44-front/shared';
-import { WorkflowStateActions } from 'modules/administration/src/state/actions/workflow.actions';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepsModule } from 'primeng/steps';
 import { Observable, map, startWith } from 'rxjs';
+import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { AddStepFormComponent } from '../add-step-form/add-step-form.component';
 
 @Component({
