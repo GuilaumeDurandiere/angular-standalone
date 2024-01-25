@@ -1,6 +1,6 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { ClientPaginatedTableComponent, ColumnCustom, Step, StepFormValue, SubstepFormValue, Workflow } from '@te44-front/shared';
 import { ConfirmationService } from 'primeng/api';
@@ -32,7 +32,6 @@ export class AdminStepComponent implements OnDestroy {
   ];
 
   constructor(
-    private router: Router, 
     private confirmationService: ConfirmationService,
     public dialogService: DialogService,
     private store: Store) { }
@@ -80,8 +79,8 @@ export class AdminStepComponent implements OnDestroy {
       width: '50vw',
       contentStyle: { overflow: 'auto' },
       breakpoints: {
-          '960px': '75vw',
-          '640px': '90vw'
+        '960px': '75vw',
+        '640px': '90vw'
       },
       maximizable: true,
       data: {
