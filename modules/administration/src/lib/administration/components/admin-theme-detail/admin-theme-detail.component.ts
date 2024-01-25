@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Base64ToImagePipe, ClientPaginatedTableComponent, ColumnCustom, SubThemeFormValue, Subtheme } from '@te44-front/shared';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessagesModule } from 'primeng/messages';
@@ -76,6 +76,7 @@ export class AdminThemeDetailComponent {
   constructor(
     private confirmationService: ConfirmationService,
     private dialogService: DialogService,
+    private messageService: MessageService,
     private store: Store,
   ) { }
 
@@ -100,6 +101,7 @@ export class AdminThemeDetailComponent {
       )
       .subscribe((formValue: SubThemeFormValue) => {
         this.store.dispatch(new ThemeStateActions.CreateSubtheme(formValue, themeId));
+        this.messageService.add({ severity: 'success', summary: 'Ajout', detail: `Le sous-thème ${formValue.libelle} a été créée` })
       });
   }
 
@@ -127,6 +129,7 @@ export class AdminThemeDetailComponent {
       )
       .subscribe((formValue: SubThemeFormValue) => {
         this.store.dispatch(new ThemeStateActions.UpdateSubtheme(formValue, subtheme.id));
+        this.messageService.add({ severity: 'success', summary: 'Modification', detail: `Le sous-thème ${formValue.libelle} a été modifié` })
       });
   }
 
@@ -144,7 +147,8 @@ export class AdminThemeDetailComponent {
       dismissableMask: true,
       closeOnEscape: true,
       accept: () => {
-        this.store.dispatch(new ThemeStateActions.DeleteSubtheme(subthemeId))
+        this.store.dispatch(new ThemeStateActions.DeleteSubtheme(subthemeId));
+        this.messageService.add({ severity: 'success', summary: 'Suppression', detail: `Le sous-thème ${libelle} a été supprimé` })
       }
     });
   }

@@ -3,12 +3,18 @@ import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
 import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload';
-import { Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { Base64ToImagePipe } from '../../../pipes/base64-to-image.pipe';
 
 @Component({
   selector: 'app-icon-uploader',
   standalone: true,
-  imports: [CommonModule, FileUploadModule, SharedModule],
+  imports: [
+    Base64ToImagePipe,
+    CommonModule,
+    FileUploadModule,
+    SharedModule,
+  ],
   templateUrl: './icon-uploader.component.html',
   styleUrl: './icon-uploader.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,6 +24,9 @@ import { Subject, Subscription } from 'rxjs';
 })
 export class IconUploaderComponent implements ControlValueAccessor, OnDestroy {
   destroy$ = new Subject<void>();
+  private iconSubject = new BehaviorSubject<string | null>(null);
+  icon$ = this.iconSubject.asObservable();
+
   icon: string | undefined = undefined;
 
   formControl = new FormControl<string>('', { nonNullable: true })
@@ -32,8 +41,9 @@ export class IconUploaderComponent implements ControlValueAccessor, OnDestroy {
 
     reader.onloadend = (event: ProgressEvent<FileReader>) => {
       if (event?.target?.result) {
-        this.icon = event?.target?.result.toString()
-        const base64 = this.icon.split('base64,')[1]
+        const base64 = event?.target?.result.toString().split('base64,')[1]
+
+        this.iconSubject.next(base64)
         this.formControl.patchValue(base64);
       }
     }
@@ -41,6 +51,7 @@ export class IconUploaderComponent implements ControlValueAccessor, OnDestroy {
 
   writeValue(icon: string): void {
     if (icon) {
+      this.iconSubject.next(icon)
       this.formControl.patchValue(icon);
     }
   }
