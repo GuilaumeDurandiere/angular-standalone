@@ -7,8 +7,8 @@
   (uploadHandler)="myUploader($event)"
 >
   <ng-template pTemplate="chooseicon">
-    @if(icon) {
-    <img [src]="icon" />
+    @if(icon$ | async; as icon) {
+    <img [src]="icon | base64ToImage" width="16px" />
     } @else {
     <i class="pi pi-plus"></i>
     }
