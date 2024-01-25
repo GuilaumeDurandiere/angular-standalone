@@ -4,7 +4,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import * as Leaflet from 'leaflet';
 import * as LeafletScreenshoter from 'leaflet-simple-map-screenshoter';
 import { ButtonModule } from 'primeng/button';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-modal-add-emprise',
@@ -19,7 +19,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class ModalAddEmpriseComponent {
 
-  points: { lat: number, lng: number }[] = [];
+  points: { lat: number, lng: number }[] = this.config.data.points;
 
   polygon: Leaflet.Polygon | null = null;
   markers: Leaflet.Marker[] = []
@@ -36,10 +36,14 @@ export class ModalAddEmpriseComponent {
     center: new Leaflet.LatLng(47.400231, -1.6466296)
   };
 
-  constructor(private ref: DynamicDialogRef) { }
+  constructor(
+    private config: DynamicDialogConfig,
+    private ref: DynamicDialogRef
+  ) { }
 
   setMap(map: Leaflet.Map): void {
     this.map = map
+    this.drawEmprise();
     this.setScreenShotter();
   }
 
@@ -69,7 +73,7 @@ export class ModalAddEmpriseComponent {
     }
   }
 
-  test(): void {
+  drawEmprise(): void {
     if (!this.polygon && this.points.length > 2) {
       this.polygon = Leaflet.polygon(this.points, { color: 'red' })
       this.polygon.addTo(this.map);
@@ -81,7 +85,6 @@ export class ModalAddEmpriseComponent {
   }
 
   cancel(): void {
-
     if (this.points) {
       this.markers.forEach((marker: Leaflet.Marker) =>
         this.map.removeLayer(marker)
