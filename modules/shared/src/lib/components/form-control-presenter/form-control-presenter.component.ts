@@ -19,4 +19,5 @@ export class FormControlPresenterComponent {
   @Input() required = false;
   @Input() name = '';
   @Input() label = '';
+  @Input() style = {};
 }

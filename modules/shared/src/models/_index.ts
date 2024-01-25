@@ -1,6 +1,7 @@
 export * from './enums/_index';
 export * from './forms/_index';
 
+export * from './BusinessRequestCreateDto';
 export * from './ColumnCustom';
 export * from './PaginationData';
 export * from './PaginationDto';

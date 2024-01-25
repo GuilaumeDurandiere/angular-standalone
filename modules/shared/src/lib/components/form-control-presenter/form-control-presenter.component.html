@@ -2,7 +2,7 @@
 <ng-container *ngIf="control?.valueChanges | async"> </ng-container>
 <ng-container *ngIf="control?.statusChanges | async"> </ng-container>
 
-<div class="container form-control-ctn">
+<div class="container form-control-ctn" [style]="style">
   <div class="row align-items-center">
     <label class="form-control-label" *ngIf="label?.length" for="{{ name }}">
       @if (required) {
