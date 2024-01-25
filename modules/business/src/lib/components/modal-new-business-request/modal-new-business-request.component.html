@@ -2,7 +2,7 @@
   <h2 i18n="@@APPLICANT_DETAILS">Coordonnées du demandeur</h2><hr />
   <div class="d-flex justify-content-between">
     <app-form-control-presenter
-      [control]="formGroup.controls['nom']"
+      [control]="formGroup.controls.nom"
       [name]="'lastname'"
       [label]="'Nom'"
       [required]="true"
@@ -11,7 +11,7 @@
       <input type="text" pInputText formControlName="nom" />
     </app-form-control-presenter>
     <app-form-control-presenter
-      [control]="formGroup.controls['prenom']"
+      [control]="formGroup.controls.prenom"
       [name]="'firstname'"
       [label]="'Prénom'"
       [required]="true"
@@ -22,7 +22,7 @@
   </div>
   <div class="d-flex justify-content-between">
     <app-form-control-presenter
-      [control]="formGroup.controls['poste']"
+      [control]="formGroup.controls.poste"
       [name]="'function'"
       [label]="'Poste'"
       [required]="true"
@@ -31,7 +31,7 @@
       <input type="text" pInputText formControlName="poste" />
     </app-form-control-presenter>
     <app-form-control-presenter
-      [control]="formGroup.controls['email']"
+      [control]="formGroup.controls.email"
       [name]="'email'"
       [label]="'Email'"
       [required]="true"
@@ -43,7 +43,7 @@
   <h2 i18n="@@PROJECT_INFO">Informations sur le projet</h2><hr />
   @if (isHorsTravaux) {
     <app-form-control-presenter
-      [control]="formGroup.controls['dateMiseEnService']"
+      [control]="formGroup.controls.dateMiseEnService"
       [name]="'date'"
       [label]="'Date de mise en service'"
       [required]="true"
@@ -53,7 +53,7 @@
   }
   <div class="d-flex justify-content-between">
     <app-form-control-presenter
-      [control]="formGroup.controls['adresse']"
+      [control]="formGroup.controls.adresse"
       [name]="'address'"
       [label]="'Adresse du projet'"
       [required]="true"
@@ -63,7 +63,7 @@
     </app-form-control-presenter>
     @if (isHorsTravaux) {
       <app-form-control-presenter
-        [control]="formGroup.controls['nomSite']"
+        [control]="formGroup.controls.nomSite"
         [name]="'siteName'"
         [label]="'Nom du site'"
         [style]="fieldStyle"
@@ -73,7 +73,7 @@
     }
   </div>
   <app-form-control-presenter
-    [control]="formGroup.controls['description']"
+    [control]="formGroup.controls.description"
     [name]="'description'"
     [label]="'Description'"
     [required]="true"

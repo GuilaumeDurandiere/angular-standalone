@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BusinessRequestForm, FormControlPresenterComponent } from '@te44-front/shared';
+import { BusinessRequestForm, BusinessRequestFormValue, FormControlPresenterComponent } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -18,7 +18,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 export class ModalNewBusinessRequestComponent {
   fieldStyle = { 'width': '25rem' };
   isHorsTravaux: boolean = this.config.data.isHorsTravaux;
-  formGroup: FormGroup = this.formBuilder.group<BusinessRequestForm>({
+  formGroup: FormGroup<BusinessRequestForm> = this.formBuilder.group<BusinessRequestForm>({
     nom: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
     prenom: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
     email: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
@@ -41,7 +41,7 @@ export class ModalNewBusinessRequestComponent {
 
   validate(): void {
     if (this.formGroup.valid) {
-      const result: BusinessRequestForm = this.formGroup.getRawValue();
+      const result: BusinessRequestFormValue = this.formGroup.getRawValue();
       this.ref.close(result);
     }
   }
