@@ -1,8 +1,9 @@
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { Component, LOCALE_ID } from '@angular/core';
+import { Component, LOCALE_ID, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NavbarComponent } from '@te44-front/shared';
+import { NavbarComponent, PRIMENG_CONFIG_TRANSLATION_FR } from '@te44-front/shared';
+import { PrimeNGConfig } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 
@@ -16,6 +17,12 @@ registerLocaleData(localeFr);
   styleUrl: './app.component.less',
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'te44-front';
+
+  constructor(private config: PrimeNGConfig) {}
+
+  ngOnInit() {
+    this.config.setTranslation(PRIMENG_CONFIG_TRANSLATION_FR);
+  }
 }

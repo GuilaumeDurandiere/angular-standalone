@@ -1,1 +1,88 @@
-<p>modal-new-business-request works!</p>
+<form [formGroup]="formGroup">
+  <h2 i18n="@@APPLICANT_DETAILS">Coordonnées du demandeur</h2><hr />
+  <div class="d-flex justify-content-between">
+    <app-form-control-presenter
+      [control]="formGroup.controls['nom']"
+      [name]="'lastname'"
+      [label]="'Nom'"
+      [required]="true"
+      [style]="fieldStyle"
+    >
+      <input type="text" pInputText formControlName="nom" />
+    </app-form-control-presenter>
+    <app-form-control-presenter
+      [control]="formGroup.controls['prenom']"
+      [name]="'firstname'"
+      [label]="'Prénom'"
+      [required]="true"
+      [style]="fieldStyle"
+    >
+      <input type="text" pInputText formControlName="prenom" />
+    </app-form-control-presenter>
+  </div>
+  <div class="d-flex justify-content-between">
+    <app-form-control-presenter
+      [control]="formGroup.controls['poste']"
+      [name]="'function'"
+      [label]="'Poste'"
+      [required]="true"
+      [style]="fieldStyle"
+    >
+      <input type="text" pInputText formControlName="poste" />
+    </app-form-control-presenter>
+    <app-form-control-presenter
+      [control]="formGroup.controls['email']"
+      [name]="'email'"
+      [label]="'Email'"
+      [required]="true"
+      [style]="fieldStyle"
+    >
+      <input type="text" pInputText formControlName="email" />
+    </app-form-control-presenter>
+  </div>
+  <h2 i18n="@@PROJECT_INFO">Informations sur le projet</h2><hr />
+  @if (isHorsTravaux) {
+    <app-form-control-presenter
+      [control]="formGroup.controls['dateMiseEnService']"
+      [name]="'date'"
+      [label]="'Date de mise en service'"
+      [required]="true"
+    >
+      <p-calendar [iconDisplay]="'input'" [showIcon]="true" formControlName="dateMiseEnService" dateFormat="dd/mm/yy" [readonlyInput]="true"></p-calendar>
+    </app-form-control-presenter>
+  }
+  <div class="d-flex justify-content-between">
+    <app-form-control-presenter
+      [control]="formGroup.controls['adresse']"
+      [name]="'address'"
+      [label]="'Adresse du projet'"
+      [required]="true"
+      [style]="fieldStyle"
+    >
+      <input type="text" pInputText formControlName="adresse"/>
+    </app-form-control-presenter>
+    @if (isHorsTravaux) {
+      <app-form-control-presenter
+        [control]="formGroup.controls['nomSite']"
+        [name]="'siteName'"
+        [label]="'Nom du site'"
+        [style]="fieldStyle"
+      >
+        <input type="text" pInputText formControlName="nomSite"/>
+      </app-form-control-presenter>
+    }
+  </div>
+  <app-form-control-presenter
+    [control]="formGroup.controls['description']"
+    [name]="'description'"
+    [label]="'Description'"
+    [required]="true"
+  >
+    <textarea rows="5" cols="30" pInputTextarea formControlName="description" class="description"></textarea>
+  </app-form-control-presenter>
+  <div class="d-flex justify-content-center">
+    <button pButton class="generic-button" i18n="ADD_EASEMENT">Ajouter une emprise</button>
+  </div>
+  <h2 i18n="@@FILES">Fichiers</h2><hr />
+</form>
+

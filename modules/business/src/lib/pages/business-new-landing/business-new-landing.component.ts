@@ -59,14 +59,14 @@ export class BusinessNewLandingComponent implements OnDestroy {
         if (!subtheme.accessible) {
           this.openModalNewBusiness(subtheme.libelle, subtheme.id);
         } else {
-          this.openModalNewBusinessRequest()
+          this.openModalNewBusinessRequest(subtheme.libelle, true)
         }
         break;
       case OfferTypeEnum.DEMANDE_TRAVAUX:
         if (!subtheme.accessible) {
           this.openModalNewBusiness(subtheme.libelle, subtheme.id);
         } else {
-          this.openModalNewBusinessRequest()
+          this.openModalNewBusinessRequest(subtheme.libelle)
         }
         break;
       case OfferTypeEnum.FORMULAIRE_SIMPLIFIE:
@@ -79,7 +79,7 @@ export class BusinessNewLandingComponent implements OnDestroy {
 
   openModalNewBusiness(subthemeName: string, subthemeId: number): void {
     this.dialog = this.dialogService.open(ModalNewBusinessComponent, {
-      header: $localize`:@@NEW_BUSINNESS:Faire une demande`,
+      header: $localize`:@@NEW_BUSINESS:Faire une demande`,
       height: '80%',
       width: '60%',
       maximizable: true,
@@ -100,14 +100,21 @@ export class BusinessNewLandingComponent implements OnDestroy {
       );
   }
 
-  openModalNewBusinessRequest(): void {
+  openModalNewBusinessRequest(subthemeName: string, isHorsTravaux: boolean = false): void {
     this.dialog = this.dialogService.open(ModalNewBusinessRequestComponent, {
-      header: $localize`:@@NEW_BUSINNESS:Faire une demande`,
-      height: '80%',
-      width: '60%',
+      header: $localize`:@@NEW_BUSINESS_OF:Nouvelle demande : ${subthemeName}`,
+      width: '60vw',
+      contentStyle: { overflow: 'auto' },
+      breakpoints: {
+          '960px': '75vw',
+          '640px': '90vw'
+      },
       maximizable: true,
       dismissableMask: true,
       closeOnEscape: false,
+      data: {
+        isHorsTravaux
+      },
     });
 
     this.dialog.onClose

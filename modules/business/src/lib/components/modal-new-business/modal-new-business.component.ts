@@ -23,7 +23,6 @@ import { Observable, map, startWith } from 'rxjs';
   styleUrl: './modal-new-business.component.less',
 })
 export class ModalNewBusinessComponent {
-
   formGroup: FormGroup = this.formBuilder.group<RequestForm>({
     message: new FormControl<string | null>(''),
     telephone: new FormControl<string>('', { validators: Validators.required, nonNullable: true })
