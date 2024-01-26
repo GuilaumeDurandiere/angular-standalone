@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BusinessRequestForm, BusinessRequestFormValue, FormControlPresenterComponent } from '@te44-front/shared';
+import { BusinessRequestForm, BusinessRequestFormValue, FormControlPresenterComponent, TypeToIconPipe } from '@te44-front/shared';
+import { MessageService, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { take } from 'rxjs';
@@ -13,11 +15,24 @@ import { ModalAddEmpriseComponent } from '../modal-add-emprise/modal-add-emprise
 @Component({
   selector: 'app-modal-new-business-request',
   standalone: true,
-  imports: [CommonModule, InputTextModule, ReactiveFormsModule, ButtonModule, CalendarModule, InputTextareaModule, FormControlPresenterComponent],
+  imports: [
+    ButtonModule,
+    CalendarModule,
+    CommonModule,
+    FileUploadModule,
+    FormControlPresenterComponent,
+    InputTextModule,
+    InputTextareaModule,
+    ReactiveFormsModule,
+    SharedModule,
+    TypeToIconPipe,
+  ],
   templateUrl: './modal-new-business-request.component.html',
   styleUrl: './modal-new-business-request.component.less',
 })
 export class ModalNewBusinessRequestComponent {
+
+  uploadedFiles: File[] = [];
 
   formGroup: FormGroup<BusinessRequestForm> = this.formBuilder.group<BusinessRequestForm>({
     nom: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
@@ -42,8 +57,17 @@ export class ModalNewBusinessRequestComponent {
     private config: DynamicDialogConfig,
     private dialogService: DialogService,
     private formBuilder: FormBuilder,
+    private messageService: MessageService,
     private ref: DynamicDialogRef,
   ) { }
+
+  onUpload(event: FileUploadHandlerEvent) {
+    for (const file of event.files) {
+      this.uploadedFiles.push(file);
+    }
+
+    this.messageService.add({ severity: 'info', summary: 'Fichier Chargé' });
+  }
 
   openModalAddEmprise(points: { lat: number, lng: number }[] | null): void {
     this.dialog = this.dialogService.open(ModalAddEmpriseComponent, {
@@ -61,9 +85,16 @@ export class ModalNewBusinessRequestComponent {
       .pipe(
         take(1),
       )
-      .subscribe((formValue: { image: string, points: { lat: number, lng: number }[] }) => {
+      .subscribe((formValue: { image: Blob, points: { lat: number, lng: number }[] }) => {
         this.points = formValue.points;
+        const myFile = new File([formValue.image], 'image.png')
+        this.uploadedFiles.push(myFile);
+        console.log(this.uploadedFiles)
       });
+  }
+
+  removeFile(index: number): void {
+    this.uploadedFiles = this.uploadedFiles.slice(index, 1);
   }
 
   cancel(): void {

@@ -106,4 +106,33 @@
   </div>
   <h2 i18n="@@FILES">Fichiers</h2>
   <hr />
+  <p-fileUpload
+    name="demo[]"
+    [showUploadButton]="false"
+    [customUpload]="true"
+    (uploadHandler)="onUpload($event)"
+    [auto]="true"
+    [multiple]="true"
+    accept=".docx,.xlsx,.ppt,.pdf,image/*"
+    [maxFileSize]="1000000"
+  >
+    <ng-template pTemplate="file"> </ng-template>
+    <ng-template pTemplate="content">
+      <div class="file-ctn">
+        <ul *ngIf="uploadedFiles.length">
+          <li *ngFor="let file of uploadedFiles; index as i">
+            <div [innerHTML]="file.type | typeToIcon"></div>
+            - {{ file.name }} - {{ file.size }} bytes -
+            <button
+              pButton
+              class="generic-button"
+              icon="pi pi-trash"
+              i18n="ADD_EASEMENT"
+              (click)="removeFile(i)"
+            ></button>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+  </p-fileUpload>
 </form>
