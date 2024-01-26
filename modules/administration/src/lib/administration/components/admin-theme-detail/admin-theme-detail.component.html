@@ -45,7 +45,7 @@
         <td *ngFor="let col of columnsSimple; let i = index">
           <ng-container [ngSwitch]="col.field">
             <ng-container *ngSwitchCase="'icone'">
-              <img [src]="item.icone | base64ToImage" />
+              <img [src]="item.icone | base64ToImage" loading="lazy" />
             </ng-container>
 
             <ng-container *ngSwitchCase="'libelle'">
@@ -109,7 +109,7 @@
         <td *ngFor="let col of columnsExcludingWork; let i = index">
           <ng-container [ngSwitch]="col.field">
             <ng-container *ngSwitchCase="'icone'">
-              <img [src]="item.icone | base64ToImage" />
+              <img [src]="item.icone | base64ToImage" loading="lazy" />
             </ng-container>
 
             <ng-container *ngSwitchCase="'libelle'">
@@ -182,7 +182,7 @@
         <td *ngFor="let col of columnsWork; let i = index">
           <ng-container [ngSwitch]="col.field">
             <ng-container *ngSwitchCase="'icone'">
-              <img [src]="item.icone | base64ToImage" />
+              <img [src]="item.icone | base64ToImage" loading="lazy" />
             </ng-container>
 
             <ng-container *ngSwitchCase="'libelle'">
@@ -251,7 +251,7 @@
         <td *ngFor="let col of columnsLink; let i = index">
           <ng-container [ngSwitch]="col.field">
             <ng-container *ngSwitchCase="'icone'">
-              <img [src]="item.icone | base64ToImage" />
+              <img [src]="item.icone | base64ToImage" loading="lazy" />
             </ng-container>
 
             <ng-container *ngSwitchCase="'libelle'">

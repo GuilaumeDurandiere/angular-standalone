@@ -4,6 +4,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
 import { SharedModule } from 'primeng/api';
 import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { compressImage } from '../../../helpers/images.helper';
 import { Base64ToImagePipe } from '../../../pipes/base64-to-image.pipe';
 
 @Component({
@@ -41,10 +42,12 @@ export class IconUploaderComponent implements ControlValueAccessor, OnDestroy {
 
     reader.onloadend = (event: ProgressEvent<FileReader>) => {
       if (event?.target?.result) {
-        const base64 = event?.target?.result.toString().split('base64,')[1]
-
-        this.iconSubject.next(base64)
-        this.formControl.patchValue(base64);
+        let compressedBase64;
+        compressImage(event?.target?.result, 65, 65).then((res: any) => {
+          compressedBase64 = res.toString().split('base64,')[1];
+          this.iconSubject.next(compressedBase64 as string);
+          this.formControl.patchValue(compressedBase64 as string);
+        });
       }
     }
   }
