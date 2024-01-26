@@ -100,11 +100,9 @@ export class ModalAddEmpriseComponent {
   }
 
   takeScreenShot(): void {
-    this.screenshotter?.takeScreen("image")
+    this.screenshotter?.takeScreen("blob")
       .then((image: Blob | Error | Leaflet.ErrorEvent) => {
-        // Create <img> element to render img data
         this.ref.close({ image, points: this.points })
-
       })
   }
 
