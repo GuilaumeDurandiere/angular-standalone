@@ -1,1 +1,22 @@
-<p>modal-new-business-request works!</p>
+<div><div class="modal-sub-title" i18n="FILES">Fichiers</div>
+  <span i18n="YOU_CAN_ADD_FILES_IF_YOU_WANT">Vous pouvez ajouter, si vous le souhaitez, des documents à votre demande :</span>
+  
+  <p-fileUpload name="files[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept="image/*"
+    accept=".txt"
+    chooseLabel="My choose"
+    uploadLabel="My upload"
+    cancelLabel="My cancel"
+    label="Selectionner un fichier"
+  >
+    <ng-template pTemplate="toolbar">
+        <div class="py-3">Vous pouvez ajouter, si vous le souhaitez, des documents à votre demande :</div>
+    </ng-template>
+    <ng-template let-file pTemplate="file">
+        <div>Custom UI to display a file</div>
+    </ng-template>
+    <ng-template pTemplate="content" let-files>
+        <div>Additional content.</div>
+    </ng-template>
+</p-fileUpload>
+
+</div>

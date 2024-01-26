@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalNewBusinessRequestComponent } from './modal-new-business-request.component';
+import {FileUpload, FileUploadModule} from 'primeng/primeng';
 
 describe('ModalNewBusinessRequestComponent', () => {
   let component: ModalNewBusinessRequestComponent;
@@ -7,7 +8,7 @@ describe('ModalNewBusinessRequestComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModalNewBusinessRequestComponent],
+      imports: [ModalNewBusinessRequestComponent,],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ModalNewBusinessRequestComponent);
