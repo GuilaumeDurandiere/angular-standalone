@@ -291,7 +291,7 @@
             </ng-container>
 
             <ng-container *ngSwitchCase="'lienExterne'">
-              {{ item.lienExterne }}
+              <a [href]="item.lienExterne" target="_blank">{{ item.lienExterne }}<i class="pi pi-external-link"></i></a>
             </ng-container>
 
             <ng-container *ngSwitchCase="'actions'">
