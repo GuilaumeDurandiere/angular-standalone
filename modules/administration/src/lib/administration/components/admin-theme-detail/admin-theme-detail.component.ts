@@ -40,6 +40,7 @@ export class AdminThemeDetailComponent {
   dialog: DynamicDialogRef | null = null;
 
   columnsSimple: ColumnCustom[] = [
+    { field: 'couleur', header: $localize`:@@COLOR:Couleur`, sort: false },
     { field: 'icone', header: $localize`:@@ICON:Icône`, sort: false },
     { field: 'libelle', header: $localize`:@@THEME_NAME:Nom du thème`, sort: true },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
@@ -48,6 +49,7 @@ export class AdminThemeDetailComponent {
   ]
 
   columnsWork: ColumnCustom[] = [
+    { field: 'couleur', header: $localize`:@@COLOR:Couleur`, sort: false },
     { field: 'icone', header: $localize`:@@ICON:Icône`, sort: false },
     { field: 'libelle', header: $localize`:@@THEME_NAME:Nom du thème`, sort: true },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
@@ -57,6 +59,7 @@ export class AdminThemeDetailComponent {
   ]
 
   columnsExcludingWork: ColumnCustom[] = [
+    { field: 'couleur', header: $localize`:@@COLOR:Couleur`, sort: false },
     { field: 'icone', header: $localize`:@@ICON:Icône`, sort: false },
     { field: 'libelle', header: $localize`:@@THEME_NAME:Nom du thème`, sort: true },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
@@ -68,6 +71,7 @@ export class AdminThemeDetailComponent {
   ]
 
   columnsLink: ColumnCustom[] = [
+    { field: 'couleur', header: $localize`:@@COLOR:Couleur`, sort: false },
     { field: 'icone', header: $localize`:@@ICON:Icône`, sort: false },
     { field: 'libelle', header: $localize`:@@THEME_NAME:Nom du thème`, sort: true },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },

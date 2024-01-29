@@ -44,6 +44,10 @@
       <tr class="dataRow">
         <td *ngFor="let col of columnsSimple; let i = index">
           <ng-container [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'couleur'">
+              <span class="dot" [style]="'background-color:' + item.couleur"></span>
+            </ng-container>
+
             <ng-container *ngSwitchCase="'icone'">
               <img [src]="item.icone | base64ToImage" loading="lazy" />
             </ng-container>
@@ -112,6 +116,10 @@
       <tr class="dataRow">
         <td *ngFor="let col of columnsExcludingWork; let i = index">
           <ng-container [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'couleur'">
+              <span class="dot" [style]="'background-color:' + item.couleur"></span>
+            </ng-container>
+
             <ng-container *ngSwitchCase="'icone'">
               <img [src]="item.icone | base64ToImage" loading="lazy" />
             </ng-container>
@@ -189,6 +197,10 @@
       <tr class="dataRow">
         <td *ngFor="let col of columnsWork; let i = index">
           <ng-container [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'couleur'">
+              <span class="dot" [style]="'background-color:' + item.couleur"></span>
+            </ng-container>
+
             <ng-container *ngSwitchCase="'icone'">
               <img [src]="item.icone | base64ToImage" loading="lazy" />
             </ng-container>
@@ -262,6 +274,10 @@
       <tr class="dataRow">
         <td *ngFor="let col of columnsLink; let i = index">
           <ng-container [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'couleur'">
+              <span class="dot" [style]="'background-color:' + item.couleur"></span>
+            </ng-container>
+
             <ng-container *ngSwitchCase="'icone'">
               <img [src]="item.icone | base64ToImage" loading="lazy" />
             </ng-container>
