@@ -3,11 +3,12 @@ import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { ClientPaginatedTableComponent, ColumnCustom, Step, StepFormValue, SubstepFormValue, Workflow } from '@te44-front/shared';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessagesModule } from 'primeng/messages';
+import { TooltipModule } from 'primeng/tooltip';
 import { filter, take } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { WorkflowState } from '../../../../state/workflow.state';
@@ -16,7 +17,7 @@ import { ModalUpsertStepComponent } from '../modal-upsert-step/modal-upsert-step
 @Component({
   selector: 'app-admin-step',
   standalone: true,
-  imports: [RouterModule, CommonModule, ButtonModule, MessagesModule, AsyncPipe, ConfirmDialogModule, ClientPaginatedTableComponent],
+  imports: [RouterModule, CommonModule, ButtonModule, MessagesModule, AsyncPipe, ConfirmDialogModule, ClientPaginatedTableComponent, TooltipModule],
   templateUrl: './admin-step.component.html',
   styleUrl: './admin-step.component.less',
   providers: [DialogService, ConfirmationService]
@@ -34,7 +35,8 @@ export class AdminStepComponent implements OnDestroy {
   constructor(
     private confirmationService: ConfirmationService,
     public dialogService: DialogService,
-    private store: Store) { }
+    private store: Store,
+    private messageService: MessageService) { }
 
   ngOnDestroy(): void {
     if (this.ref) {
@@ -67,6 +69,7 @@ export class AdminStepComponent implements OnDestroy {
       .subscribe((formValue: StepFormValue) => {
         formValue.sousEtapes = formValue.sousEtapes?.filter((x: SubstepFormValue) => x.libelle !== '');
         this.store.dispatch(new WorkflowStateActions.CreateStep(formValue, workflow.id));
+        this.messageService.add({ severity: 'success', summary: 'Ajout', detail: `L'étape ${formValue.libelle} a été créée` });
       });
   }
 
@@ -97,6 +100,7 @@ export class AdminStepComponent implements OnDestroy {
       )
       .subscribe((formValue: StepFormValue) => {
         this.store.dispatch(new WorkflowStateActions.UpdateStep(formValue, step.id));
+        this.messageService.add({ severity: 'success', summary: 'Modification', detail: `L'étape ${formValue.libelle} a été modifiée` });
       });
   }
 
@@ -115,6 +119,7 @@ export class AdminStepComponent implements OnDestroy {
       closeOnEscape: true,
       accept: () => {
         this.store.dispatch(new WorkflowStateActions.DeleteStep(step.id));
+        this.messageService.add({ severity: 'success', summary: 'Suppression', detail: `L'étape ${step.libelle} a été supprimée` });
       }
     });
   }

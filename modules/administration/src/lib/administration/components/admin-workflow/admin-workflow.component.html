@@ -24,7 +24,7 @@
   >
     <ng-template pTemplate="body" let-item>
       <tr class="dataRow">
-        <td *ngFor="let col of columns; let i = index">
+        <td *ngFor="let col of columns; let i = index" [ngStyle]="{'background-color': (item.actif) ? '#fefefe' : '#8c90a130'}">
           <ng-container [ngSwitch]="col.field">
             <ng-container *ngSwitchCase="'name'">
               {{ item.libelle }}
@@ -34,7 +34,7 @@
               {{ item?.offres?.join(' | ') }}
             </ng-container>
 
-            <ng-container *ngSwitchCase="'active'">
+            <ng-container *ngSwitchCase="'state'">
               {{ item.actif | boolToString }}
             </ng-container>
 
@@ -42,24 +42,32 @@
               <span class="p-buttonset">
                 <p-button
                   icon="pi pi-eye"
+                  pTooltip="Voir le workflow"
+                  i18n-pTooltip="@@SEE_WORKFLOW"
                   [text]="true"
                   class="action-icon modify-copy-icon"
                   [routerLink]="['/administration/workflow/', item.id]"
                 ></p-button>
                 <p-button
                   icon="pi pi-pencil"
+                  pTooltip="Modifier le workflow"
+                  i18n-pTooltip="@@MODIFY_WORKFLOW"
                   [text]="true"
                   class="action-icon modify-copy-icon"
                   (click)="showUpdateWorkflowModal(item)"
                 ></p-button>
                 <p-button
                   icon="pi pi-clone"
+                  pTooltip="Dupliquer le workflow"
+                  i18n-pTooltip="@@DUPLICATE_WORKFLOW"
                   [text]="true"
                   class="action-icon modify-copy-icon"
                   (click)="openModalDuplicateWorkflow(item.id, item.libelle)"
                 ></p-button>
                 <p-button
                   icon="pi pi-trash"
+                  pTooltip="Supprimer le workflow"
+                  i18n-pTooltip="@@DELETE_WORKFLOW"
                   [text]="true"
                   class="action-icon delete-icon"
                   (onClick)="deleteWorkflow(item)"

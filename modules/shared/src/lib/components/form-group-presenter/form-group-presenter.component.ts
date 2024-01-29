@@ -17,7 +17,7 @@ export class FormGroupPresenterComponent {
   @Input() collapsable = false;
 
   collapsed: boolean = true;
-  collapseIcon = PrimeIcons.CHEVRON_RIGHT
+  collapseIcon = PrimeIcons.CHEVRON_UP
 
   collapse(): void {
     this.collapsed = !this.collapsed;
@@ -25,6 +25,6 @@ export class FormGroupPresenterComponent {
   }
 
   toggleClass(collapsed: boolean): string {
-    return collapsed ? PrimeIcons.CHEVRON_RIGHT : PrimeIcons.CHEVRON_DOWN;
+    return collapsed ? PrimeIcons.CHEVRON_UP : PrimeIcons.CHEVRON_DOWN;
   }
 }

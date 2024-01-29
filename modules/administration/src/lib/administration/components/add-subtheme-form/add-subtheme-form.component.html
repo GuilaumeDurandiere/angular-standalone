@@ -46,6 +46,7 @@
       [control]="formGroup.controls.refTypeOffreId"
       [name]="'refTypeOffreId'"
       [label]="'Type de demande'"
+      [required]="true"
     >
       <div class="radio-button-flew-row">
         <div *ngFor="let offer of offerTypes" class="flex align-items-center">
@@ -109,7 +110,7 @@
     <app-form-control-presenter
       [control]="formGroup.controls.workflowId"
       [name]="'workflowId'"
-      [label]="'Worfklow lié'"
+      [label]="'Workflow lié'"
       [required]="true"
     >
       <p-dropdown
@@ -143,7 +144,7 @@
     <app-form-control-presenter
       [control]="formGroup.controls.workflowId"
       [name]="'workflowId'"
-      [label]="'Worfklow lié'"
+      [label]="'Workflow lié'"
       [required]="true"
     >
       <p-dropdown

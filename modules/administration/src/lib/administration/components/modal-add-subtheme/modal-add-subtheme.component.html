@@ -11,12 +11,23 @@
     class="generic-button cancel"
     (click)="cancel()"
   ></button>
-  <button
-    pButton
-    i18n-label="@@ADD_SUBTHEME"
-    label="Ajouter le sous-thème"
-    icon="pi pi-plus-circle"
-    class="generic-button"
-    (click)="validate()"
-  ></button>
+  @if (subtheme) {
+    <button
+      pButton
+      i18n-label="@@MODIFY_SUBTHEME"
+      label="Modifier le sous-thème"
+      icon="pi pi-plus-circle"
+      class="generic-button"
+      (click)="validate()"
+    ></button>
+  } @else {
+    <button
+      pButton
+      i18n-label="@@ADD_SUBTHEME"
+      label="Ajouter le sous-thème"
+      icon="pi pi-plus-circle"
+      class="generic-button"
+      (click)="validate()"
+    ></button>
+  }
 </div>

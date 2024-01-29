@@ -34,7 +34,7 @@ export class ClientPaginatedTableComponent implements AfterContentInit {
   @Input() paginator = true;
   @Input() rowHover = true;
   @Input() rows = 15;
-  @Input() rowsPerPageOptions = [5, 10, 20, 30, 50];
+  @Input() rowsPerPageOptions = [5, 15, 30, 50];
   @Input() sortField = '';
   @Input() sortOrder = 1;
   @Input() totalRecords = 0;

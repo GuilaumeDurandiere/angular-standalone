@@ -32,7 +32,7 @@
                 >
                     <div class="d-flex justify-content-between">
                         <p class="substep-name" i18n="@@SUBSTEP_NUMBER">Sous-étape {{i + 1}}</p>
-                        <span (click)="onRemoveSubstep(i)" class="pi pi-times-circle"></span>
+                        <span (click)="onRemoveSubstep(i)" class="pi pi-times-circle remove-icon"></span>
                     </div>
                     <app-add-substep-form [formControlName]="i"></app-add-substep-form>
                 </div>

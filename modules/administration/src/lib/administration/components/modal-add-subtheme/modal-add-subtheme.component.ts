@@ -19,20 +19,18 @@ import { AddSubthemeFormComponent } from '../add-subtheme-form/add-subtheme-form
   styleUrl: './modal-add-subtheme.component.less',
 })
 export class ModalAddSubthemeComponent {
-
   formGroup: FormGroup = this.formBuilder.group({
     soustheme: new FormControl<SubThemeFormValue>({ libelle: '', description: '', icone: '', couleur: '', refTypeOffreId: 1 }, { nonNullable: true })
   });
-
   valueForm: SubThemeFormValue | undefined = undefined;
+  subtheme: Subtheme | null = this.config.data?.subtheme
 
   constructor(
     private ref: DynamicDialogRef,
     private formBuilder: FormBuilder,
     private config: DynamicDialogConfig) {
-    const subtheme: Subtheme | null = this.config.data?.subtheme
-    if (subtheme) {
-      this.formGroup.controls['soustheme'].patchValue(subtheme);
+    if (this.subtheme) {
+      this.formGroup.controls['soustheme'].patchValue(this.subtheme);
     }
   }
 
