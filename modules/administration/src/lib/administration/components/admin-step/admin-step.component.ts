@@ -56,7 +56,6 @@ export class AdminStepComponent implements OnDestroy {
         '960px': '75vw',
         '640px': '90vw'
       },
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: true
     });
@@ -85,7 +84,6 @@ export class AdminStepComponent implements OnDestroy {
         '960px': '75vw',
         '640px': '90vw'
       },
-      maximizable: true,
       data: {
         step
       },

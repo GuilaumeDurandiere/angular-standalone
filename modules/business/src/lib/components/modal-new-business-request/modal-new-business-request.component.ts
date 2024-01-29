@@ -50,7 +50,6 @@ export class ModalNewBusinessRequestComponent {
       header: $localize`:@@ADD_THEME_TITLE:Ajouter un thème`,
       height: '80%',
       width: '60%',
-      maximizable: true,
       closeOnEscape: false,
       data: {
         points,

@@ -56,7 +56,6 @@ export class AdminWorkflowComponent implements OnDestroy {
     this.ref = this.dialogService.open(ModalDuplicateWorkflowComponent, {
       header: $localize`:@@DUPLICATE_A_WORKFLOW:Dupliquer un workflow`,
       data: { workflowName: name },
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: true
     });
@@ -84,7 +83,6 @@ export class AdminWorkflowComponent implements OnDestroy {
         '960px': '75vw',
         '640px': '90vw'
       },
-      maximizable: true,
       data: {
         workflow
       },

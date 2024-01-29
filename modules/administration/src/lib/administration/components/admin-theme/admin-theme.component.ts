@@ -63,7 +63,6 @@ export class AdminThemeComponent {
       header: $localize`:@@ADD_THEME_TITLE:Ajouter un thème`,
       height: '80%',
       width: this.modalWidth,
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: true,
     });
@@ -84,7 +83,6 @@ export class AdminThemeComponent {
       header: $localize`:@@UPDATE_THEME_TITLE:Modifier ${theme.libelle}`,
       height: '80%',
       width: this.modalWidth,
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: true,
       data: {
