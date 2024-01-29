@@ -7,6 +7,7 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { Subject, Subscription, filter, tap } from 'rxjs';
 import { ThemeStateActions } from '../../../../state/actions/theme.actions';
@@ -25,6 +26,7 @@ import { ThemeState } from '../../../../state/theme.state';
     IconUploaderComponent,
     InputSwitchModule,
     InputTextModule,
+    InputTextareaModule,
     RadioButtonModule,
     ReactiveFormsModule,
   ],
