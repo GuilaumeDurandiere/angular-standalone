@@ -41,12 +41,14 @@ export class IconUploaderComponent implements ControlValueAccessor, OnDestroy {
     reader.readAsDataURL(event.files[0]);
 
     reader.onloadend = (event: ProgressEvent<FileReader>) => {
-      if (event?.target?.result) {
-        let compressedBase64;
-        compressImage(event?.target?.result, 65, 65).then((res: any) => {
-          compressedBase64 = res.toString().split('base64,')[1];
-          this.iconSubject.next(compressedBase64 as string);
-          this.formControl.patchValue(compressedBase64 as string);
+      const image = event?.target?.result?.toString();
+      if (image) {
+        compressImage(image, 65, 65).then((res: string | undefined) => {
+          if (res) {
+            const compressedBase64 = res.toString().split('base64,')[1];
+            this.iconSubject.next(compressedBase64);
+            this.formControl.patchValue(compressedBase64);
+          }
         });
       }
     }

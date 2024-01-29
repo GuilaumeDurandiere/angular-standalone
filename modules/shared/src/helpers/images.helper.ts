@@ -12,10 +12,10 @@ export function getImagefromBase64(base64: string): string | undefined {
   return `data:image/${extension};base64,${base64}`;
 }
 
-export function compressImage(src: string | ArrayBuffer, newX: number, newY: number) {
+export function compressImage(src: string, newX: number, newY: number): Promise<string | undefined> {
   return new Promise((res, rej) => {
     const img = new Image();
-    img.src = src as string;
+    img.src = src;
     img.onload = () => {
       const elem = document.createElement('canvas');
       elem.width = newX;
