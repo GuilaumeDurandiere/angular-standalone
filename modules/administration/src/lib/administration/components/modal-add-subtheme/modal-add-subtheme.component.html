@@ -18,6 +18,7 @@
     label="Modifier le sous-thème"
     icon="pi pi-plus-circle"
     class="generic-button"
+    [disabled]="disable$ | async"
     (click)="validate()"
   ></button>
   } @else {

@@ -9,7 +9,7 @@ export const initThemeStateModel: ThemeStateModel = {
   themes: null,
   theme: null,
   workflows: [],
-  pagination: { pageIndex: 1, pageSize: 5 }
+  pagination: { pageIndex: 1, pageSize: 5, sortField: 'nom', sortOrder: 'asc' }
 };
 
 @State<ThemeStateModel>({
@@ -114,10 +114,10 @@ export class ThemeState {
   @Action(ThemeStateActions.LoadPageData)
   loadPageData(ctx: StateContext<ThemeStateModel>, action: ThemeStateActions.LoadPageData) {
     const pagination = action.paginationData;
-    return this.themeHttpService.getPaginated(pagination.pageIndex, pagination.pageSize).pipe(
+    return this.themeHttpService.getPaginated(pagination.pageIndex, pagination.pageSize, pagination.sortField, pagination.sortOrder).pipe(
       tap((themes: PaginationDto<Theme>) => ctx.patchState({
         themes,
-        pagination: { pageIndex: themes.pageIndex, pageSize: themes.pageSize }
+        pagination: { ...pagination, pageIndex: themes.pageIndex, pageSize: themes.pageSize }
       }))
     )
   }
@@ -139,10 +139,10 @@ export class ThemeState {
   @Action(ThemeStateActions.Refresh)
   refresh(ctx: StateContext<ThemeStateModel>) {
     const pagination = ctx.getState().pagination;
-    return this.themeHttpService.getPaginated(pagination.pageIndex, pagination.pageSize).pipe(
+    return this.themeHttpService.getPaginated(pagination.pageIndex, pagination.pageSize, pagination.sortField, pagination.sortOrder).pipe(
       tap((themes: PaginationDto<Theme>) => ctx.patchState({
         themes: themes,
-        pagination: { pageIndex: themes.pageIndex, pageSize: themes.pageSize }
+        pagination: { ...pagination, pageIndex: themes.pageIndex, pageSize: themes.pageSize }
       }))
     )
   }

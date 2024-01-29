@@ -19,8 +19,8 @@ export class ThemeHttpService extends BaseHttpService {
     super('theme');
   }
 
-  getPaginated(page: number, size: number): Observable<PaginationDto<Theme>> {
-    const requestUrl = this.buildPaginatedRequest(page, size, 'paginated')
+  getPaginated(page: number, size: number, sortField: string, sortOrder: string): Observable<PaginationDto<Theme>> {
+    const requestUrl = this.buildPaginatedRequest(page, size, 'paginated', sortField, sortOrder)
     return this.http.get<PaginationDto<Theme>>(requestUrl);
   }
 

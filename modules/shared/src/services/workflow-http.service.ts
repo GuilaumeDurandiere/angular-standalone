@@ -18,8 +18,8 @@ export class WorkflowHttpService extends BaseHttpService {
         super('workflow');
     }
 
-    getAll(page: number, size: number): Observable<PaginationDto<Workflow>> {
-        const requestUrl = this.buildPaginatedRequest(page, size, 'paginated/')
+    getAll(page: number, size: number, sortField: string, sortOrder: string): Observable<PaginationDto<Workflow>> {
+        const requestUrl = this.buildPaginatedRequest(page, size, 'paginated/', sortField, sortOrder)
         return this.http.get<PaginationDto<Workflow>>(requestUrl);
     }
 
@@ -44,6 +44,6 @@ export class WorkflowHttpService extends BaseHttpService {
     }
 
     duplicate(id: number, label: string): Observable<Workflow> {
-      return this.http.post<Workflow>(`${this.apiUrl}/duplicate?id=${id}&libelle=${label}`, null).pipe(parseResponse(WorkflowSchema));
+        return this.http.post<Workflow>(`${this.apiUrl}/duplicate?id=${id}&libelle=${label}`, null).pipe(parseResponse(WorkflowSchema));
     }
 }
