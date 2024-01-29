@@ -1,14 +1,14 @@
 <p-fileUpload
   mode="basic"
   name="icon"
-  accept=".png,.svg"
+  accept=".png,.svg,.webp"
   [auto]="true"
   [customUpload]="true"
   (uploadHandler)="myUploader($event)"
 >
   <ng-template pTemplate="chooseicon">
     @if(icon$ | async; as icon) {
-    <img [src]="icon | base64ToImage" width="16px" />
+    <img [src]="icon | base64ToImage" loading="lazy" width="16px" />
     } @else {
     <i class="pi pi-plus"></i>
     }
