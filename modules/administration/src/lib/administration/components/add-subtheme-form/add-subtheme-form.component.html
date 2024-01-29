@@ -46,6 +46,7 @@
       [control]="formGroup.controls.refTypeOffreId"
       [name]="'refTypeOffreId'"
       [label]="'Type de demande'"
+      [required]="true"
     >
       <div class="radio-button-flew-row">
         <div *ngFor="let offer of offerTypes" class="flex align-items-center">
