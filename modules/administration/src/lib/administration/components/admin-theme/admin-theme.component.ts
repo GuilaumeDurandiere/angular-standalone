@@ -41,12 +41,18 @@ export class AdminThemeComponent {
     { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: false },
   ]
 
+  modalWidth = "60%";
+
   constructor(
     private confirmationService: ConfirmationService,
     private dialogService: DialogService,
     private messageService: MessageService,
     private store: Store
-  ) { }
+  ) {
+    if(window.innerWidth <= 1280) {
+      this.modalWidth = "85%";
+    }
+   }
 
   loadPageData(event: PaginationData): void {
     this.store.dispatch(new ThemeStateActions.LoadPageData(event));
@@ -56,7 +62,7 @@ export class AdminThemeComponent {
     this.dialog = this.dialogService.open(ModalAddThemeComponent, {
       header: $localize`:@@ADD_THEME_TITLE:Ajouter un thème`,
       height: '80%',
-      width: '60%',
+      width: this.modalWidth,
       maximizable: true,
       dismissableMask: true,
       closeOnEscape: true,
@@ -77,7 +83,7 @@ export class AdminThemeComponent {
     this.dialog = this.dialogService.open(ModalAddThemeComponent, {
       header: $localize`:@@UPDATE_THEME_TITLE:Modifier ${theme.libelle}`,
       height: '80%',
-      width: '60%',
+      width: this.modalWidth,
       maximizable: true,
       dismissableMask: true,
       closeOnEscape: true,
