@@ -40,6 +40,11 @@ export class AddStepFormComponent implements ControlValueAccessor, OnDestroy, Va
 
   writeValue(value: StepFormValue): void {
     if (value) {
+      // Case of multiple value patch
+      if (value.sousEtapes.length > 1) {
+        this.stepForm.controls.sousEtapes.clear();
+        value.sousEtapes.forEach(() => this.onAddSubstep())
+      }
       this.stepForm.patchValue({ ...value });
     }
   }
