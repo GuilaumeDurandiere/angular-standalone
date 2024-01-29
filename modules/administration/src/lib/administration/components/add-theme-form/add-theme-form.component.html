@@ -24,7 +24,11 @@
       [name]="'description'"
       [label]="'Description du thème'"
     >
-      <input type="text" pInputText formControlName="description" />
+      <textarea
+        pInputTextarea
+        formControlName="description"
+        [autoResize]="true"
+      ></textarea>
     </app-form-control-presenter>
 
     <div formArrayName="sousThemes" *ngIf="addTheme">

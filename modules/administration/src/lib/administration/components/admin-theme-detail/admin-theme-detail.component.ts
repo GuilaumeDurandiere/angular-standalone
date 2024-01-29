@@ -40,6 +40,7 @@ export class AdminThemeDetailComponent {
   dialog: DynamicDialogRef | null = null;
 
   columnsSimple: ColumnCustom[] = [
+    { field: 'couleur', header: $localize`:@@COLOR:Couleur`, sort: false },
     { field: 'icone', header: $localize`:@@ICON:Icône`, sort: false },
     { field: 'libelle', header: $localize`:@@THEME_NAME:Nom du thème`, sort: true },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
@@ -48,6 +49,7 @@ export class AdminThemeDetailComponent {
   ]
 
   columnsWork: ColumnCustom[] = [
+    { field: 'couleur', header: $localize`:@@COLOR:Couleur`, sort: false },
     { field: 'icone', header: $localize`:@@ICON:Icône`, sort: false },
     { field: 'libelle', header: $localize`:@@THEME_NAME:Nom du thème`, sort: true },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
@@ -57,6 +59,7 @@ export class AdminThemeDetailComponent {
   ]
 
   columnsExcludingWork: ColumnCustom[] = [
+    { field: 'couleur', header: $localize`:@@COLOR:Couleur`, sort: false },
     { field: 'icone', header: $localize`:@@ICON:Icône`, sort: false },
     { field: 'libelle', header: $localize`:@@THEME_NAME:Nom du thème`, sort: true },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
@@ -68,6 +71,7 @@ export class AdminThemeDetailComponent {
   ]
 
   columnsLink: ColumnCustom[] = [
+    { field: 'couleur', header: $localize`:@@COLOR:Couleur`, sort: false },
     { field: 'icone', header: $localize`:@@ICON:Icône`, sort: false },
     { field: 'libelle', header: $localize`:@@THEME_NAME:Nom du thème`, sort: true },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
@@ -91,7 +95,6 @@ export class AdminThemeDetailComponent {
       header: themeType ? $localize`:@@ADD_SUBTHEME_TITLE_OF:Ajouter un sous-thème ${themeType}` : $localize`:@@ADD_SUBTHEME_TITLE:Ajouter un sous-thème`,
       height: '80%',
       width: '60%',
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: true,
     });
@@ -116,7 +119,6 @@ export class AdminThemeDetailComponent {
       header: $localize`:@@MODIFY_SUBTHEME_TITLE:Modifier le sous-thème ${subtheme.libelle}`,
       height: '80%',
       width: '60%',
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: true,
       data: {

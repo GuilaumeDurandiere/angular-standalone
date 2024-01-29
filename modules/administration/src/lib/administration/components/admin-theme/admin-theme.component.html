@@ -18,6 +18,7 @@
 
   <app-server-paginated-table
     [columns]="columns"
+    [sortField]="'nom'"
     [paginationData]="themes$ | async"
     (loadPageData)="loadPageData($event)"
   >
@@ -29,7 +30,7 @@
               <img [src]="item.icone | base64ToImage" loading="lazy" />
             </ng-container>
 
-            <ng-container *ngSwitchCase="'libelle'">
+            <ng-container *ngSwitchCase="'nom'">
               {{ item.libelle }}
             </ng-container>
 

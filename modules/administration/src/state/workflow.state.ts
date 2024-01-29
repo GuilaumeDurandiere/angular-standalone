@@ -10,7 +10,7 @@ export const initWorkflowStateModel: WorkflowStateModel = {
   workflow: null,
   step: null,
   substep: null,
-  pagination: { pageIndex: 1, pageSize: 15 }
+  pagination: { pageIndex: 1, pageSize: 15, sortField: 'nom', sortOrder: 'asc' }
 };
 
 @State<WorkflowStateModel>({
@@ -70,21 +70,21 @@ export class WorkflowState {
 
   @Action(WorkflowStateActions.CreateStep)
   createStep(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.CreateStep) {
-    return this.stepHttpService.create({...action.stepFormValue, workflowId: action.workflowId}).pipe(
+    return this.stepHttpService.create({ ...action.stepFormValue, workflowId: action.workflowId }).pipe(
       tap(() => ctx.dispatch(new WorkflowStateActions.RefreshStep()))
     )
   }
 
   @Action(WorkflowStateActions.CreateSubstep)
   createSubstep(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.CreateSubstep) {
-    return this.substepHttpService.create({...action.substepFormValue, etapeId: action.etapeId}).pipe(
+    return this.substepHttpService.create({ ...action.substepFormValue, etapeId: action.etapeId }).pipe(
       tap(() => ctx.dispatch(new WorkflowStateActions.RefreshSubstep()))
     )
   }
 
   @Action(WorkflowStateActions.Update)
   update(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.Update) {
-    return this.workflowHttpService.update({...action.workflowFormValue, id: action.workflowId}).pipe(
+    return this.workflowHttpService.update({ ...action.workflowFormValue, id: action.workflowId }).pipe(
       tap(() => ctx.dispatch(new WorkflowStateActions.Refresh()))
     )
   }
@@ -106,10 +106,10 @@ export class WorkflowState {
   @Action(WorkflowStateActions.LoadPageData)
   loadPageData(ctx: StateContext<WorkflowStateModel>, action: WorkflowStateActions.LoadPageData) {
     const pagination = action.paginationData;
-    return this.workflowHttpService.getAll(pagination.pageIndex, pagination.pageSize).pipe(
+    return this.workflowHttpService.getAll(pagination.pageIndex, pagination.pageSize, pagination.sortField, pagination.sortOrder).pipe(
       tap((workflows: PaginationDto<Workflow>) => ctx.patchState({
         workflows: workflows,
-        pagination: { pageIndex: workflows.pageIndex, pageSize: workflows.pageSize }
+        pagination: { ...pagination, pageIndex: workflows.pageIndex, pageSize: workflows.pageSize }
       }))
     )
   }
@@ -117,10 +117,10 @@ export class WorkflowState {
   @Action(WorkflowStateActions.Refresh)
   refresh(ctx: StateContext<WorkflowStateModel>) {
     const pagination = ctx.getState().pagination;
-    return this.workflowHttpService.getAll(pagination.pageIndex, pagination.pageSize).pipe(
+    return this.workflowHttpService.getAll(pagination.pageIndex, pagination.pageSize, pagination.sortField, pagination.sortOrder).pipe(
       tap((workflows: PaginationDto<Workflow>) => ctx.patchState({
         workflows: workflows,
-        pagination: { pageIndex: workflows.pageIndex, pageSize: workflows.pageSize }
+        pagination: { ...pagination, pageIndex: workflows.pageIndex, pageSize: workflows.pageSize }
       }))
     )
   }

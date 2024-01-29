@@ -89,9 +89,11 @@ export class ServerPaginatedTableComponent implements OnInit, OnChanges, AfterCo
     }
     // End manage offset/page
 
+    const sortField = (event.sortField ?? this.sortField) as string;
+    const sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
 
     // Emit an event to notify parent component that a new page should be requested
-    this.loadPageData.emit({ pageIndex: page, pageSize: event.rows ?? 15 });
+    this.loadPageData.emit({ pageIndex: page, pageSize: event.rows ?? 15, sortField, sortOrder });
   }
 
   /**

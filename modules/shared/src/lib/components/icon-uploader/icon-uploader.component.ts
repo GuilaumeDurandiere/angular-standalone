@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { addControlErrors } from '@te44-front/shared';
 import { SharedModule } from 'primeng/api';
 import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
@@ -21,16 +22,17 @@ import { Base64ToImagePipe } from '../../../pipes/base64-to-image.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: NG_VALUE_ACCESSOR, multi: true, useExisting: IconUploaderComponent },
+    { provide: NG_VALIDATORS, multi: true, useExisting: IconUploaderComponent },
   ],
 })
-export class IconUploaderComponent implements ControlValueAccessor, OnDestroy {
+export class IconUploaderComponent implements ControlValueAccessor, OnDestroy, Validator {
   destroy$ = new Subject<void>();
   private iconSubject = new BehaviorSubject<string | null>(null);
   icon$ = this.iconSubject.asObservable();
 
   icon: string | undefined = undefined;
 
-  formControl = new FormControl<string>('', { nonNullable: true })
+  formControl = new FormControl<string>('', { nonNullable: true, validators: [Validators.required] })
 
   _onTouched = () => { };
   _onChangeSubs: Subscription[] = [];
@@ -68,6 +70,18 @@ export class IconUploaderComponent implements ControlValueAccessor, OnDestroy {
   registerOnChange(fn: (arg: unknown) => void): void {
     const sub = this.formControl.valueChanges.subscribe(fn);
     this._onChangeSubs.push(sub);
+  }
+
+  validate(): ValidationErrors | null {
+    if (this.formControl.valid) {
+      return null;
+    }
+
+    let errors: ValidationErrors = {};
+    errors = addControlErrors(errors, this.formControl, 'icon');
+
+
+    return errors;
   }
 
   ngOnDestroy(): void {

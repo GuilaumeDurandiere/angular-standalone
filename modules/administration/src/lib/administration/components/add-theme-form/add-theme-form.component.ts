@@ -4,13 +4,24 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
 import { FormControlPresenterComponent, FormGroupPresenterComponent, IconUploaderComponent, SubThemeForm, SubThemeFormValue, Theme, ThemeForm, ThemeFormValue } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { Observable, map } from 'rxjs';
 import { AddSubthemeFormComponent } from '../add-subtheme-form/add-subtheme-form.component';
 
 @Component({
   selector: 'app-add-theme-form',
   standalone: true,
-  imports: [CommonModule, ButtonModule, FormGroupPresenterComponent, FormControlPresenterComponent, InputTextModule, ReactiveFormsModule, AddSubthemeFormComponent, IconUploaderComponent],
+  imports: [
+    AddSubthemeFormComponent,
+    ButtonModule,
+    CommonModule,
+    FormControlPresenterComponent,
+    FormGroupPresenterComponent,
+    IconUploaderComponent,
+    InputTextModule,
+    InputTextareaModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './add-theme-form.component.html',
   styleUrl: './add-theme-form.component.less',
 })

@@ -36,7 +36,7 @@ export class AdminThemeComponent {
 
   columns: ColumnCustom[] = [
     { field: 'icone', header: $localize`:@@ICON:Icône`, sort: false },
-    { field: 'libelle', header: $localize`:@@THEME_NAME:Nom du thème`, sort: true },
+    { field: 'nom', header: $localize`:@@THEME_NAME:Nom du thème`, sort: true },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
     { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: false },
   ]
@@ -49,10 +49,10 @@ export class AdminThemeComponent {
     private messageService: MessageService,
     private store: Store
   ) {
-    if(window.innerWidth <= 1280) {
+    if (window.innerWidth <= 1280) {
       this.modalWidth = "85%";
     }
-   }
+  }
 
   loadPageData(event: PaginationData): void {
     this.store.dispatch(new ThemeStateActions.LoadPageData(event));
@@ -63,7 +63,6 @@ export class AdminThemeComponent {
       header: $localize`:@@ADD_THEME_TITLE:Ajouter un thème`,
       height: '80%',
       width: this.modalWidth,
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: true,
     });
@@ -84,7 +83,6 @@ export class AdminThemeComponent {
       header: $localize`:@@UPDATE_THEME_TITLE:Modifier ${theme.libelle}`,
       height: '80%',
       width: this.modalWidth,
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: true,
       data: {

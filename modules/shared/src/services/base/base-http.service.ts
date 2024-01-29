@@ -15,9 +15,17 @@ export abstract class BaseHttpService {
   * @param action string, extended route/path for url
   * @returns string to send
   */
-  buildPaginatedRequest(page: number, size: number, action?: string): string {
+  buildPaginatedRequest(page: number, size: number, action?: string, sortField?: string, sortOrder?: string): string {
     // Build base of url by checking if an action is needed
     size = size === 0 ? 1 : size;
-    return action ? `${this.apiUrl}/${action}?page=${page}&size=${size}` : `${this.apiUrl}?page=${page}&size=${size}`;
+    let tempUrl = action ? `${this.apiUrl}/${action}` : `${this.apiUrl}`;
+
+    tempUrl += `?page=${page}&size=${size}`
+
+    if (sortField && sortOrder) {
+      tempUrl += `&sortColumn=${sortField}&sortOrder=${sortOrder}`
+    }
+
+    return tempUrl;
   }
 }

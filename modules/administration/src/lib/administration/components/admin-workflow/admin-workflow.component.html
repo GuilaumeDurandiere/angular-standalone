@@ -19,22 +19,28 @@
   </div>
   <app-server-paginated-table
     [columns]="columns"
+    [sortField]="'nom'"
     [paginationData]="workflows$ | async"
     (loadPageData)="loadPageData($event)"
   >
     <ng-template pTemplate="body" let-item>
       <tr class="dataRow">
-        <td *ngFor="let col of columns; let i = index" [ngStyle]="{'background-color': (item.actif) ? '#fefefe' : '#8c90a130'}">
+        <td
+          *ngFor="let col of columns; let i = index"
+          [ngStyle]="{
+            'background-color': item.actif ? '#fefefe' : '#8c90a130'
+          }"
+        >
           <ng-container [ngSwitch]="col.field">
-            <ng-container *ngSwitchCase="'name'">
+            <ng-container *ngSwitchCase="'nom'">
               {{ item.libelle }}
             </ng-container>
 
-            <ng-container *ngSwitchCase="'offer'">
+            <ng-container *ngSwitchCase="'offre'">
               {{ item?.offres?.join(' | ') }}
             </ng-container>
 
-            <ng-container *ngSwitchCase="'state'">
+            <ng-container *ngSwitchCase="'etat'">
               {{ item.actif | boolToString }}
             </ng-container>
 
@@ -76,7 +82,7 @@
             </ng-container>
           </ng-container>
         </td>
-      </tr> 
+      </tr>
     </ng-template>
   </app-server-paginated-table>
   <button

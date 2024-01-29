@@ -22,9 +22,9 @@ import { ModalUpsertSubstepComponent } from '../modal-upsert-substep/modal-upser
   providers: [DialogService, ConfirmationService]
 })
 export class AdminSubstepComponent implements OnDestroy {
-  viewModel$ = combineLatest({ 
-    step: this.store.select(WorkflowState.getStep), 
-    workflow: this.store.select(WorkflowState.getWorkflow) 
+  viewModel$ = combineLatest({
+    step: this.store.select(WorkflowState.getStep),
+    workflow: this.store.select(WorkflowState.getWorkflow)
   });
   dialog: DynamicDialogRef | undefined;
   columns: ColumnCustom[] = [
@@ -57,7 +57,6 @@ export class AdminSubstepComponent implements OnDestroy {
         '960px': '75vw',
         '640px': '90vw'
       },
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: true,
     });
@@ -85,7 +84,6 @@ export class AdminSubstepComponent implements OnDestroy {
         '960px': '75vw',
         '640px': '90vw'
       },
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: true,
       data: {

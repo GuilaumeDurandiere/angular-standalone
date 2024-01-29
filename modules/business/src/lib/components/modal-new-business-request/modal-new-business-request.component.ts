@@ -22,7 +22,7 @@ export class ModalNewBusinessRequestComponent {
   formGroup: FormGroup<BusinessRequestForm> = this.formBuilder.group<BusinessRequestForm>({
     nom: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
     prenom: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
-    email: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
+    email: new FormControl<string>('', { validators: [Validators.required, Validators.email], nonNullable: true }),
     poste: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
     adresse: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
     dateMiseEnService: new FormControl<Date>(new Date(), { validators: Validators.required, nonNullable: true }),
@@ -50,7 +50,6 @@ export class ModalNewBusinessRequestComponent {
       header: $localize`:@@ADD_THEME_TITLE:Ajouter un thème`,
       height: '80%',
       width: '60%',
-      maximizable: true,
       closeOnEscape: false,
       data: {
         points,

@@ -81,7 +81,6 @@ export class BusinessNewLandingComponent implements OnDestroy {
       header: $localize`:@@NEW_BUSINESS:Faire une demande`,
       height: '80%',
       width: '60%',
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: false,
       data: {
@@ -104,10 +103,9 @@ export class BusinessNewLandingComponent implements OnDestroy {
       width: '60vw',
       contentStyle: { overflow: 'auto' },
       breakpoints: {
-          '960px': '75vw',
-          '640px': '90vw'
+        '960px': '75vw',
+        '640px': '90vw'
       },
-      maximizable: true,
       dismissableMask: true,
       closeOnEscape: false,
       data: {

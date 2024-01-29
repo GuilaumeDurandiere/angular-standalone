@@ -8,7 +8,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepsModule } from 'primeng/steps';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { AddStepFormComponent } from '../add-step-form/add-step-form.component';
 
@@ -35,7 +35,6 @@ export class AdminNewWorkflowComponent {
   activeIndex: number = 0;
 
   disabled$: Observable<boolean> = this.formGroup.statusChanges.pipe(
-    startWith('INVALID'),
     map((status: string) => status !== 'VALID')
   );
 
@@ -58,17 +57,22 @@ export class AdminNewWorkflowComponent {
   }
 
   createWorkflow(): void {
-    const formValue = this.formGroup.getRawValue();
-    const result: WorkflowFormValue = {
-      ...formValue,
-      etapes: formValue.etapes.map((etape: StepFormValue) => ({
-        ...etape,
-        sousEtapes: etape.sousEtapes.filter((subStep: SubstepFormValue) => subStep.libelle !== '')
-      }))
+    if (this.formGroup.valid) {
+      console.log(this.formGroup.value)
+      const formValue = this.formGroup.getRawValue();
+      const result: WorkflowFormValue = {
+        ...formValue,
+        etapes: formValue.etapes.map((etape: StepFormValue) => ({
+          ...etape,
+          sousEtapes: etape.sousEtapes.filter((subStep: SubstepFormValue) => subStep.libelle !== '')
+        }))
+      }
+      this.store.dispatch(new WorkflowStateActions.Create(result));
+      this.messageService.add({ severity: 'success', summary: 'Ajout', detail: `Le workflow ${formValue.libelle} a été créé` });
+      this.router.navigateByUrl('/administration/workflow');
+    } else {
+      this.formGroup.updateValueAndValidity();
     }
-    this.store.dispatch(new WorkflowStateActions.Create(result));
-    this.messageService.add({ severity: 'success', summary: 'Ajout', detail: `Le workflow ${formValue.libelle} a été créé` });
-    this.router.navigateByUrl('/administration/workflow');
   }
 
   onRemoveStep(i: number): void {

@@ -39,7 +39,11 @@
       [name]="'description'"
       [label]="'Description du sous-thème'"
     >
-      <input type="text" pInputText formControlName="description" />
+      <textarea
+        pInputTextarea
+        formControlName="description"
+        [autoResize]="true"
+      ></textarea>
     </app-form-control-presenter>
 
     <app-form-control-presenter
