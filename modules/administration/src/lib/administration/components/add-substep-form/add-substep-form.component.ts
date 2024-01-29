@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
-import { FormControlPresenterComponent, SubstepForm, SubstepFormValue } from '@te44-front/shared';
+import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { FormControlPresenterComponent, SubstepForm, SubstepFormValue, addControlErrors } from '@te44-front/shared';
 import { InputTextModule } from 'primeng/inputtext';
 import { Subject, Subscription } from 'rxjs';
 
@@ -59,17 +59,7 @@ export class AddSubstepFormComponent implements ControlValueAccessor, OnDestroy,
     }
 
     let errors: ValidationErrors = {};
-    errors = this.addControlErrors(errors, this.substepForm.controls.libelle, 'libelle');
-
-    return errors;
-  }
-
-  addControlErrors(allErrors: ValidationErrors, control: AbstractControl | undefined, controlName: string): ValidationErrors {
-    const errors = { ...allErrors };
-
-    if (control?.errors) {
-      errors[controlName] = control.errors;
-    }
+    errors = addControlErrors(errors, this.substepForm.controls.libelle, 'libelle');
 
     return errors;
   }

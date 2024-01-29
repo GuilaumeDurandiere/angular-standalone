@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angul
 import { SubThemeFormValue, Subtheme } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Observable, map, startWith } from 'rxjs';
 import { AddSubthemeFormComponent } from '../add-subtheme-form/add-subtheme-form.component';
 
 @Component({
@@ -20,9 +21,11 @@ import { AddSubthemeFormComponent } from '../add-subtheme-form/add-subtheme-form
 })
 export class ModalAddSubthemeComponent {
   formGroup: FormGroup = this.formBuilder.group({
-    soustheme: new FormControl<SubThemeFormValue>({ libelle: '', description: '', icone: '', couleur: '', refTypeOffreId: 1 }, { nonNullable: true })
+    soustheme: new FormControl<SubThemeFormValue | null>(null, { nonNullable: true })
   });
-  valueForm: SubThemeFormValue | undefined = undefined;
+
+  disable$: Observable<boolean> = this.formGroup.statusChanges.pipe(startWith('INVALID'), map((status: string) => status !== 'VALID'))
+
   subtheme: Subtheme | null = this.config.data?.subtheme
 
   constructor(

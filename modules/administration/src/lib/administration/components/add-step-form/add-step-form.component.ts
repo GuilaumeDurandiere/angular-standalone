@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormArray, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
-import { FormControlPresenterComponent, FormGroupPresenterComponent, StepForm, StepFormValue, SubstepFormValue } from '@te44-front/shared';
+import { FormControlPresenterComponent, FormGroupPresenterComponent, StepForm, StepFormValue, SubstepFormValue, addControlErrors } from '@te44-front/shared';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Subject, Subscription } from 'rxjs';
@@ -63,22 +63,13 @@ export class AddStepFormComponent implements ControlValueAccessor, OnDestroy, Va
 
     let errors: ValidationErrors = {};
 
-    errors = this.addControlErrors(errors, this.stepForm.controls.libelle, 'libelle');
-    errors = this.addControlErrors(errors, this.stepForm.controls.statut, 'statut');
-    this.stepForm.controls.sousEtapes.controls.forEach((control: AbstractControl, index: number) => errors = this.addControlErrors(errors, control, `[${index}] sousEtapes`))
+    errors = addControlErrors(errors, this.stepForm.controls.libelle, 'libelle');
+    errors = addControlErrors(errors, this.stepForm.controls.statut, 'statut');
+    this.stepForm.controls.sousEtapes.controls.forEach((control: AbstractControl, index: number) => errors = addControlErrors(errors, control, `[${index}] sousEtapes`))
 
     return errors;
   }
 
-  addControlErrors(allErrors: ValidationErrors, control: AbstractControl | undefined, controlName: string): ValidationErrors {
-    const errors = { ...allErrors };
-
-    if (control?.errors) {
-      errors[controlName] = control.errors;
-    }
-
-    return errors;
-  }
 
   ngOnDestroy(): void {
     this.destroy$.next();

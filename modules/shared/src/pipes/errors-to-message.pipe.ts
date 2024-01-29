@@ -9,7 +9,8 @@ import { ValidationErrors } from '@angular/forms';
 export class ErrorsToMessagePipe implements PipeTransform {
 
   private errors: Map<string, string> = new Map([
-    ['required', $localize`:@@ERROR_REQUIRED:Ce champs est requis`]
+    ['required', $localize`:@@ERROR_REQUIRED:Ce champs est requis`],
+    ['email', $localize`:@@ERROR_EMAIL:Le format de l'email est incorrect`]
   ])
 
   transform(value: ValidationErrors | null): string[] {
