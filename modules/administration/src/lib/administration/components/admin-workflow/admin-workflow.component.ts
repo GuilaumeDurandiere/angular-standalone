@@ -7,7 +7,7 @@ import { ConfirmationService, MessageService, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 import { Observable, filter, take } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { WorkflowState } from '../../../../state/workflow.state';
@@ -17,7 +17,7 @@ import { ModalUpdateWorkflowComponent } from '../modal-update-workflow/modal-upd
 @Component({
   selector: 'app-admin-workflow',
   standalone: true,
-  imports: [CommonModule, ButtonModule, TableModule, ServerPaginatedTableComponent, SharedModule, BoolToStringPipe, RouterModule, ConfirmDialogModule],
+  imports: [CommonModule, ButtonModule, ServerPaginatedTableComponent, SharedModule, BoolToStringPipe, RouterModule, ConfirmDialogModule, TooltipModule ],
   templateUrl: './admin-workflow.component.html',
   styleUrl: './admin-workflow.component.less',
   providers: [DialogService, ConfirmationService]
@@ -29,7 +29,7 @@ export class AdminWorkflowComponent implements OnDestroy {
   columns: ColumnCustom[] = [
     { field: 'name', header: $localize`:@@NAME:Nom`, sort: true, style: 'width: 20%;' },
     { field: 'offer', header: $localize`:@@RELATED_OFFERS:Offres liées`, sort: true, style: 'width: 50%;' },
-    { field: 'active', header: $localize`:@@ACTIVE:Actif`, sort: true, style: 'width: 12%;' },
+    { field: 'state', header: $localize`:@@STATE:État`, sort: true, style: 'width: 12%;' },
     { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: false, style: 'width: 18%;' },
   ];
 
@@ -68,7 +68,7 @@ export class AdminWorkflowComponent implements OnDestroy {
       )
       .subscribe((formValue: DuplicateWorkflowFormValue) => {
         this.store.dispatch(new WorkflowStateActions.Duplicate(id, formValue.libelle));
-        this.messageService.add({ severity: 'success', summary: 'Modifier', detail: `Le workflow ${formValue.libelle} a été crée` })
+        this.messageService.add({ severity: 'success', summary: 'Duplication', detail: `Le workflow ${formValue.libelle} a été créé` })
       });
   }
 
@@ -99,7 +99,7 @@ export class AdminWorkflowComponent implements OnDestroy {
       )
       .subscribe((formValue: WorkflowFormValue) => {
         this.store.dispatch(new WorkflowStateActions.Update(formValue, workflow.id));
-        this.messageService.add({ severity: 'success', summary: 'Modifier', detail: `Le workflow ${formValue.libelle} a été modifié` })
+        this.messageService.add({ severity: 'success', summary: 'Modification', detail: `Le workflow ${formValue.libelle} a été modifié` })
       });
   }
 

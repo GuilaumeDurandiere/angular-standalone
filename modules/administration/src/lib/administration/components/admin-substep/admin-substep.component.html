@@ -43,12 +43,16 @@
                         <span class="p-buttonset">
                             <p-button
                             icon="pi pi-pencil"
+                            pTooltip="Modifier la sous-étape"
+                            i18n-pTooltip="@@MODIFY_SUBSTEP"
                             [text]="true"
                             class="action-icon modify-copy-icon"
                             (click)="showUpdateSubstepModal(item)"
                             ></p-button>
                             <p-button
                             icon="pi pi-trash"
+                            pTooltip="Supprimer la sous-étape"
+                            i18n-pTooltip="@@DELETE_SUBSTEP"
                             [text]="true"
                             class="action-icon delete-icon"
                             (onClick)="deleteConfirmation(item)"

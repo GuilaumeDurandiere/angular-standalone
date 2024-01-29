@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { FormControlPresenterComponent, StepFormValue, SubstepFormValue, WorkflowForm, WorkflowFormValue } from '@te44-front/shared';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepsModule } from 'primeng/steps';
@@ -39,7 +39,7 @@ export class AdminNewWorkflowComponent {
     map((status: string) => status !== 'VALID')
   );
 
-  constructor(private formBuilder: FormBuilder, private store: Store, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private store: Store, private router: Router, private messageService: MessageService) { }
 
   get etapes() {
     return this.formGroup.controls.etapes;
@@ -67,6 +67,7 @@ export class AdminNewWorkflowComponent {
       }))
     }
     this.store.dispatch(new WorkflowStateActions.Create(result));
+    this.messageService.add({ severity: 'success', summary: 'Ajout', detail: `Le workflow ${formValue.libelle} a été créé` });
     this.router.navigateByUrl('/administration/workflow');
   }
 

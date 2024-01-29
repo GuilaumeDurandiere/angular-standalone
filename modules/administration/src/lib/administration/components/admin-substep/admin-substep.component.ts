@@ -3,10 +3,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { ClientPaginatedTableComponent, ColumnCustom, Step, Substep, SubstepFormValue } from '@te44-front/shared';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TooltipModule } from 'primeng/tooltip';
 import { combineLatest, filter, take } from 'rxjs';
 import { WorkflowStateActions } from '../../../../state/actions/workflow.actions';
 import { WorkflowState } from '../../../../state/workflow.state';
@@ -15,7 +16,7 @@ import { ModalUpsertSubstepComponent } from '../modal-upsert-substep/modal-upser
 @Component({
   selector: 'app-admin-substep',
   standalone: true,
-  imports: [RouterModule, CommonModule, ButtonModule, AsyncPipe, ConfirmDialogModule, ClientPaginatedTableComponent],
+  imports: [RouterModule, CommonModule, ButtonModule, AsyncPipe, ConfirmDialogModule, ClientPaginatedTableComponent, TooltipModule],
   templateUrl: './admin-substep.component.html',
   styleUrl: './admin-substep.component.less',
   providers: [DialogService, ConfirmationService]
@@ -35,7 +36,8 @@ export class AdminSubstepComponent implements OnDestroy {
   constructor(
     private confirmationService: ConfirmationService,
     public dialogService: DialogService,
-    private store: Store) { }
+    private store: Store,
+    private messageService: MessageService) { }
 
   ngOnDestroy(): void {
     if (this.dialog) {
@@ -66,6 +68,7 @@ export class AdminSubstepComponent implements OnDestroy {
       )
       .subscribe((formValue: SubstepFormValue) => {
         this.store.dispatch(new WorkflowStateActions.CreateSubstep(formValue, step.id));
+        this.messageService.add({ severity: 'success', summary: 'Ajout', detail: `La sous-étape ${formValue.libelle} a été créée` });
       });
   }
 
@@ -97,6 +100,7 @@ export class AdminSubstepComponent implements OnDestroy {
       )
       .subscribe((formValue: SubstepFormValue) => {
         this.store.dispatch(new WorkflowStateActions.UpdateSubstep(formValue, substep.id));
+        this.messageService.add({ severity: 'success', summary: 'Modification', detail: `La sous-étape ${formValue.libelle} a été modifiée` });
       });
   }
 
@@ -115,6 +119,7 @@ export class AdminSubstepComponent implements OnDestroy {
       closeOnEscape: true,
       accept: () => {
         this.store.dispatch(new WorkflowStateActions.DeleteSubstep(substep.id));
+        this.messageService.add({ severity: 'success', summary: 'Suppression', detail: `La sous-étape ${substep.libelle} a été supprimée` });
       }
     });
   }

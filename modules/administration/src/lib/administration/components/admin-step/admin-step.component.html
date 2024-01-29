@@ -51,18 +51,24 @@
                     <span class="p-buttonset">
                         <p-button
                         icon="pi pi-eye"
+                        pTooltip="Voir l'étape"
+                        i18n-pTooltip="@@SEE_STEP"
                         [text]="true"
                         class="action-icon modify-copy-icon"
                         [routerLink]="['/administration/workflow/', workflow.id, 'etape', item.id]"
                         ></p-button>
                         <p-button
                         icon="pi pi-pencil"
+                        pTooltip="Modifier l'étape"
+                        i18n-pTooltip="@@MODIFY_STEP"
                         [text]="true"
                         class="action-icon modify-copy-icon"
                         (click)="showUpdateStepModal(item)"
                         ></p-button>
                         <p-button
                         icon="pi pi-trash"
+                        pTooltip="Supprimer l'étape"
+                        i18n-pTooltip="@@DELETE_STEP"
                         [text]="true"
                         class="action-icon delete-icon"
                         (onClick)="deleteConfirmation(item)"
@@ -78,7 +84,7 @@
         pButton
         pRipple
         i18n-label="@@BACK_TO_WORKFLOW_TABLE"
-        label="Retourner au tableau des workflow"
+        label="Retourner au tableau des workflows"
         icon="pi pi-arrow-circle-left"
         class="generic-button"
         [routerLink]="['/administration', 'workflow']"

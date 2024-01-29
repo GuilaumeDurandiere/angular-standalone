@@ -41,18 +41,24 @@
               <span class="p-buttonset">
                 <p-button
                   icon="pi pi-eye"
+                  pTooltip="Voir le thème"
+                  i18n-pTooltip="@@SEE_THEME"
                   [text]="true"
                   class="action-icon modify-copy-icon"
                   [routerLink]="['/administration/theme/', item.id]"
                 ></p-button>
                 <p-button
                   icon="pi pi-pencil"
+                  pTooltip="Modifier le thème"
+                  i18n-pTooltip="@@MODIFY_THEME"
                   [text]="true"
                   class="action-icon modify-copy-icon"
                   (click)="openModalUpdateTheme(item)"
                 ></p-button>
                 <p-button
                   icon="pi pi-trash"
+                  pTooltip="Supprimer le thème"
+                  i18n-pTooltip="@@DELETE_THEME"
                   [text]="true"
                   class="action-icon delete-icon"
                   (click)="deleteTheme(item.id, item.libelle)"

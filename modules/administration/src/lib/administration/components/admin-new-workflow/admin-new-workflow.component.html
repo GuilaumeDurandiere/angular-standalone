@@ -1,12 +1,12 @@
 <div class="container">
-  <h1 i18n="@@WORKFLOW_CREATION">Création d'un workflow hors-travaux</h1>
+  <h1 i18n="@@WORKFLOW_CREATION" class="my-4">Création d'un workflow hors-travaux</h1>
   <p-steps
     [model]="items"
     [readonly]="false"
     [activeIndex]="activeIndex"
     (activeIndexChange)="onActiveIndexChange($event)"
   ></p-steps>
-  <form [formGroup]="formGroup">
+  <form [formGroup]="formGroup" class="mt-4">
     @if (activeIndex === 0) {
     <div>
       <h3 class="subtitle" i18n="@@WORKFLOW_INFO">Informations workflow</h3>
@@ -49,7 +49,7 @@
         <div class="d-flex justify-content-between">
           <p i18n="@@STEP_NUMBER">Étape {{ i + 1 }}</p>
           @if (i !== 0) {
-          <span (click)="onRemoveStep(i)" class="pi pi-times-circle"></span>
+          <span (click)="onRemoveStep(i)" class="pi pi-times-circle remove-icon"></span>
           }
         </div>
         <app-add-step-form

@@ -6,7 +6,7 @@ import { Base64ToImagePipe, BoolToStringPipe, ColumnCustom, PaginationData, Pagi
 import { ConfirmationService, MessageService, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 import { Observable, filter, take } from 'rxjs';
 import { ThemeStateActions } from '../../../../state/actions/theme.actions';
 import { ThemeState } from '../../../../state/theme.state';
@@ -24,7 +24,7 @@ import { ModalAddThemeComponent } from '../modal-add-theme/modal-add-theme.compo
     RouterModule,
     ServerPaginatedTableComponent,
     SharedModule,
-    TableModule,
+    TooltipModule,
   ],
   templateUrl: './admin-theme.component.html',
   styleUrl: './admin-theme.component.less',
@@ -35,7 +35,7 @@ export class AdminThemeComponent {
   dialog: DynamicDialogRef | null = null;
 
   columns: ColumnCustom[] = [
-    { field: 'icone', header: $localize`:@@ICON:Icone`, sort: false },
+    { field: 'icone', header: $localize`:@@ICON:Icône`, sort: false },
     { field: 'libelle', header: $localize`:@@THEME_NAME:Nom du thème`, sort: true },
     { field: 'description', header: $localize`:@@DESCRIPTION:Description`, sort: true },
     { field: 'actions', header: $localize`:@@ACTIONS:Actions`, sort: false },
@@ -69,7 +69,7 @@ export class AdminThemeComponent {
       )
       .subscribe((formValue: ThemeFormValue) => {
         this.store.dispatch(new ThemeStateActions.Create(formValue));
-        this.messageService.add({ severity: 'success', summary: 'Modifier', detail: `Le thème ${formValue.libelle} a été crée` })
+        this.messageService.add({ severity: 'success', summary: 'Modification', detail: `Le thème ${formValue.libelle} a été crée` })
       });
   }
 
@@ -93,7 +93,7 @@ export class AdminThemeComponent {
       )
       .subscribe((formValue: ThemeFormValue) => {
         this.store.dispatch(new ThemeStateActions.Update(formValue, theme.id));
-        this.messageService.add({ severity: 'success', summary: 'Modifier', detail: `Le thème ${theme.libelle} a été modifié` })
+        this.messageService.add({ severity: 'success', summary: 'Modification', detail: `Le thème ${theme.libelle} a été modifié` })
       });
   }
 
@@ -112,7 +112,7 @@ export class AdminThemeComponent {
       closeOnEscape: true,
       accept: () => {
         this.store.dispatch(new ThemeStateActions.DeleteTheme(themeId))
-        this.messageService.add({ severity: 'success', summary: 'Suppression', detail: `Le thème a été supprimé` })
+        this.messageService.add({ severity: 'success', summary: 'Suppression', detail: `Le thème ${libelle} a été supprimé` })
       }
     });
   }

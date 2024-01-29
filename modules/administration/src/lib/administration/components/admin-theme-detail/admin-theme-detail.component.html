@@ -32,7 +32,7 @@
         label="Ajouter un sous-thème"
         icon="pi pi-plus-circle"
         class="generic-button borderless"
-        (click)="openModalAddSubtheme(viewModel.theme?.id)"
+        (click)="openModalAddSubtheme(viewModel.theme?.id, 'de demandes simplifiées')"
       ></button>
     </div>
   </div>
@@ -64,12 +64,16 @@
               <span class="p-buttonset">
                 <p-button
                   icon="pi pi-pencil"
+                  i18n-pTooltip="@@SEE_SUBTHEME"
+                  pTooltip="Voir le sous-thème"
                   [text]="true"
                   class="action-icon modify-copy-icon"
                   (click)="openModalUpdateSubtheme(item)"
                 ></p-button>
                 <p-button
                   icon="pi pi-trash"
+                  i18n-pTooltip="@@DELETE_SUBTHEME"
+                  pTooltip="Supprimer le sous-thème"
                   [text]="true"
                   class="action-icon delete-icon"
                   (onClick)="deleteSubtheme(item.id, item.libelle)"
@@ -85,7 +89,7 @@
   <div class="row justify-content-between">
     <div class="col-lg-8 p-3">
       <h2 i18n="@@SUBTHEME_EXCLUDING_WORK" class="subtitle">
-        Sous-thèmes de demandes hors travaux
+        Sous-thèmes des demandes hors travaux
       </h2>
     </div>
     <div class="col-lg-4 p-3 text-end">
@@ -96,7 +100,7 @@
         label="Ajouter un sous-thème"
         icon="pi pi-plus-circle"
         class="generic-button borderless"
-        (click)="openModalAddSubtheme(viewModel.theme?.id)"
+        (click)="openModalAddSubtheme(viewModel.theme?.id, 'des demandes hors travaux')"
       ></button>
     </div>
   </div>
@@ -140,12 +144,16 @@
               <span class="p-buttonset">
                 <p-button
                   icon="pi pi-pencil"
+                  i18n-pTooltip="@@SEE_SUBTHEME"
+                  pTooltip="Voir le sous-thème"
                   [text]="true"
                   class="action-icon modify-copy-icon"
                   (click)="openModalUpdateSubtheme(item)"
                 ></p-button>
                 <p-button
                   icon="pi pi-trash"
+                  i18n-pTooltip="@@DELETE_SUBTHEME"
+                  pTooltip="Supprimer le sous-thème"
                   [text]="true"
                   class="action-icon delete-icon"
                   (onClick)="deleteSubtheme(item.id, item.libelle)"
@@ -172,7 +180,7 @@
         label="Ajouter un sous-thème"
         icon="pi pi-plus-circle"
         class="generic-button borderless"
-        (click)="openModalAddSubtheme(viewModel.theme?.id)"
+        (click)="openModalAddSubtheme(viewModel.theme?.id, 'des demandes travaux')"
       ></button>
     </div>
   </div>
@@ -209,12 +217,16 @@
               <span class="p-buttonset">
                 <p-button
                   icon="pi pi-pencil"
+                  i18n-pTooltip="@@SEE_SUBTHEME"
+                  pTooltip="Voir le sous-thème"
                   [text]="true"
                   class="action-icon modify-copy-icon"
                   (click)="openModalUpdateSubtheme(item)"
                 ></p-button>
                 <p-button
                   icon="pi pi-trash"
+                  i18n-pTooltip="@@DELETE_SUBTHEME"
+                  pTooltip="Supprimer le sous-thème"
                   [text]="true"
                   class="action-icon delete-icon"
                   (onClick)="deleteSubtheme(item.id, item.libelle)"
@@ -240,8 +252,8 @@
         i18n-label="@@ADD_SUBTHEME"
         label="Ajouter un sous-thème"
         icon="pi pi-plus-circle"
-        class="borderless"
-        (click)="openModalAddSubtheme(viewModel.theme?.id)"
+        class="generic-button borderless"
+        (click)="openModalAddSubtheme(viewModel.theme?.id, 'des demandes avec lien externe')"
       ></button>
     </div>
   </div>
@@ -270,12 +282,16 @@
               <span class="p-buttonset">
                 <p-button
                   icon="pi pi-pencil"
+                  i18n-pTooltip="@@SEE_SUBTHEME"
+                  pTooltip="Voir le sous-thème"
                   [text]="true"
                   class="action-icon modify-copy-icon"
                   (click)="openModalUpdateSubtheme(item)"
                 ></p-button>
                 <p-button
                   icon="pi pi-trash"
+                  i18n-pTooltip="@@DELETE_SUBTHEME"
+                  pTooltip="Supprimer le sous-thème"
                   [text]="true"
                   class="action-icon delete-icon"
                   (onClick)="deleteSubtheme(item.id, item.libelle)"
