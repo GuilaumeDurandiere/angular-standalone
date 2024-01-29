@@ -1,15 +1,16 @@
 <form [formGroup]="formGroup">
   <app-form-group-presenter [title]="'Information du thème'">
-    <app-form-control-presenter
+    <app-form-control-presenter class="theme-form-label"
       [control]="formGroup.controls.libelle"
       [name]="'libelle'"
       [label]="'Nom du thème'"
       [required]="true"
     >
+    
       <input type="text" pInputText formControlName="libelle" />
     </app-form-control-presenter>
 
-    <app-form-control-presenter
+    <app-form-control-presenter class="icon-uploader"
       [control]="formGroup.controls.icone"
       [name]="'icone'"
       [label]="'Ajouter une icône'"
@@ -46,7 +47,7 @@
   </app-form-group-presenter>
 </form>
 
-<div class="d-flex justify-content-sm-between mt-4">
+<div class="add-theme-form-footer d-flex justify-content-sm-between mt-4">
   <button
     pButton
     i18n-label="@@CANCEL"
