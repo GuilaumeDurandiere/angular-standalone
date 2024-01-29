@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
@@ -10,6 +10,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
+import { loggerInterceptor } from './core/interceptor/interceptor.service';
 
 const PRIMENG_SERVICES = [ConfirmationService, DialogService, MessageService];
 const PRIMENG_MODULES = [ConfirmDialogModule];
@@ -20,7 +21,7 @@ const MODULES = [
   BrowserAnimationsModule,
   NgxsModule.forRoot([]),
   NgxsResetPluginModule.forRoot(),
-  environment.plugins
+  environment.plugins,
 ]
 
 export const appConfig: ApplicationConfig = {
@@ -28,7 +29,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(MODULES),
     PRIMENG_SERVICES,
     provideRouter(appRoutes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([loggerInterceptor])),
     provideAnimations(),
   ],
 };
