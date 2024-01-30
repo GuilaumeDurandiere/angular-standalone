@@ -8,7 +8,7 @@ describe('ModalNewBusinessRequestComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModalNewBusinessRequestComponent,],
+      imports: [ModalNewBusinessRequestComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ModalNewBusinessRequestComponent);

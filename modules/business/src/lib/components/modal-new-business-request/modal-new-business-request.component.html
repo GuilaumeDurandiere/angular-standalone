@@ -1,22 +1,22 @@
-<div><div class="modal-sub-title" i18n="FILES">Fichiers</div>
+<div>
+  <app-form-group-presenter [title]="'Fichiers'">
   <span i18n="YOU_CAN_ADD_FILES_IF_YOU_WANT">Vous pouvez ajouter, si vous le souhaitez, des documents à votre demande :</span>
   
-  <p-fileUpload name="files[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept="image/*"
-    accept=".txt"
-    chooseLabel="My choose"
-    uploadLabel="My upload"
-    cancelLabel="My cancel"
+  <p-fileUpload name="files[]" url="." [multiple]="true" accept=".docx, .xlsx, .ppt, .pdf, .jpeg, .png"
+    [maxFileSize]="6291000"
+    chooseLabel=" "
+    uploadLabel="Valider l'envoi des documents"
+    cancelLabel="Supprimer tout"
     label="Selectionner un fichier"
-  >
-    <ng-template pTemplate="toolbar">
-        <div class="py-3">Vous pouvez ajouter, si vous le souhaitez, des documents à votre demande :</div>
-    </ng-template>
-    <ng-template let-file pTemplate="file">
-        <div>Custom UI to display a file</div>
-    </ng-template>
-    <ng-template pTemplate="content" let-files>
-        <div>Additional content.</div>
-    </ng-template>
-</p-fileUpload>
+    invalidFileSizeMessageDetail="Désolé, la taille maximum des fichiers autorisée est {0}"
+    invalidFileSizeMessageSummary="{0} : Taille de fichier incorrecte"
+    invalidFileTypeMessageSummary="{0} : Ce type de fichier n'est pas autorisé"
+    invalidFileTypeMessageDetail="Les types de fichiers autorisés sont : {0}"
+    (uploadHandler)="myUploader($event)"
+    [customUpload]="true"
+    [auto]="true"
+    >
 
+  </p-fileUpload>
+</app-form-group-presenter>
 </div>
